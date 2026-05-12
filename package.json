@@ -1,0 +1,8 @@
+{
+  "name": "royal-it-frontend",
+  "private": true,
+  "scripts": {
+    "dev": "cd royal-it-main && python3 -m http.server 3000",
+    "start": "cd royal-it-main && python3 -m http.server 3000"
+  }
+}
