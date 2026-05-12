@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/royal-it-main/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/royal-it-main/$1"
+    }
+  ]
+}
