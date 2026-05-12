@@ -12,20 +12,36 @@
   <link rel="stylesheet" href="../assets/i18n/i18n.css">
 </head>
 <style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        overflow-x: hidden;
+        background: linear-gradient(180deg, #f9f5ec 0%, #fffdf8 100%);
+    }
+
     .main{
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 60px;
+        min-height: 60px;
         width: 100%; 
+        padding: 8px 12px 0;
     }
     .nav{
-        margin-top: 10px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 60px;
-        width: 98%; 
+        min-height: 56px;
+        width: min(1180px, 100%);
+        padding: 8px 14px;
+        border-radius: 24px;
+        background: rgba(255, 251, 244, 0.96);
+        border: 1px solid rgba(140, 111, 52, 0.12);
+        box-shadow: 0 16px 34px rgba(82, 61, 24, 0.08);
+        gap: 12px;
     }
     .f-main{
         display: flex;
@@ -40,11 +56,195 @@
         font-size: 14px;
         font-weight: 500;
     }
-      @media (max-width: 768px) {
-    #elastic-cursor {
-        display: none !important;
+
+    #unique-contact-section > section {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 40px;
+        padding: 60px 5%;
+        max-width: 1300px;
+        margin: 0 auto;
+        width: 100%;
     }
-}
+
+    .contact-left-col,
+    .contact-right-col {
+        min-width: 0 !important;
+    }
+
+    .contact-input,
+    .contact-select,
+    .contact-textarea {
+        width: 100% !important;
+        border: 1px solid #d8d3c9 !important;
+        border-radius: 16px !important;
+        background: #fbfaf7 !important;
+        font-size: 14px !important;
+        padding: 12px 14px !important;
+        outline: none;
+    }
+
+    .contact-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .contact-row > div {
+        flex: 1 1 250px;
+        min-width: 250px;
+    }
+
+    .contact-phone-group {
+        display: flex;
+        gap: 8px;
+    }
+
+    .contact-phone-group .contact-select {
+        width: 96px !important;
+        flex: 0 0 96px;
+        padding-inline: 10px !important;
+    }
+
+    .contact-phone-group .contact-input {
+        min-width: 0;
+        flex: 1 1 auto;
+    }
+
+    .contact-right-card {
+        padding: 22px 22px 22px 18px !important;
+        border-left: 4px solid #050505 !important;
+        background: linear-gradient(180deg, rgba(255, 250, 242, 0.98), rgba(247, 241, 229, 0.92));
+        border-radius: 24px !important;
+        box-shadow: 0 18px 36px rgba(82, 61, 24, 0.08);
+    }
+
+    .contact-submit {
+        background: #050505;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        padding: 12px 35px;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: 0.3s;
+        text-transform: uppercase;
+        align-self: flex-start !important;
+        margin-top: 10px !important;
+    }
+
+    @media (max-width: 768px) {
+        #elastic-cursor {
+            display: none !important;
+        }
+
+        .main {
+            min-height: auto;
+            padding: 8px 10px 0;
+        }
+
+        .nav {
+            min-height: 50px;
+            padding: 8px 12px;
+            border-radius: 20px;
+        }
+
+        .nav a {
+            width: auto !important;
+            min-width: 0;
+        }
+
+        .nav #nav-career {
+            width: auto !important;
+            min-width: 132px;
+            padding: 10px 16px !important;
+            font-size: 11px !important;
+        }
+
+        #unique-contact-section > section {
+            flex-direction: column;
+            gap: 22px;
+            padding: 28px 14px 42px;
+        }
+
+        .contact-left-col,
+        .contact-right-col {
+            width: 100% !important;
+            flex: 1 1 100% !important;
+        }
+
+        .contact-right-col {
+            gap: 16px !important;
+            padding-top: 0 !important;
+        }
+
+        .contact-row {
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .contact-row > div {
+            min-width: 0;
+            width: 100%;
+        }
+
+        .contact-phone-group {
+            gap: 8px;
+        }
+
+        .contact-input,
+        .contact-select,
+        .contact-textarea {
+            font-size: 16px !important;
+        }
+
+        .contact-textarea {
+            min-height: 120px;
+        }
+
+        .contact-submit {
+            width: 100% !important;
+            align-self: stretch !important;
+            text-align: center;
+        }
+
+        .contact-right-card {
+            padding: 18px 16px !important;
+            border-left: none !important;
+            border-top: 4px solid #050505 !important;
+            border-radius: 22px !important;
+        }
+
+        .contact-right-card h3 {
+            font-size: 20px !important;
+        }
+    }
+
+    @media (max-width: 420px) {
+        .nav {
+            gap: 8px;
+        }
+
+        .logo {
+            transform: scale(0.86);
+            transform-origin: left center;
+        }
+
+        .nav #nav-career {
+            min-width: 120px;
+            padding: 9px 14px !important;
+            font-size: 10px !important;
+        }
+
+        .contact-phone-group .contact-select {
+            width: 88px !important;
+            flex-basis: 88px;
+        }
+    }
 </style>
 <body>
 <div class="language-switcher language-dropdown" aria-label="Language switcher">
@@ -69,7 +269,7 @@
     <!--contact-->
    <div id="unique-contact-section" style="font-family: 'Montserrat', sans-serif; background-color: #fff; overflow-x: hidden; width: 100%; box-sizing: border-box;">
     
-    <section style="display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 40px; padding: 60px 5%; max-width: 1300px; margin: 0 auto; width: 100%; box-sizing: border-box;">
+    <section>
         
         <div class="contact-left-col" style="flex: 2; min-width: 320px; box-sizing: border-box;">
             <h1 style="font-size: clamp(28px, 5vw, 36px); margin: 0 0 10px 0; color: #050505; font-weight: 800; line-height: 1.2;">Let’s Discuss Your IT Needs</h1>
@@ -79,47 +279,47 @@
                 
                 <input type="hidden" name="selected_services" id="selected_services">
 
-                <div style="display: flex; flex-wrap: wrap; gap: 15px; width: 100%;">
-                    <div style="flex: 1; min-width: 250px;">
-                        <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Full Name <span style="color: red;">*</span></label>
-                        <input type="text" name="full_name" placeholder="John Doe" required style="width: 100%; padding: 10px 5px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; font-family: 'Montserrat', sans-serif; outline: none;">
-                    </div>
-                    <div style="flex: 1; min-width: 250px;">
-                        <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Email <span style="color: red;">*</span></label>
-                        <input type="email" name="user_email" placeholder="email@example.com" required style="width: 100%; padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; font-family: 'Montserrat', sans-serif; outline: none;">
-                    </div>
-                </div>
+	                <div class="contact-row">
+	                    <div style="flex: 1; min-width: 250px;">
+	                        <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Full Name <span style="color: red;">*</span></label>
+	                        <input class="contact-input" type="text" name="full_name" placeholder="John Doe" required style="width: 100%; padding: 10px 5px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; font-family: 'Montserrat', sans-serif; outline: none;">
+	                    </div>
+	                    <div style="flex: 1; min-width: 250px;">
+	                        <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Email <span style="color: red;">*</span></label>
+	                        <input class="contact-input" type="email" name="user_email" placeholder="email@example.com" required style="width: 100%; padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; font-family: 'Montserrat', sans-serif; outline: none;">
+	                    </div>
+	                </div>
 
-                <div style="display: flex; flex-wrap: wrap; gap: 15px; width: 100%;">
-                    <div style="flex: 1; min-width: 250px;">
-                        <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Phone Number <span style="color: red;">*</span></label>
-                        <div style="display: flex; gap: 5px;">
-                            <select name="country_code" required style="width: 90px; padding: 10px 5px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 13px; outline: none;">
-                                <option value="+000">DM +000</option>
-                                <option value="+000">DM +000</option>
-                                <option value="+000">Demo Region +000</option>
-                            </select>
-                            <input type="tel" name="phone_number" placeholder="55 123 4567" required style="flex: 1; padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; outline: none;">
-                        </div>
-                    </div>
-                    <div style="flex: 1; min-width: 250px;">
-                        <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Service Interest <span style="color: red;">*</span></label>
-                        <input type="text" name="company_name" placeholder="Royal IT Ltd." required style="width: 100%; padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; outline: none;">
-                    </div>
-                </div>
+	                <div class="contact-row">
+	                    <div style="flex: 1; min-width: 250px;">
+	                        <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Phone Number <span style="color: red;">*</span></label>
+	                        <div class="contact-phone-group">
+	                            <select class="contact-select" name="country_code" required style="width: 90px; padding: 10px 5px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 13px; outline: none;">
+	                                <option value="+000">DM +000</option>
+	                                <option value="+000">DM +000</option>
+	                                <option value="+000">Demo Region +000</option>
+	                            </select>
+	                            <input class="contact-input" type="tel" name="phone_number" placeholder="55 123 4567" required style="flex: 1; padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; outline: none;">
+	                        </div>
+	                    </div>
+	                    <div style="flex: 1; min-width: 250px;">
+	                        <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Service Interest <span style="color: red;">*</span></label>
+	                        <input class="contact-input" type="text" name="company_name" placeholder="Royal IT Ltd." required style="width: 100%; padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; outline: none;">
+	                    </div>
+	                </div>
 
-                <div style="display: flex; flex-wrap: wrap; gap: 15px; width: 100%;">
-                    <div style="flex: 1; min-width: 250px;">
-                        <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Preferred Service Area</label>
-                        <input type="url" name="company_url" placeholder="Web, Cloud, Software, etc." style="width: 100%; padding: 10px 5px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; outline: none;">
-                    </div>
-                    <div style="flex: 1; min-width: 250px;">
-                        <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Region <span style="color: red;">*</span></label>
-                        <select name="region" required style="width: 100%; padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; outline: none;">
-                            <option value="" disabled selected>Please Select</option>
-                            <option value="Demo Region">Demo Region</option>
-                            <option value="Demo Region">Demo Region</option>
-                            <option value="Middle East">Middle East</option>
+	                <div class="contact-row">
+	                    <div style="flex: 1; min-width: 250px;">
+	                        <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Preferred Service Area</label>
+	                        <input class="contact-input" type="url" name="company_url" placeholder="Web, Cloud, Software, etc." style="width: 100%; padding: 10px 5px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; outline: none;">
+	                    </div>
+	                    <div style="flex: 1; min-width: 250px;">
+	                        <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Region <span style="color: red;">*</span></label>
+	                        <select class="contact-select" name="region" required style="width: 100%; padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; outline: none;">
+	                            <option value="" disabled selected>Please Select</option>
+	                            <option value="Demo Region">Demo Region</option>
+	                            <option value="Demo Region">Demo Region</option>
+	                            <option value="Middle East">Middle East</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
@@ -128,7 +328,7 @@
                 <div style="width: 100%;">
                     <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Interested in: <span style="color: red;">*</span></label>
                     <div style="position: relative; width: 100%;">
-                      <select class="service-select" name="services" required 
+	                      <select class="service-select contact-select" name="services" required 
     style="width: 100%; padding: 10px 15px; font-size: 14px; color: #444; background: #f8f9fa; border: 1px solid #ccc; border-radius: 6px; cursor: pointer; appearance: none; -webkit-appearance: none; outline: none; transition: 0.3s; box-sizing: border-box;">
     
     <option value="" disabled selected>Select your IT requirement...</option>
@@ -155,8 +355,8 @@
 
                 <div style="width: 100%;">
                      <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">How can we help you?</label>
-                     <textarea name="message" rows="3" placeholder="Tell us your budget, timeline, and service requirement..." style="width: 100%; padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; outline: none; resize: vertical;"></textarea>
-                </div>
+	                     <textarea class="contact-textarea" name="message" rows="3" placeholder="Tell us your budget, timeline, and service requirement..." style="width: 100%; padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; outline: none; resize: vertical;"></textarea>
+	                </div>
 
                 <div style="margin-top: 5px;">
                     <label style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: #444; cursor: pointer;">
@@ -165,23 +365,23 @@
                     </label>
                 </div>
                 
-                <button type="submit" style="background: #050505; color: #fff; font-size: 14px; font-weight: 700; padding: 12px 35px; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; text-transform: uppercase; align-self: flex-start; margin-top: 10px;">Send Inquiry</button>
-            </form>
-        </div>
+	                <button class="contact-submit" type="submit" style="background: #050505; color: #fff; font-size: 14px; font-weight: 700; padding: 12px 35px; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; text-transform: uppercase; align-self: flex-start; margin-top: 10px;">Send Inquiry</button>
+	            </form>
+	        </div>
 
-        <div class="contact-right-col" style="flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 30px; padding-top: 10px;">
-            
-            <div style="padding-left: 20px; border-left: 4px solid #050505;">
-                <h2 style="font-size: 12px; color: #050505; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; font-weight: 700;">Earth</h2>
-                <h3 style="font-size: 22px; margin-bottom: 10px; font-weight: 800; color: #222;">Demo Service Areas</h3>
-                <p style="font-size: 14px; margin-bottom: 10px; color: #555; line-height: 1.5;">Demo IT services for multiple business needs.</p>
-                <a href="./Components/Presence.html" style="color: #050505; text-decoration: none; font-weight: 700; font-size: 12px; text-transform: uppercase;">Learn more &rarr;</a>
-            </div>
+	        <div class="contact-right-col" style="flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 30px; padding-top: 10px;">
+	            
+	            <div class="contact-right-card" style="padding-left: 20px; border-left: 4px solid #050505;">
+	                <h2 style="font-size: 12px; color: #050505; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; font-weight: 700;">Earth</h2>
+	                <h3 style="font-size: 22px; margin-bottom: 10px; font-weight: 800; color: #222;">Demo Service Areas</h3>
+	                <p style="font-size: 14px; margin-bottom: 10px; color: #555; line-height: 1.5;">Demo IT services for multiple business needs.</p>
+	                <a href="./Components/Presence.html" style="color: #050505; text-decoration: none; font-weight: 700; font-size: 12px; text-transform: uppercase;">Learn more &rarr;</a>
+	            </div>
 
-            <div style="padding-left: 20px; border-left: 4px solid #050505;">
-                <h2 style="font-size: 12px; color: #050505; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; font-weight: 700;">People</h2>
-                <h3 style="font-size: 22px; margin-bottom: 10px; font-weight: 800; color: #222;">Demo Ownership</h3>
-                <p style="font-size: 14px; margin-bottom: 10px; color: #555; line-height: 1.5;">Owned and managed by a demo parent company.</p>
+	            <div class="contact-right-card" style="padding-left: 20px; border-left: 4px solid #050505;">
+	                <h2 style="font-size: 12px; color: #050505; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; font-weight: 700;">People</h2>
+	                <h3 style="font-size: 22px; margin-bottom: 10px; font-weight: 800; color: #222;">Demo Ownership</h3>
+	                <p style="font-size: 14px; margin-bottom: 10px; color: #555; line-height: 1.5;">Owned and managed by a demo parent company.</p>
                 <a href="./Components/Leaders.html" style="color: #050505; text-decoration: none; font-weight: 700; font-size: 12px; text-transform: uppercase;">Learn more &rarr;</a>
             </div>
 
