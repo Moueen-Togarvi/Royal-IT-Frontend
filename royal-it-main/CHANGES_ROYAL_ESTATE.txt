@@ -1,0 +1,22 @@
+Royal IT customization notes
+
+- Replaced Royal IT / Royal IT / Royal IT branding with Royal IT.
+- Added Demo Group ownership wording in selected website sections.
+- Changed website theme from navy/cyan to luxury black/gold.
+- Added cropped Royal IT logo assets from the provided logo image:
+  - images/royal-logo-light.png
+  - images/royal-logo-dark.png
+  - images/fav.png
+- Updated hero section copy for real estate.
+- Updated contact form labels/placeholders for property inquiries.
+- Updated footer brand, copyright, email, and service labels.
+- Removed old Royal IT Social/Social links and replaced them with placeholders (#).
+- Updated CNAME and README for Royal IT.
+
+Please replace placeholder social links, final phone number, domain, and office address with the client's confirmed details before publishing.
+
+Latest update:
+- Language switcher changed into a professional dropdown.
+- Homepage language dropdown placed inside navbar near Explore Services.
+- Arabic RTL mode now keeps navbar positions unchanged: logo stays left and Explore Services stays right.
+- Partner logo slider remains LTR in Arabic so all logos show/slide correctly.

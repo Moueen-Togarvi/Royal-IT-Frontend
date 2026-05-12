@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal IT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --navy: #050505;
+            --cyan: #D4AF37;
+            --text: #334155;
+            --bg-color: #f8fafc;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text);
+            line-height: 1.8;
+            padding: 40px 0;
+        }
+
+        .disclaimer-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            border-top: 10px solid var(--navy);
+        }
+
+        .disclaimer-header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 30px;
+        }
+
+        .disclaimer-header h1 {
+            color: var(--navy);
+            font-weight: 800;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .update-tag {
+            color: var(--cyan);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            color: var(--navy);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            background: var(--cyan);
+            display: inline-block;
+            margin-right: 12px;
+            border-radius: 2px;
+        }
+
+        p, li {
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+        }
+
+        ul li::before {
+            content: "\f058";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--navy);
+            font-size: 1rem;
+        }
+
+        .alert-box {
+            background: rgba(0, 210, 255, 0.05);
+            border-left: 5px solid var(--cyan);
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            margin: 25px 0;
+        }
+
+        .contact-box {
+            margin-top: 50px;
+            padding: 30px;
+            background: var(--navy);
+            color: white;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .contact-box a {
+            color: var(--cyan);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .disclaimer-wrapper { padding: 30px 20px; margin: 15px; }
+            .disclaimer-header h1 { font-size: 1.7rem; }
+        }
+    </style>
+  <link rel="stylesheet" href="../assets/i18n/i18n.css">
+</head>
+<body>
+<div class="language-switcher language-dropdown" aria-label="Language switcher">
+  <button type="button" class="language-current" aria-haspopup="true" aria-expanded="false">
+    <i class="fa-solid fa-globe"></i>
+    <span data-current-lang>EN</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </button>
+  <div class="language-menu" role="menu">
+    <button type="button" data-lang-btn="en" onclick="changeLanguage('en')" role="menuitem">English</button>
+    <button type="button" data-lang-btn="ar" onclick="changeLanguage('ar')" role="menuitem">العربية</button>
+  </div>
+</div>
+
+
+<div class="container">
+    <div class="disclaimer-wrapper">
+        <div class="disclaimer-header">
+            <span class="update-tag">Last Updated: March 2024</span>
+            <h1>Service Level and Delivery Disclaimer</h1>
+            <p>Operational standards, expectations, and limitations governing our services.</p>
+        </div>
+
+        <div class="disclaimer-body">
+            <p>This Service Level and Delivery Disclaimer outlines the general expectations, limitations, and operational standards governing services provided by Royal IT (“Company”, “we”, “our”, or “us”). By purchasing or engaging with our services, the client acknowledges and agrees to the terms described below.</p>
+
+            <h2>1. Nature of Digital Service Delivery</h2>
+            <p>Royal IT provides digital services that involve technical development, system configuration, design implementation, and integration with third-party technologies. Service delivery may be influenced by:</p>
+            <ul>
+                <li>third-party platforms and APIs</li>
+                <li>hosting provider performance</li>
+                <li>client response time and approvals</li>
+                <li>external platform policies and algorithm changes</li>
+                <li>regulatory or technical limitations</li>
+            </ul>
+            <p>Accordingly, all project timelines and service estimates should be considered reasonable projections rather than guaranteed deadlines.</p>
+
+            <h2>2. Project Timelines</h2>
+            <p>Project delivery timelines are estimated timeframes based on the agreed scope of work. Delays may occur due to missing client assets, scope modifications, third-party technical issues, or delayed approvals. Royal IT shall not be considered in breach of service agreements due to these external or client-side factors.</p>
+
+            <div class="alert-box">
+                <h2>3. Performance Disclaimer</h2>
+                <p>Royal IT does not guarantee specific business outcomes or performance results, including search engine rankings, website traffic levels, marketing campaign performance, advertising conversion rates, revenue generation, or user growth.</p>
+            </div>
+
+            <h2>4. Third-Party Platforms</h2>
+            <p>Many services rely on hosting providers, advertising networks, social media platforms, payment gateways, and APIs. Royal IT shall not be responsible for service interruptions, policy changes, technical failures, or restrictions imposed by these third-party platforms.</p>
+
+            <h2>5. Client Cooperation</h2>
+            <p>Clients are responsible for providing accurate requirements, supplying content/credentials, and reviewing deliverables in a timely manner. Failure to cooperate may affect delivery timelines and overall service performance.</p>
+
+            <h2>6. Maintenance and Support</h2>
+            <p>Unless otherwise specified in a separate agreement, ongoing maintenance, updates, monitoring, or technical support are not automatically included with project delivery. Maintenance services may require a separate agreement.</p>
+
+            <h2>7. Limitation of Responsibility</h2>
+            <p>Royal IT shall not be responsible for losses or damages resulting from system downtime (hosting), third-party software failures, security incidents outside our infrastructure, or misuse of systems by the client or third parties.</p>
+
+            <h2>8. Policy Updates</h2>
+            <p>Royal IT reserves the right to update or modify this Service Level and Delivery Disclaimer at any time. Updated versions will be published on the website and continued use of services constitutes acceptance of the revised terms.</p>
+
+            <div class="contact-box">
+                <h2 style="color: #15d6eb;">9. Contact Information</h2>
+                <p>For questions regarding this policy, please contact:</p>
+                <strong>Royal IT</strong><br>
+                <a href="mailto:info@royalit.example">info@royalit.example</a><br>
+                <span>royalit.example</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://unpkg.com/i18next@23.11.5/dist/umd/i18next.min.js"></script>
+<script src="../assets/i18n/i18n.js"></script>
+</body>
+</html>

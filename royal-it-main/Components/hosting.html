@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal IT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --navy: #050505;
+            --cyan: #D4AF37;
+            --text: #334155;
+            --bg-color: #f8fafc;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text);
+            line-height: 1.8;
+            padding: 40px 0;
+        }
+
+        .policy-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            border-top: 10px solid var(--navy);
+        }
+
+        .policy-header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 30px;
+        }
+
+        .policy-header h1 {
+            color: var(--navy);
+            font-weight: 800;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .update-tag {
+            color: var(--cyan);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            color: var(--navy);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            background: var(--cyan);
+            display: inline-block;
+            margin-right: 12px;
+            border-radius: 2px;
+        }
+
+        p, li {
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+        }
+
+        ul li::before {
+            content: "\f058";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--navy);
+            font-size: 1rem;
+        }
+
+        .recovery-alert {
+            background: rgba(0, 210, 255, 0.05);
+            border: 1px solid var(--cyan);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+
+        .contact-box {
+            margin-top: 50px;
+            padding: 30px;
+            background: var(--navy);
+            color: white;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .contact-box a {
+            color: var(--cyan);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .policy-wrapper { padding: 30px 20px; margin: 15px; }
+            .policy-header h1 { font-size: 1.7rem; }
+        }
+    </style>
+  <link rel="stylesheet" href="../assets/i18n/i18n.css">
+</head>
+<body>
+<div class="language-switcher language-dropdown" aria-label="Language switcher">
+  <button type="button" class="language-current" aria-haspopup="true" aria-expanded="false">
+    <i class="fa-solid fa-globe"></i>
+    <span data-current-lang>EN</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </button>
+  <div class="language-menu" role="menu">
+    <button type="button" data-lang-btn="en" onclick="changeLanguage('en')" role="menuitem">English</button>
+    <button type="button" data-lang-btn="ar" onclick="changeLanguage('ar')" role="menuitem">العربية</button>
+  </div>
+</div>
+
+
+<div class="container">
+    <div class="policy-wrapper">
+        <div class="policy-header">
+            <span class="update-tag">Last Updated: March 2024</span>
+            <h1>Hosting & Platform Migration Policy</h1>
+            <p>Conditions governing the hosting environment and the transfer of digital platforms.</p>
+        </div>
+
+        <div class="policy-body">
+            <p>This Hosting and Platform Migration Policy outlines the conditions governing the hosting environment and migration of websites or digital platforms developed by Royal IT.</p>
+
+            <h2>1. Hosting Infrastructure</h2>
+            <p>Websites or digital platforms developed by Royal IT may be hosted within infrastructure environments managed by the Company or its authorized hosting partners. These environments include:</p>
+            <ul>
+                <li>secure hosting servers</li>
+                <li>security monitoring systems</li>
+                <li>performance optimization frameworks</li>
+                <li>analytics and advertising integrations</li>
+                <li>automated system maintenance tools</li>
+            </ul>
+            <p>Royal IT may retain administrative and technical control over these infrastructure components to ensure platform stability and operational efficiency.</p>
+
+            <h2>2. Hosting Requirements for Subsidized Projects</h2>
+            <p>Where websites are delivered under a subsidized development model, the platform may remain hosted within the Royal IT infrastructure environment as part of the service structure. This hosting structure enables the Company to maintain platform performance, security, and operational sustainability.</p>
+
+            <h2>3. Platform Migration Requests</h2>
+            <p>Clients may request migration or transfer of their platform to an external hosting provider. Such requests may require settlement of outstanding fees, payment of migration charges, and technical review by the Company.</p>
+
+            <div class="recovery-alert">
+                <h2>4. Development Cost Recovery</h2>
+                <p>Where a platform was delivered under a significantly reduced development fee, <strong>Royal IT may require compensation for the difference</strong> between the subsidized development cost and the standard commercial development cost prior to approving platform migration.</p>
+            </div>
+
+            <h2>5. Migration Limitations</h2>
+            <p>In certain circumstances, platform migration may be restricted where system architecture relies on proprietary infrastructure, or where migration may compromise platform security or operational stability. In such cases, Royal IT will work with the client to identify alternative solutions.</p>
+
+            <div class="contact-box">
+                <p>For questions regarding hosting or migration, contact:</p>
+                <strong>Royal IT</strong><br>
+                <a href="mailto:info@royalit.example">info@royalit.example</a><br>
+                <span>royalit.example</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://unpkg.com/i18next@23.11.5/dist/umd/i18next.min.js"></script>
+<script src="../assets/i18n/i18n.js"></script>
+</body>
+</html>

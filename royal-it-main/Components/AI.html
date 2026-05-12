@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal IT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --navy: #050505;
+            --cyan: #D4AF37;
+            --white: #ffffff;
+            --gray: #f4f7f6;
+            --ai-glow: rgba(0, 212, 255, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        body { background-color: var(--white); color: #333; overflow-x: hidden; }
+
+        /* --- Hero Section --- */
+        .hero-section {
+            padding: 120px 20px 60px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(244,247,246,1) 0%, rgba(255,255,255,1) 100%);
+        }
+        .hero-section h1 { color: var(--navy); font-size: clamp(2.5rem, 8vw, 3.5rem); font-weight: 800; text-transform: uppercase; }
+        .hero-underline { width: 80px; height: 5px; background: var(--cyan); margin: 20px auto; border-radius: 10px; box-shadow: 0 0 15px var(--cyan); }
+        .hero-section p { color: #555; font-size: 1.1rem; max-width: 800px; margin: 0 auto; line-height: 1.8; }
+
+        /* --- AI Features Section --- */
+        .ai-features { padding: 80px 20px; background: var(--gray); }
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        .section-heading { text-align: center; color: var(--navy); margin-bottom: 50px; font-size: 2.2rem; font-weight: 800; }
+
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .ai-card {
+            background: var(--white);
+            padding: 40px 25px;
+            border-radius: 24px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-card:hover { 
+            transform: translateY(-10px); 
+            box-shadow: 0 20px 40px rgba(5,5,5,0.15);
+            border-color: var(--cyan);
+        }
+
+        .ai-card i { font-size: 3.5rem; color: var(--navy); margin-bottom: 20px; transition: 0.3s; }
+        .ai-card:hover i { color: var(--cyan); transform: scale(1.1); }
+        
+        .ai-card h3 { color: var(--navy); margin-bottom: 15px; font-size: 1.4rem; font-weight: 700; }
+        .ai-card p { color: #666; font-size: 0.95rem; line-height: 1.6; }
+
+        /* --- Concept Section --- */
+        .concept-section {
+            padding: 100px 20px;
+            text-align: center;
+            background: var(--navy);
+            color: white;
+            margin: 50px 0;
+            clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+            position: relative;
+        }
+
+        .concept-section h2 { color: var(--cyan); margin-bottom: 20px; font-size: 2.5rem; font-weight: 800; }
+        .concept-section p { max-width: 750px; margin: 0 auto; opacity: 0.9; font-size: 1.1rem; line-height: 1.8; }
+
+        /* --- CTA Section --- */
+        .cta-section { padding: 80px 20px; text-align: center; }
+        .cta-btn {
+            display: inline-block;
+            padding: 20px 60px;
+            background: var(--navy);
+            color: white;
+            text-decoration: none;
+            font-weight: 800;
+            border-radius: 50px;
+            transition: 0.3s;
+            border: 2px solid var(--navy);
+            box-shadow: 0 10px 20px rgba(5,5,5,0.2);
+        }
+        .cta-btn:hover { background: transparent; color: var(--navy); transform: translateY(-5px); box-shadow: 0 15px 30px rgba(17,17,58,0.3); }
+
+        /* --- Navigation Fixing --- */
+        .main-nav {
+            background-color: var(--white);
+            height: 80px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+        .nav-container { width: 90%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo img { height: 50px; }
+        .back-btn {
+            background-color: var(--navy);
+            color: var(--white);
+            text-decoration: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        .back-btn:hover { background: var(--cyan); color: var(--navy); }
+
+        /* Elastic Cursor */
+        #elastic-cursor {
+            position: fixed; width: 20px; height: 20px; background-color: var(--navy);
+            border-radius: 50%; pointer-events: none; z-index: 99999;
+            box-shadow: 0 0 10px var(--ai-glow); transform-origin: center center;
+        }
+        .cursor-active { mix-blend-mode: difference; background-color: white !important; }
+
+        @media (max-width: 768px) {
+            #elastic-cursor { display: none !important; }
+            .hero-section h1 { font-size: 2.2rem; }
+            .concept-section { clip-path: none; padding: 60px 20px; }
+            .back-btn span { display: none; }
+        }
+    </style>
+  <link rel="stylesheet" href="../assets/i18n/i18n.css">
+</head>
+
+<body>
+<div class="language-switcher language-dropdown" aria-label="Language switcher">
+  <button type="button" class="language-current" aria-haspopup="true" aria-expanded="false">
+    <i class="fa-solid fa-globe"></i>
+    <span data-current-lang>EN</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </button>
+  <div class="language-menu" role="menu">
+    <button type="button" data-lang-btn="en" onclick="changeLanguage('en')" role="menuitem">English</button>
+    <button type="button" data-lang-btn="ar" onclick="changeLanguage('ar')" role="menuitem">العربية</button>
+  </div>
+</div>
+
+    <div id="elastic-cursor"></div>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <img src="../images/royal-logo-light.png" alt="Royal IT Logo"> 
+            </a>
+            <div class="nav-actions">
+                <a href="../index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> <span>Back to Home</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section">
+        <div class="container">
+            <h1>AI & Automation</h1>
+            <div class="hero-underline"></div>
+            <p>Step into the future with intelligent workflows. We integrate cutting-edge AI to automate repetitive tasks, predict trends, and scale your business efficiency.</p>
+        </div>
+    </header>
+
+    <section class="ai-features">
+        <div class="container">
+            <h2 class="section-heading">Smart Solutions</h2>
+            <div class="ai-grid">
+                <div class="ai-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>Smart Chatbots</h3>
+                    <p>24/7 Intelligent customer support that learns from every interaction to provide human-like assistance.</p>
+                </div>
+                <div class="ai-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>Predictive Analytics</h3>
+                    <p>Use your data to forecast future trends, inventory needs, and customer behavior with high accuracy.</p>
+                </div>
+                <div class="ai-card">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Workflow Automation</h3>
+                    <p>Eliminate manual data entry and repetitive tasks with seamless API and process integrations.</p>
+                </div>
+                <div class="ai-card">
+                    <i class="fas fa-microchip"></i>
+                    <h3>Custom AI Models</h3>
+                    <p>Tailor-made Machine Learning solutions designed specifically for your unique business challenges.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="concept-section">
+        <div class="container">
+            <h2>Human Intelligence, AI Speed</h2>
+            <p>Our goal isn't just to replace tasks, but to empower your team to focus on high-value creative work while AI handles the heavy lifting.</p>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2 style="color: var(--navy); margin-bottom: 20px; font-weight: 800;">Automate Your Success</h2>
+            <p style="margin-bottom: 40px; color: #666;">Book a consultation to see how AI can transform your current business model.</p>
+            <a href="./contact.html" class="cta-btn">Get Started</a>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        const cursor = document.querySelector("#elastic-cursor");
+        let pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+        let mouse = { x: pos.x, y: pos.y };
+        let speed = 0.15;
+        let fpms = 60 / 1000;
+        
+        window.addEventListener("mousemove", e => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        const xSet = gsap.quickSetter(cursor, "x", "px");
+        const ySet = gsap.quickSetter(cursor, "y", "px");
+
+        gsap.ticker.add((time, deltaTime) => {
+            let delta = deltaTime * fpms;
+            let dt = 1.0 - Math.pow(1.0 - speed, delta);
+            let dx = mouse.x - pos.x;
+            let dy = mouse.y - pos.y;
+            pos.x += dx * dt;
+            pos.y += dy * dt;
+            let velocity = Math.sqrt(dx * dx + dy * dy);
+            let setRotation = Math.atan2(dy, dx) * (180 / Math.PI);
+            let setScale = Math.min(velocity * 0.015 + 1, 2.5);
+            let setScaleY = Math.max(1 - velocity * 0.008, 0.5);
+            xSet(pos.x - 10);
+            ySet(pos.y - 10);
+            gsap.set(cursor, { rotation: setRotation, scaleX: setScale, scaleY: setScaleY });
+        });
+
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('cursor-active'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-active'));
+        });
+    </script>
+
+<script src="https://unpkg.com/i18next@23.11.5/dist/umd/i18next.min.js"></script>
+<script src="../assets/i18n/i18n.js"></script>
+</body>
+</html>

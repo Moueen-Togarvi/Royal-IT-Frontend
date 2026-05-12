@@ -1,0 +1,264 @@
+/* Royal IT i18next language dropdown + Arabic RTL responsive support */
+.language-switcher {
+  z-index: 100000;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  direction: ltr !important;
+  font-family: 'Montserrat', 'Tahoma', 'Arial', sans-serif;
+}
+
+body > .language-switcher {
+  position: fixed;
+  top: 92px;
+  right: 22px;
+}
+
+.language-current {
+  min-width: 118px;
+  height: 40px;
+  border: 1px solid rgba(212, 175, 55, 0.75);
+  background: #050505;
+  color: #D4AF37;
+  border-radius: 999px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.14);
+  transition: all .25s ease;
+}
+
+.language-current:hover,
+.language-switcher.open .language-current {
+  background: #D4AF37;
+  color: #050505;
+  border-color: #F5D76E;
+}
+
+.language-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 160px;
+  background: #ffffff;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.18);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: all .22s ease;
+}
+
+.language-switcher.open .language-menu,
+.language-switcher:hover .language-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.language-menu button {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: #050505;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.language-menu button.active,
+.language-menu button:hover {
+  background: #050505;
+  color: #D4AF37;
+}
+
+/* Keep navbar positions same in English and Arabic: logo left, explore properties right. */
+.rtl-mode .navbar,
+.rtl-mode .navbar > .container-fluid,
+.rtl-mode .navbar-collapse,
+.rtl-mode .center-nav-container,
+.rtl-mode .right-nav-container {
+  direction: ltr !important;
+}
+
+.rtl-mode .navbar > .container-fluid {
+  flex-direction: row !important;
+}
+
+.rtl-mode .navbar .logo {
+  background-position: left center !important;
+}
+
+.rtl-mode .navbar-toggler {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.rtl-mode .navbar #nav-btns,
+.rtl-mode .navbar #nav-talk {
+  direction: rtl;
+  unicode-bidi: isolate;
+}
+
+.rtl-mode {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Montserrat', 'Tahoma', 'Arial', sans-serif;
+}
+
+.rtl-mode .container,
+.rtl-mode section,
+.rtl-mode footer {
+  direction: rtl;
+}
+
+.rtl-mode section .container-fluid,
+.rtl-mode footer .container-fluid,
+.rtl-mode .footer-contact li,
+.rtl-mode .faq-question,
+.rtl-mode .clouds-grid,
+.rtl-mode .drugs-row,
+.rtl-mode .row {
+  direction: rtl;
+}
+
+.rtl-mode .hero-content,
+.rtl-mode .client-container,
+.rtl-mode .text-center,
+.rtl-mode .rating-wrapper,
+.rtl-mode .faq-header {
+  text-align: center !important;
+}
+
+.rtl-mode .contact-left-col,
+.rtl-mode .contact-right-col,
+.rtl-mode .footer-col,
+.rtl-mode .story-text,
+.rtl-mode .answer-content {
+  text-align: right !important;
+}
+
+.rtl-mode .footer-title::after {
+  left: auto;
+  right: 0;
+}
+
+.rtl-mode .footer-links a:hover {
+  padding-left: 0;
+  padding-right: 8px;
+}
+
+.rtl-mode .footer-contact li {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.rtl-mode .faq-question i {
+  margin-right: auto;
+  margin-left: 0;
+}
+
+.rtl-mode input,
+.rtl-mode textarea,
+.rtl-mode select {
+  direction: rtl;
+  text-align: right;
+}
+
+.rtl-mode input[type="email"],
+.rtl-mode input[type="url"],
+.rtl-mode input[type="tel"] {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Keep partner logos slider LTR in Arabic mode so all logos remain visible. */
+.rtl-mode .client-section,
+.rtl-mode .slider-wrapper,
+.rtl-mode .slider-box,
+.rtl-mode #logoTrack {
+  direction: ltr !important;
+}
+
+.rtl-mode #logoTrack {
+  flex-direction: row !important;
+}
+
+.rtl-mode .logo-item {
+  direction: ltr !important;
+}
+
+@media (max-width: 991px) {
+  .navbar .language-switcher {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .navbar .language-current {
+    width: 100%;
+  }
+
+  .navbar .language-menu {
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+
+  .rtl-mode .navbar-collapse,
+  .rtl-mode .center-nav-container,
+  .rtl-mode .right-nav-container {
+    direction: ltr !important;
+  }
+}
+
+@media (max-width: 768px) {
+  body > .language-switcher {
+    top: auto;
+    bottom: 18px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  .rtl-mode .contact-left-col,
+  .rtl-mode .contact-right-col,
+  .rtl-mode .footer-col,
+  .rtl-mode .story-text {
+    text-align: center !important;
+  }
+
+  .rtl-mode .footer-title::after {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+}
+
+/* Logo professional spacing: same position in English and Arabic */
+.navbar .logo {
+  margin-left: 28px !important;
+}
+
+.rtl-mode .navbar .logo {
+  margin-left: 28px !important;
+  margin-right: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .navbar .logo,
+  .rtl-mode .navbar .logo {
+    margin-left: 12px !important;
+    margin-right: 0 !important;
+  }
+}

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal IT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --navy: #050505;
+            --cyan: #D4AF37;
+            --bg: #fdfdfd;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: #334155;
+            line-height: 1.7;
+        }
+
+        .terms-card {
+            max-width: 950px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.05);
+            border: 1px solid #edf2f7;
+        }
+
+        .terms-header {
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+
+        .terms-header h1 {
+            color: var(--navy);
+            font-weight: 800;
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+        }
+
+        .update-tag {
+            color: var(--cyan);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h3 {
+            color: var(--navy);
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        h3::before {
+            content: "";
+            width: 8px;
+            height: 25px;
+            background: var(--cyan);
+            margin-right: 15px;
+            border-radius: 5px;
+        }
+
+        p, li {
+            font-size: 1rem;
+            color: #475569;
+            text-align: justify;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+        }
+
+        ul li::before {
+            content: "\f058";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--cyan);
+            font-size: 0.9rem;
+        }
+
+        .monetization-alert {
+            background: rgba(17, 17, 58, 0.02);
+            border: 1px dashed var(--navy);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+
+        .contact-footer {
+            margin-top: 50px;
+            padding: 30px;
+            background: var(--navy);
+            color: white;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .contact-footer a {
+            color: var(--cyan);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .terms-card { padding: 30px 20px; margin: 15px; }
+            .terms-header h1 { font-size: 1.7rem; }
+        }
+    </style>
+  <link rel="stylesheet" href="../assets/i18n/i18n.css">
+</head>
+<body>
+<div class="language-switcher language-dropdown" aria-label="Language switcher">
+  <button type="button" class="language-current" aria-haspopup="true" aria-expanded="false">
+    <i class="fa-solid fa-globe"></i>
+    <span data-current-lang>EN</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </button>
+  <div class="language-menu" role="menu">
+    <button type="button" data-lang-btn="en" onclick="changeLanguage('en')" role="menuitem">English</button>
+    <button type="button" data-lang-btn="ar" onclick="changeLanguage('ar')" role="menuitem">العربية</button>
+  </div>
+</div>
+
+
+<div class="container">
+    <div class="terms-card">
+        <div class="terms-header text-center">
+            <span class="update-tag">Last Updated: Jan-2024</span>
+            <h1>Terms and Conditions</h1>
+            <p class="text-muted">Welcome to Royal IT. These Terms and Conditions govern the use of our website and digital solutions.</p>
+        </div>
+
+        <div class="terms-body">
+            <p>By accessing this website or engaging with our services, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you should discontinue use of the website and related services.</p>
+
+            <h3>1. Acceptance of Terms</h3>
+            <p>By accessing, browsing, or using the Royal IT website, users agree to comply with these Terms and Conditions and any applicable laws or regulations. These terms apply to all visitors, users, clients, and individuals who access or interact with the platform.</p>
+
+            <h3>2. Use of the Website</h3>
+            <p>Users agree to use the website only for lawful purposes and in a manner that does not disrupt or interfere with the operation, performance, or security of the platform. Royal IT reserves the right to suspend access if misuse or violation is detected.</p>
+
+            <h3>3. Intellectual Property Rights</h3>
+            <p>Unless otherwise stated, all content on this website is the intellectual property of Royal IT. This includes:</p>
+            <ul>
+                <li>Website design, text, graphics, and visual elements</li>
+                <li>Software systems, frameworks, and technical materials</li>
+                <li>Branding, trademarks, and logos</li>
+            </ul>
+
+            <h3>4. Prohibited Activities</h3>
+            <p>Users are prohibited from republishing content without authorization, selling website materials, or attempting unauthorized access to servers. Violation may result in termination of access and legal action.</p>
+
+            <h3>5. Digital Services</h3>
+            <p>Royal IT provides professional technology services including Web/App Development, IT Support, Digital Consultancy, and System Architecture. Specific service terms are defined through separate service agreements.</p>
+
+            <div class="monetization-alert">
+                <h3>6. Platform Infrastructure & Monetization</h3>
+                <p><strong>Subsidized Development Model:</strong> Royal IT may offer development at significantly reduced upfront costs. Under this model, operational and infrastructure expenses are partially supported through platform-based monetization systems.</p>
+                <p><strong>Revenue Participation:</strong> Clients may be eligible to receive five percent (5%) of verified net monetization revenue. The remaining revenue is retained by Royal IT to support infrastructure, maintenance, and development recovery.</p>
+            </div>
+
+            <h3>7. Revenue Distribution Schedule</h3>
+            <p>Revenue distributions to clients may be issued for a maximum of two (2) operational quarters within an annual cycle. One additional quarterly period is allocated toward covering hosting, system maintenance, and platform optimization.</p>
+
+            <h3>8. Limitation of Liability</h3>
+            <p>To the maximum extent permitted by law, Royal IT shall not be liable for direct or indirect damages arising from service interruptions, technical failures, or third-party platform disruptions.</p>
+
+            <h3>9. Scope Limitation & Client Responsibility</h3>
+            <p>Services are strictly limited to the agreed scope. The client is solely responsible for all content (text, images, media) provided for development and warrants that materials do not infringe upon any third-party rights.</p>
+
+            <h3>10. Force Majeure</h3>
+            <p>Royal IT shall not be held responsible for delays or interruptions caused by circumstances beyond reasonable control, such as natural disasters, internet outages, or cyber attacks.</p>
+
+            <h3>11. Governing Law</h3>
+            <p>These Terms and Conditions shall be governed and interpreted in accordance with the laws of Demo Region. Any disputes shall fall under the jurisdiction of competent courts within Demo Region.</p>
+
+            <div class="contact-footer">
+                <p>For questions regarding these Terms and Conditions, please contact us at:</p>
+                <a href="mailto:info@royalit.example"><i class="fas fa-envelope me-2"></i>info@royalit.example</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://unpkg.com/i18next@23.11.5/dist/umd/i18next.min.js"></script>
+<script src="../assets/i18n/i18n.js"></script>
+</body>
+</html>

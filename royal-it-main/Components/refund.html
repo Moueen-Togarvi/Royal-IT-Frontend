@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal IT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --navy: #050505;
+            --cyan: #D4AF37;
+            --text: #334155;
+            --bg-color: #f8fafc;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text);
+            line-height: 1.8;
+            padding: 40px 0;
+        }
+
+        .policy-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            border-top: 10px solid var(--navy);
+        }
+
+        .policy-header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 30px;
+        }
+
+        .policy-header h1 {
+            color: var(--navy);
+            font-weight: 800;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .update-tag {
+            color: var(--cyan);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            color: var(--navy);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            background: var(--cyan);
+            display: inline-block;
+            margin-right: 12px;
+            border-radius: 2px;
+        }
+
+        p, li {
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+        }
+
+        ul li::before {
+            content: "\f058";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--navy);
+            font-size: 1rem;
+        }
+
+        .contact-box {
+            margin-top: 50px;
+            padding: 30px;
+            background: var(--navy);
+            color: white;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .contact-box a {
+            color: var(--cyan);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .policy-wrapper { padding: 30px 20px; margin: 15px; }
+            .policy-header h1 { font-size: 1.7rem; }
+        }
+    </style>
+  <link rel="stylesheet" href="../assets/i18n/i18n.css">
+</head>
+<body>
+<div class="language-switcher language-dropdown" aria-label="Language switcher">
+  <button type="button" class="language-current" aria-haspopup="true" aria-expanded="false">
+    <i class="fa-solid fa-globe"></i>
+    <span data-current-lang>EN</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </button>
+  <div class="language-menu" role="menu">
+    <button type="button" data-lang-btn="en" onclick="changeLanguage('en')" role="menuitem">English</button>
+    <button type="button" data-lang-btn="ar" onclick="changeLanguage('ar')" role="menuitem">العربية</button>
+  </div>
+</div>
+
+
+<div class="container">
+    <div class="policy-wrapper">
+        <div class="policy-header">
+            <span class="update-tag">Last Updated: March 2026</span>
+            <h1>Refund Policy</h1>
+            <p>Transparency, fairness, and operational clarity regarding our services.</p>
+        </div>
+
+        <div class="policy-body">
+            <p>This Refund Policy governs the conditions under which refunds may be requested or issued for services purchased from Royal IT (“Company”, “we”, “our”, or “us”). By purchasing or engaging our services, the client acknowledges and agrees to the terms outlined in this policy.</p>
+
+            <h2>1. Nature of Digital Services</h2>
+            <p>Royal IT provides professional digital services including but not limited to:</p>
+            <ul>
+                <li>website development</li>
+                <li>custom software development</li>
+                <li>mobile application development</li>
+                <li>digital marketing and advertising services</li>
+                <li>hosting and infrastructure services</li>
+                <li>consulting, automation, and technical solutions</li>
+            </ul>
+            <p>Due to the customized and labor-intensive nature of digital services, refunds are limited and subject to the conditions described below.</p>
+
+            <h2>2. General Refund Eligibility</h2>
+            <p>A refund request may be considered only under the following circumstances:</p>
+            <ul>
+                <li>the services delivered materially deviate from the agreed scope of work</li>
+                <li>the project cannot be completed due to a technical limitation caused solely by Royal IT</li>
+                <li>the service has not yet been initiated or any work commenced</li>
+            </ul>
+            <p>All refund requests are subject to internal review and approval by Royal IT. The Company reserves the right to determine whether the refund conditions have been met.</p>
+
+            <h2>3. Non-Refundable Services</h2>
+            <p>Unless otherwise explicitly agreed in writing, the following payments are non-refundable:</p>
+            <ul>
+                <li>payments for services where work has already commenced</li>
+                <li>custom development or design services</li>
+                <li>completed digital marketing campaigns</li>
+                <li>consulting sessions or technical advisory services</li>
+                <li>software architecture, planning, or system design work</li>
+                <li>domain registration, hosting purchases, or third-party services</li>
+                <li>platform setup, integrations, or configuration services</li>
+            </ul>
+
+            <h2>4. Partial Refunds</h2>
+            <p>In limited circumstances, a partial refund may be issued where a project has begun but cannot be completed. Any partial refund shall be determined based on the percentage of work already completed, technical resources already allocated, development hours already utilized, and third-party expenses already incurred.</p>
+
+            <h2>5. Project Cancellation</h2>
+            <p><strong>Before Project Initiation:</strong> If a cancellation request is submitted before any work has started, the client may be eligible for a refund minus any applicable administrative or processing fees.</p>
+            <p><strong>After Project Commencement:</strong> If a project has already begun, refunds may not be guaranteed and any refund issued will be determined based on the completed portion of the work.</p>
+
+            <h2>6. Subsidized or Discounted Development Services</h2>
+            <p>Where services are provided under a subsidized, discounted, or promotional pricing model, refunds may not be available once development work has started. Such pricing models reflect reduced upfront fees due to infrastructure support, hosting, and monetization systems.</p>
+
+            <h2>7. Refund Request Procedure</h2>
+            <p>To request a refund, clients must submit a formal request to <strong>info@royalit.example</strong> including order reference number, description of the issue, and supporting documentation. Requests must be submitted within fourteen (14) days of service delivery or payment.</p>
+
+            <h2>8. Refund Processing Time</h2>
+            <p>Approved refunds will generally be processed within 7 to 14 business days. Refunds will typically be issued through the original payment method unless an alternative method is mutually agreed.</p>
+
+            <h2>9. Third-Party Costs</h2>
+            <p>Royal IT is not responsible for refunding any fees associated with third-party services including domain registrations, hosting, advertising platforms, software licenses, API subscriptions, or payment processing charges.</p>
+
+            <h2>10. Abuse of Refund Policy</h2>
+            <p>Royal IT reserves the right to decline refund requests where there is evidence of misuse of services, repeated requests, fraudulent activity, or violation of company policies.</p>
+
+            <h2>11. Policy Modifications</h2>
+            <p>Royal IT reserves the right to update or modify this Refund Policy at any time. Updated versions will be published on the website and will become effective upon publication.</p>
+
+            <h2>12. Contact Information</h2>
+            <div class="contact-box">
+                <p>For any questions regarding this Refund Policy, please contact:</p>
+                <strong>Royal IT</strong><br>
+                <a href="mailto:info@royalit.example">info@royalit.example</a><br>
+                <span>royalit.example</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://unpkg.com/i18next@23.11.5/dist/umd/i18next.min.js"></script>
+<script src="../assets/i18n/i18n.js"></script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal IT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --navy: #050505;
+            --cyan: #D4AF37;
+            --text: #334155;
+            --bg-color: #f8fafc;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text);
+            line-height: 1.8;
+            padding: 40px 0;
+        }
+
+        .policy-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            border-top: 10px solid var(--navy);
+        }
+
+        .policy-header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 30px;
+        }
+
+        .policy-header h1 {
+            color: var(--navy);
+            font-weight: 800;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .update-tag {
+            color: var(--cyan);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            color: var(--navy);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            background: var(--cyan);
+            display: inline-block;
+            margin-right: 12px;
+            border-radius: 2px;
+        }
+
+        p, li {
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+        }
+
+        ul li::before {
+            content: "\f058";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--navy);
+            font-size: 1rem;
+        }
+
+        .revenue-box {
+            background: rgba(17, 17, 58, 0.03);
+            border: 1px dashed var(--navy);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+
+        .contact-box {
+            margin-top: 50px;
+            padding: 30px;
+            background: var(--navy);
+            color: white;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .contact-box a {
+            color: var(--cyan);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .policy-wrapper { padding: 30px 20px; margin: 15px; }
+            .policy-header h1 { font-size: 1.7rem; }
+        }
+    </style>
+  <link rel="stylesheet" href="../assets/i18n/i18n.css">
+</head>
+<body>
+<div class="language-switcher language-dropdown" aria-label="Language switcher">
+  <button type="button" class="language-current" aria-haspopup="true" aria-expanded="false">
+    <i class="fa-solid fa-globe"></i>
+    <span data-current-lang>EN</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </button>
+  <div class="language-menu" role="menu">
+    <button type="button" data-lang-btn="en" onclick="changeLanguage('en')" role="menuitem">English</button>
+    <button type="button" data-lang-btn="ar" onclick="changeLanguage('ar')" role="menuitem">العربية</button>
+  </div>
+</div>
+
+
+<div class="container">
+    <div class="policy-wrapper">
+        <div class="policy-header">
+            <span class="update-tag">Last Updated: March 2024</span>
+            <h1>Monetization & Platform Control Policy</h1>
+            <p>Terms governing digital platforms, subsidized development, and monetization infrastructure.</p>
+        </div>
+
+        <div class="policy-body">
+            <p>This Monetization and Platform Control Policy outlines the terms under which digital platforms developed or hosted by Royal IT may operate using monetization systems and infrastructure maintained by the Company. By purchasing or using services, the client acknowledges and agrees to these terms.</p>
+
+            <h2>1. Subsidized Development Model</h2>
+            <p>Royal IT may offer website or digital platform development services at subsidized or reduced pricing. These models are designed to allow businesses to access professional digital solutions while certain operational costs are supported through platform infrastructure and monetization systems maintained by Royal IT.</p>
+
+            <h2>2. Platform Monetization</h2>
+            <p>Websites or digital platforms developed or hosted by Royal IT may include monetization systems such as:</p>
+            <ul>
+                <li>advertising network integrations</li>
+                <li>affiliate marketing systems</li>
+                <li>traffic monetization platforms</li>
+                <li>sponsored placements or advertising frameworks</li>
+                <li>analytics-based advertising optimization systems</li>
+            </ul>
+            <p>These systems are implemented to support hosting infrastructure, technical maintenance, security, development cost recovery, and ongoing operational support.</p>
+
+            <div class="revenue-box">
+                <h2>3. Revenue Participation</h2>
+                <p>Where monetization systems generate revenue, the client may be eligible to receive a limited revenue participation share. Unless otherwise agreed in writing:</p>
+                <ul>
+                    <li>The client may receive <strong>five percent (5%)</strong> of verified net monetization revenue.</li>
+                    <li>The remaining revenue will be retained by Royal IT to support operational costs, infrastructure, and platform optimization.</li>
+                </ul>
+                <p><small>*Revenue calculations are based on verified data from authorized third-party monetization providers.</small></p>
+            </div>
+
+            <h2>4. Revenue Distribution Schedule</h2>
+            <p>Monetization revenue is evaluated over an annual operational cycle. Revenue distributions to the client may be issued for a <strong>maximum of two (2) operational quarters</strong> within the cycle.</p>
+            <p>One additional quarterly period may be allocated toward operational expenses including hosting infrastructure, server resources, platform maintenance, security, and development cost recovery.</p>
+
+            <h2>5. Platform Control</h2>
+            <p>For the purpose of maintaining stability, security, and performance, Royal IT may retain administrative control over certain platform components including:</p>
+            <ul>
+                <li>hosting infrastructure</li>
+                <li>advertising integrations</li>
+                <li>analytics systems</li>
+                <li>system performance tools</li>
+                <li>technical configurations</li>
+            </ul>
+
+            <div class="contact-box">
+                <p>For questions regarding this policy, please contact:</p>
+                <strong>Royal IT</strong><br>
+                <a href="mailto:info@royalit.example">info@royalit.example</a><br>
+                <span>royalit.example</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://unpkg.com/i18next@23.11.5/dist/umd/i18next.min.js"></script>
+<script src="../assets/i18n/i18n.js"></script>
+</body>
+</html>

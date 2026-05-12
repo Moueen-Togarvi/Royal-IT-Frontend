@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal IT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --navy: #050505;
+            --cyan: #D4AF37;
+            --slate: #475569;
+            --bg: #f8fafc;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--slate);
+            line-height: 1.7;
+            padding: 40px 0;
+        }
+
+        .nda-container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 70px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            border-top: 10px solid var(--navy);
+        }
+
+        .nda-header {
+            text-align: center;
+            border-bottom: 2px solid #f1f5f9;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+        }
+
+        .nda-header h1 {
+            color: var(--navy);
+            font-weight: 800;
+            font-size: 2.4rem;
+            margin-bottom: 10px;
+        }
+
+        .last-update {
+            color: var(--cyan);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        h2 {
+            color: var(--navy);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        h3 {
+            color: var(--navy);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 25px;
+        }
+
+        p, li {
+            font-size: 1rem;
+            text-align: justify;
+        }
+
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 15px;
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+        }
+
+        .bullet-list li::before {
+            content: "\f058";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--cyan);
+            font-size: 0.9rem;
+        }
+
+        .highlight-section {
+            background: rgba(17, 17, 58, 0.02);
+            border: 1px solid #e2e8f0;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .footer-info {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #f1f5f9;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .nda-container { padding: 30px 20px; margin: 15px; }
+            .nda-header h1 { font-size: 1.8rem; }
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .nda-container { box-shadow: none; border: none; width: 100%; padding: 0; }
+            .no-print { display: none; }
+        }
+    </style>
+  <link rel="stylesheet" href="../assets/i18n/i18n.css">
+</head>
+<body>
+<div class="language-switcher language-dropdown" aria-label="Language switcher">
+  <button type="button" class="language-current" aria-haspopup="true" aria-expanded="false">
+    <i class="fa-solid fa-globe"></i>
+    <span data-current-lang>EN</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </button>
+  <div class="language-menu" role="menu">
+    <button type="button" data-lang-btn="en" onclick="changeLanguage('en')" role="menuitem">English</button>
+    <button type="button" data-lang-btn="ar" onclick="changeLanguage('ar')" role="menuitem">العربية</button>
+  </div>
+</div>
+
+
+<div class="container">
+    <div class="nda-container">
+        <div class="nda-header">
+            <span class="last-update">Last Updated: 2024</span>
+            <h1>Non-Disclosure Agreement</h1>
+            <p>Confidentiality & Proprietary Rights Protocol</p>
+        </div>
+
+        <div class="nda-content">
+            <p>At Royal IT, the protection of confidential and proprietary information is a fundamental part of our professional standards. During the course of consultations, project discussions, software development engagements, and business collaborations, sensitive information may be exchanged between Royal IT and its clients, partners, contractors, or stakeholders.</p>
+            
+            <p>This Non-Disclosure Agreement (“NDA”) outlines the principles governing the protection, handling, and permitted use of confidential information shared with or by Royal IT. The purpose of this policy is to ensure that all parties involved maintain the highest standards of confidentiality, integrity, and professional responsibility.</p>
+
+            <h2>What is a Non-Disclosure Agreement (NDA)</h2>
+            <p>A Non-Disclosure Agreement is a legally recognized arrangement between two or more parties that establishes obligations regarding the protection of confidential information. Such agreements ensure that sensitive business, technical, financial, or operational information shared during professional engagement is not disclosed to unauthorized individuals or entities and is used only for legitimate business purposes.</p>
+
+            <h2>Purpose of This Agreement</h2>
+            <p>The purpose of this NDA is to safeguard confidential and proprietary information disclosed during the course of business discussions or professional engagement with Royal IT involving:</p>
+            <ul class="bullet-list">
+                <li>Project consultations & software development engagements</li>
+                <li>System architecture discussions</li>
+                <li>Business partnerships & technical collaborations</li>
+                <li>Internal or external consulting activities</li>
+            </ul>
+
+            <h2>Definition of Confidential Information</h2>
+            <p>Confidential Information refers to any non-public information disclosed by Royal IT or its partners that is reasonably considered sensitive or proprietary, including:</p>
+            <ul class="bullet-list">
+                <li>Business plans, strategies, and operational processes</li>
+                <li>Financial data, projections, and internal reporting</li>
+                <li>Client databases, contact lists, and project documentation</li>
+                <li>Proprietary software systems and technical architecture</li>
+                <li>Source code, algorithms, and development frameworks</li>
+                <li>User interface (UI) and user experience (UX) designs</li>
+                <li>Product concepts, prototypes, and technical specifications</li>
+                <li>Marketing strategies, research data, and analytics</li>
+                <li>Intellectual property including patents, copyrights, and trademarks</li>
+                <li>Internal documentation, methods, or development tools</li>
+            </ul>
+
+            <h2>Obligations of the Receiving Party</h2>
+            <h3>Confidential Handling</h3>
+            <p>All confidential information must be treated with strict confidentiality and handled with a reasonable standard of care.</p>
+            <h3>Restricted Disclosure</h3>
+            <p>Confidential information shall not be disclosed, shared, or communicated to any third party without prior written consent from the disclosing party.</p>
+            <h3>Permitted Use</h3>
+            <p>The information may only be used for the specific business purpose for which it was disclosed.</p>
+
+            <h2>Exceptions to Confidentiality</h2>
+            <p>The confidentiality obligations outlined in this agreement shall not apply to information that is already publicly available, was lawfully obtained from a third party, or is required to be disclosed by applicable law, regulation, or court order.</p>
+
+            <h2>Duration of Confidentiality</h2>
+            <p>Unless otherwise agreed in writing, confidentiality obligations generally remain effective for five (5) years following the disclosure. Obligations may extend indefinitely for highly sensitive proprietary or intellectual property information.</p>
+
+            <div class="highlight-section">
+                <h2>8. Protection of Systems, Architecture, and Business Methods</h2>
+                <p>Royal IT may disclose certain proprietary methodologies, technical structures, and operational strategies. The Receiving Party agrees that it shall not:</p>
+                <ul class="bullet-list">
+                    <li>Reproduce, replicate, or imitate any disclosed software architecture or technical framework.</li>
+                    <li>Reverse engineer or attempt to reconstruct proprietary systems or methodologies.</li>
+                    <li>Use disclosed technical concepts to independently develop similar software, platforms, or services.</li>
+                    <li>Disclose such methodologies to third parties for the purpose of building competing systems.</li>
+                </ul>
+            </div>
+
+            <div class="highlight-section">
+                <h2>9. Non-Circumvention</h2>
+                <p>The Receiving Party acknowledges that Royal IT may introduce certain resources, personnel, or partners. The Receiving Party agrees that it shall not, without prior written consent:</p>
+                <ul class="bullet-list">
+                    <li>Directly or indirectly solicit, hire, or engage any employee, contractor, or partner introduced by Royal IT.</li>
+                    <li>Bypass or circumvent Royal IT to establish direct business relationships with associated individuals or entities.</li>
+                    <li>Use professional connections provided by Royal IT to obtain similar services outside the organization.</li>
+                </ul>
+                <p>This restriction shall apply for a period of <strong>twenty-four (24) months</strong> following the last interaction.</p>
+            </div>
+
+            <h2>Enforcement and Legal Remedies</h2>
+            <p>Unauthorized disclosure may cause significant and irreparable harm. In the event of a breach, Royal IT reserves the right to pursue legal remedies, including injunctive relief, financial damages, and recovery of legal costs.</p>
+
+            <div class="footer-info">
+                <p>For questions regarding this Agreement, contact: <strong>info@royalit.example</strong></p>
+                <p>&copy; 2026 Royal IT. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://unpkg.com/i18next@23.11.5/dist/umd/i18next.min.js"></script>
+<script src="../assets/i18n/i18n.js"></script>
+</body>
+</html>

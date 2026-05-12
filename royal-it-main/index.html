@@ -1,0 +1,4875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Royal IT</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+ <link rel="icon" type="image/png" href="./images/fav.png">
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkTtD1Fp5lJnp4JwXrj5qK2gS39G1JQ8qVZ+4N1F5QkGPHqNq6Vb9anfg=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/i18n/i18n.css">
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<div id="elastic-cursor"></div>
+<style>
+    #elastic-cursor {
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        background-color: #050505; /* Aapka Navy Blue Color */
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 99999;
+        /* Glow effect taake dark bg par nazar aaye */
+        box-shadow: 0 0 10px rgba(17, 17, 58, 0.4);
+        transform-origin: center center;
+    }
+
+    /* Jab link par jaye to cursor white ho jaye ya invert ho */
+    .cursor-active {
+        mix-blend-mode: difference;
+        background-color: white !important;
+    }
+    @media (max-width: 768px) {
+    #elastic-cursor {
+        display: none !important;
+    }
+}
+</style>
+<script>
+    const cursor = document.querySelector("#elastic-cursor");
+
+    // Cursor position and scale settings
+    let pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let mouse = { x: pos.x, y: pos.y };
+    let speed = 0.15; // Smoothness factor
+
+    // Speed/Stretch Calculation
+    let fpms = 60 / 1000;
+    
+    window.addEventListener("mousemove", e => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
+
+    const xSet = gsap.quickSetter(cursor, "x", "px");
+    const ySet = gsap.quickSetter(cursor, "y", "px");
+
+    gsap.ticker.add((time, deltaTime) => {
+        let delta = deltaTime * fpms;
+        let dt = 1.0 - Math.pow(1.0 - speed, delta);
+        
+        // Calculate distance moved
+        let dx = mouse.x - pos.x;
+        let dy = mouse.y - pos.y;
+        
+        pos.x += dx * dt;
+        pos.y += dy * dt;
+        
+        // Calculate velocity for stretching
+        let velocity = Math.sqrt(dx * dx + dy * dy);
+        let setRotation = Math.atan2(dy, dx) * (180 / Math.PI);
+        
+        // Velocity ke hisab se stretch (Max stretch limit 2.5 rakhi hai)
+        let setScale = Math.min(velocity * 0.015 + 1, 2.5);
+        let setScaleY = Math.max(1 - velocity * 0.008, 0.5);
+
+        xSet(pos.x - 10); // 10 is half of width
+        ySet(pos.y - 10);
+        
+        // Apply rotation and stretching
+        gsap.set(cursor, {
+            rotation: setRotation,
+            scaleX: setScale,
+            scaleY: setScaleY
+        });
+    });
+
+    // Hover effect on links
+    document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('cursor-active'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-active'));
+    });
+</script>
+
+
+
+
+<body>
+ 
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container-fluid">
+    <div class="logo"></div>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <div class="center-nav-container d-flex gap-2 mx-auto">
+        <button class="btn" id="nav-btns" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDo" aria-controls="offcanvasDo">
+          WHAT WE DO
+        </button>
+        
+        <button class="btn" id="nav-btns" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasHelp" aria-controls="offcanvasHelp">
+          WHO WE HELP
+        </button>
+        <button class="btn" id="nav-btns" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWho" aria-controls="offcanvasWho">
+          WHO WE ARE
+        </button>
+          <button class="btn" id="nav-btns" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasVentures">
+    DEMO GROUP
+</button>
+        <button class="btn" id="nav-btns" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasJoin" aria-controls="offcanvasJoin">
+          JOIN US
+        </button>
+        <button class="btn" id="nav-btns" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTeam" aria-controls="offcanvasTeam">
+          OUR AGENTS
+        </button>
+        <button class="btn" id="nav-btns" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasstory" aria-controls="offcanvasstory">
+          OUR STORY
+        </button>
+      </div>
+
+      <div class="right-nav-container d-flex gap-2 align-items-center">
+        <div class="language-switcher language-dropdown" aria-label="Language switcher">
+  <button type="button" class="language-current" aria-haspopup="true" aria-expanded="false">
+    <i class="fa-solid fa-globe"></i>
+    <span data-current-lang>EN</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </button>
+  <div class="language-menu" role="menu">
+    <button type="button" data-lang-btn="en" onclick="changeLanguage('en')" role="menuitem">English</button>
+    <button type="button" data-lang-btn="ar" onclick="changeLanguage('ar')" role="menuitem">العربية</button>
+  </div>
+</div>
+        <a href="./Components/service.html" style="text-decoration: none;">
+          <button class="btn" id="nav-talk">EXPLORE SERVICES</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+<div style="position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 15px;">
+    <a href="./Components/Investor.html" style="background: #050505; color: #D4AF37; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; border: 2px solid #D4AF37; box-shadow: 0 10px 20px rgba(0,0,0,0.3);">
+        <i class="fas fa-chart-line" style="font-size: 24px;"></i>
+    </a>
+    
+    <a href="https://wa.me/000000000000" style="background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 10px 20px rgba(0,0,0,0.3);">
+        <i class="fab fa-whatsapp" style="font-size: 30px;"></i>
+    </a>
+</div>
+ <div>
+<section class="hero-section" data-aos="fade-up">
+  <video autoplay muted loop class="hero-video">
+    <source src="./images/hero-2.webm" type="video/mp4">
+    Your browser does not.
+  </video>
+
+  
+  <div class="overlay"></div>
+
+  
+  <div class="hero-content" data-aos="fade-up" data-aos-delay="200" >
+    <h1>Your Technology, Our Priority</h1>
+    <p>IT Solutions · Software Development · Cloud Services · Digital Support</p>
+    <a href="./Components/contact.html"style="text-decoration: none; "><button class="btn btn-primary btn-lg" id="get-in-touch">Get in Touch</button></a>
+  </div>
+</section>
+
+<!--moving logos
+ 
+<section class="logo-strip" data-aos="fade-up">
+   
+  <div class="logo-row logo-row-left">
+    <div class="logo-track">
+       
+      <img src="./images/misbar.webp" alt="Logo 1" data-aos="fade-up">
+      <img src="./images/TCS.webp" alt="Logo 2" data-aos="fade-up">
+      <img src="./images/PRO.webp" alt="Logo 3" data-aos="fade-up">
+      <img src="./images/kids.png" alt="Logo 4">
+      <img src="./images/madni.png" alt="Logo 5">
+      <img src="./images/sakoon.png" alt="Logo 6">
+     <img src="./images/Hareesa.png" alt="Logo 7">
+      <img src="./images/rooh.png" alt="Logo 8">
+      <img src="./images/WhatsApp Image 2026-04-24 at 12.53.58 AM.jpeg" alt="Logo 9">
+
+      <img src="./images/PRO.webp" alt="Logo 1">
+      <img src="./images/misbar.webp" alt="Logo 2">
+      <img src="./images/TCS.webp" alt="Logo 3" data-aos="fade-up">
+      <img src="./images/kids.png" alt="Logo 4" data-aos="fade-up">
+      <img src="./images/madni.png" alt="Logo 5" data-aos="fade-up">
+       <img src="./images/sakoon.png" alt="Logo 6">
+       <img src="./images/Hareesa.png" alt="Logo 7">
+      <img src="./images/rooh.png" alt="Logo 8">
+      <img src="./images/WhatsApp Image 2026-04-24 at 12.53.58 AM.jpeg" alt="Logo 9">
+    </div>
+  </div>
+
+ 
+  <div class="logo-row logo-row-right">
+    <div class="logo-track">
+       
+     <img src="./images/misbar.webp" alt="Logo 1">
+      <img src="./images/TCS.webp" alt="Logo 2">
+      <img src="./images/PRO.webp" alt="Logo 3">
+      <img src="./images/kids.png" alt="Logo 4">
+      <img src="./images/madni.png" alt="Logo 5">
+       <img src="./images/sakoon.png" alt="Logo 6">
+       <img src="./images/Hareesa.png" alt="Logo 7">
+        <img src="./images/rooh.png" alt="Logo 8">
+       
+      <img src="./images/PRO.webp" alt="Logo 1">
+      <img src="./images/misbar.webp" alt="Logo 2">
+      <img src="./images/TCS.webp" alt="Logo 3" data-aos="fade-up">
+      <img src="./images/kids.png" alt="Logo 4" data-aos="fade-up">
+      <img src="./images/madni.png" alt="Logo 5" data-aos="fade-up">
+       <img src="./images/sakoon.png" alt="Logo 6">
+       <img src="./images/Hareesa.png" alt="Logo 7">
+        <img src="./images/rooh.png" alt="Logo 8">
+        <img src="./images/WhatsApp Image 2026-04-24 at 12.53.58 AM.jpeg" alt="Logo 9">
+    </div>
+    </div>
+  </div>
+</section>-->
+
+<section class="client-section" style="margin-top: 100px;">
+    <div class="client-container">
+        <h2>Our Trusted Partners</h2>
+        <div class="divider"></div>
+        <p class="sub-text">Trusted by demo clients for modern IT solutions and digital services.</p>
+
+        <div class="slider-wrapper">
+            <button class="nav-btn prev" onclick="moveSlide(-1)">❮</button>
+            
+            <div class="slider-box">
+                <div class="logo-track" id="logoTrack">
+                    <div class="logo-item"><img src="./images/partners/logo22.png" alt="Client 1"></div>
+                    <div class="logo-item"><img src="./images/partners/logo33.jpg" alt="Client 2"></div>
+                    <div class="logo-item"><img src="./images/partners/logo44.jpg.png" alt="Client 3"></div>
+                    <div class="logo-item"><img src="./images/partners/logo55.jpg" alt="Client 4"></div>
+                   
+                    <!--again-->
+                   <div class="logo-item"><img src="./images/partners/logo22.png" alt="Client 1"></div>
+                    <div class="logo-item"><img src="./images/partners/logo33.jpg" alt="Client 2"></div>
+                    <div class="logo-item"><img src="./images/partners/logo44.jpg.png" alt="Client 3"></div>
+                    <div class="logo-item"><img src="./images/partners/logo55.jpg" alt="Client 4"></div>
+                   
+                    <div class="logo-item"><img src="./images/partners/WhatsApp Image 2026-04-24 at 12.53.58 AM.jpeg" alt="Client 7"></div>
+                    <!-- <div class="logo-item"><img src="./images/partners/rooh.png" alt="Client 8"></div>
+                    <div class="logo-item"><img src="./images/partners/misbar.webp" alt="Client 9"></div> -->
+                </div>
+            </div>
+
+            <button class="nav-btn next" onclick="moveSlide(1)">❯</button>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* CSS Styling */
+    .client-section {
+        background-color: #ffffff;
+        padding: 60px 20px;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .client-container h2 {
+        font-size: 2.2rem;
+        color: #050a18;
+        margin-bottom: 10px;
+        font-family: sans-serif;
+    }
+
+    .divider {
+        width: 50px;
+        height: 3px;
+        background: #050505; /* Red line like your screenshot */
+        margin: 0 auto 20px;
+    }
+
+    .sub-text {
+        color: #666;
+        max-width: 700px;
+        margin: 0 auto 40px;
+    }
+
+    /* Slider Core */
+    .slider-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .slider-box {
+        width: 80%;
+        overflow: hidden;
+    }
+
+    .logo-track {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        gap: 20px; /* Logos ke darmiyan space */
+    }
+
+    .logo-item {
+        min-width: calc(20% - 20px); /* Desktop par 5 logos dikhenge */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .logo-item img {
+        max-width: 150px;
+        height: auto;
+        filter: none !important; /* No filters as requested */
+    }
+
+    /* Navigation Buttons */
+    .nav-btn {
+        background:#050505;
+        color: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+        z-index: 10;
+    }
+
+    .nav-btn:hover { background: #333; }
+
+    /* Mobile Responsive */
+    @media (max-width: 1024px) {
+        .logo-item { min-width: calc(33.33% - 20px); } /* Tablets: 3 logos */
+    }
+
+    @media (max-width: 600px) {
+        .logo-item { min-width: calc(100% - 20px); } /* Mobile: 1 logo */
+        .slider-box { width: 70%; }
+    }
+</style>
+
+<script>
+    // Partner Logo Slider JavaScript
+    // Fixed for English + Arabic RTL mode so all partner logos show/slide correctly.
+    const track = document.getElementById('logoTrack');
+    let index = 0;
+
+    function getTotalLogos() {
+        return track ? track.querySelectorAll('.logo-item').length : 0;
+    }
+
+    function getVisibleLogos() {
+        if (window.innerWidth <= 600) return 1;
+        if (window.innerWidth <= 1024) return 3;
+        return 5;
+    }
+
+    function resetPartnerSlider() {
+        index = 0;
+        if (track) {
+            track.style.transform = 'translateX(0px)';
+        }
+    }
+
+    function moveSlide(direction) {
+        if (!track) return;
+
+        const totalLogos = getTotalLogos();
+        const visibleLogos = getVisibleLogos();
+        const maxIndex = Math.max(totalLogos - visibleLogos, 0);
+
+        index += direction;
+
+        if (index > maxIndex) {
+            index = 0;
+        } else if (index < 0) {
+            index = maxIndex;
+        }
+
+        const firstItem = track.querySelector('.logo-item');
+        if (!firstItem) return;
+
+        const gap = parseFloat(window.getComputedStyle(track).gap) || 20;
+        const slideWidth = firstItem.offsetWidth + gap;
+        track.style.transform = `translateX(-${index * slideWidth}px)`;
+    }
+
+    // Make reset available to i18next language switcher.
+    window.resetPartnerSlider = resetPartnerSlider;
+
+    // Auto Slide every 3 seconds
+    let autoSlide = setInterval(() => moveSlide(1), 3000);
+
+    // Stop auto-slide when user interacts
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            clearInterval(autoSlide);
+            autoSlide = setInterval(() => moveSlide(1), 3000);
+        });
+    });
+
+    window.addEventListener('resize', resetPartnerSlider);
+</script>
+
+
+<!-- =========================
+     8. SERVICES SECTION (View More Logic)
+     ========================= -->
+<section class="drug-awareness-section">
+    <div class="container-fluid px-0"> 
+        
+        <div class="text-center mb-5 mt-5"> 
+            <h2 class="section-title">Transform Your Business</h2> 
+        </div>
+
+        <div class="drugs-row">
+            
+           
+
+            <a href="./Components/web.html" class="drug-card" onclick="flipCard(this)">
+                <div class="card-inner">
+                    <div class="card-front" style="background-image: url('./images/web.webp');">
+                        <div class="drug-overlay"></div>
+                        <h3 style="color: rgb(255, 255, 255);">Software Development</h3>
+                    </div>
+                    <div class="card-back">
+                        <h3>Web Development</h3> 
+                       <ul>
+    <li>
+        <i class="fa-solid fa-code"></i> 
+        Modern Business Websites
+    </li>
+    <li>
+        <i class="fa-solid fa-laptop-code"></i> 
+        Responsive User Interfaces
+    </li>
+    <li>
+        <i class="fa-solid fa-gauge-high"></i> 
+        Fast, Secure & SEO Ready
+    </li>
+</ul>
+
+                    </div>
+                </div>
+            </a>
+
+           <a href="./Components/app.html" class="drug-card" onclick="flipCard(this)">
+    <div class="card-inner">
+        <div class="card-front" style="background-image: url('./images/app.webp');">
+            <div class="drug-overlay"></div>
+            <h3  style="color: rgb(255, 255, 255);">App Development</h3>
+        </div>
+        <div class="card-back">
+            <h3>App Development</h3>
+            <p class="impact"><strong>Focus:</strong> Performance & UX</p>
+            <ul>
+                <li>
+                    <i class="fa-solid fa-mobile-screen-button"></i> 
+                    Android & iOS Apps
+                </li>
+                <li>
+                    <i class="fa-solid fa-layer-group"></i> 
+                    Smooth UI / UX Flow
+                </li>
+                <li>
+                    <i class="fa-solid fa-shield-halved"></i> 
+                    Secure & Scalable Apps
+                </li>
+            </ul>
+        </div>
+    </div>
+</a>
+
+
+           <a href="./Components/pms.html"  class="drug-card" onclick="flipCard(this)">
+    <div class="card-inner">
+        <div class="card-front" style="background-image: url('./images/PMs.png');">
+            <div class="drug-overlay"></div>
+            <h3  style="color: rgb(255, 255, 255);">Cloud Solutions</h3>
+        </div>
+        <div class="card-back">
+            <h3>Cloud Solutions</h3>
+            <p class="impact"><strong>Focus:</strong> Secure & Scalable Infrastructure</p>
+            <ul>
+                <li><i class="fa-solid fa-cloud"></i> Cloud Setup & Migration</li>
+                <li><i class="fa-solid fa-shield-halved"></i> Backup & Security Planning</li>
+                <li><i class="fa-solid fa-chart-line"></i> Performance Monitoring</li>
+            </ul>
+        </div>
+    </div>
+</a>
+
+
+           <a href="./Components/marketing.html"  class="drug-card" onclick="flipCard(this)">
+    <div class="card-inner">
+        <div class="card-front" style="background-image: url('./images/marketing.webp');">
+            <div class="drug-overlay"></div>
+            <h3  style="color: rgb(255, 255, 255);">Digital Consultancy</h3>
+        </div>
+        <div class="card-back">
+            <h3>Digital Consultancy</h3>
+            <p class="impact"><strong>Focus:</strong> Growth & Visibility</p>
+            <ul>
+                <li><i class="fa-solid fa-bullhorn"></i> Brand & Campaign Planning</li>
+                <li><i class="fa-solid fa-magnifying-glass-chart"></i> SEO & Analytics</li>
+                <li><i class="fa-solid fa-users"></i> Lead Funnel Optimization</li>
+            </ul>
+        </div>
+    </div>
+</a>
+
+
+        </div>
+
+        <div class="drugs-row mt-3">
+            
+           <a href="./Components/crm.html"  class="drug-card" onclick="flipCard(this)">
+    <div class="card-inner">
+        <div class="card-front" style="background-image: url('./images/crm.webp');">
+            <div class="drug-overlay"></div>
+            <h3  style="color: rgb(255, 255, 255);">CRM Automation</h3>
+        </div>
+        <div class="card-back">
+            <h3>Full CRM System</h3>
+            <p class="impact"><strong>Focus:</strong> Business Automation</p>
+            <ul>
+                <li><i class="fa-solid fa-user-gear"></i> Client Management</li>
+                <li><i class="fa-solid fa-diagram-project"></i> Sales Pipeline Tracking</li>
+                <li><i class="fa-solid fa-robot"></i> Workflow Automation</li>
+            </ul>
+        </div>
+    </div>
+</a>
+
+
+            
+
+           <a href="./Components/pos.html"  class="drug-card" onclick="flipCard(this)">
+    <div class="card-inner">
+        <div class="card-front" style="background-image: url('./images/6a327a49c84f482a9fd9ba0451a31765.webp');">
+            <div class="drug-overlay"></div>
+            <h3  style="color: rgb(255, 255, 255);">POS Solutions</h3>
+        </div>
+        <div class="card-back">
+            <h3>POS Solutions</h3>
+            <p class="impact"><strong>Focus:</strong> Fast & Accurate Sales</p>
+            <ul>
+                <li><i class="fa-solid fa-cash-register"></i> Quick Billing</li>
+                <li><i class="fa-solid fa-boxes-stacked"></i> Inventory Control</li>
+                <li><i class="fa-solid fa-receipt"></i> Sales Reports</li>
+            </ul>
+        </div>
+    </div>
+</a>
+    
+
+          <a href="./Components/E-com.html"  class="drug-card" onclick="flipCard(this)">
+    <div class="card-inner">
+        <div class="card-front" style="background-image: url('./images/5c77ba78b22044d5ba75652b75559eec.webp');">
+            <div class="drug-overlay"></div>
+            <h3  style="color: rgb(255, 255, 255);">E-Commerce Platforms</h3>
+        </div>
+        <div class="card-back">
+            <h3>E-Commerce Platforms</h3>
+            <p class="impact"><strong>Focus:</strong> Online Sales Growth</p>
+            <ul>
+                <li><i class="fa-solid fa-cart-shopping"></i> Online Store Setup</li>
+                <li><i class="fa-solid fa-credit-card"></i> Secure Payments</li>
+                <li><i class="fa-solid fa-truck-fast"></i> Order Management</li>
+            </ul>
+        </div>
+    </div>
+</a>
+
+<a href="./Components/AI.html" class="drug-card" onclick="flipCard(this)">
+    <div class="card-inner">
+        <div class="card-front" style="background-image: url('./images/ai.png');">
+            <div class="drug-overlay"></div>
+            <h3 style="color: rgb(255, 255, 255);">AI Automation</h3>
+        </div>
+        <div class="card-back">
+            <h3>AI Automation</h3>
+            <p class="impact"><strong>Focus:</strong> Future-Proof Workflows</p>
+            <ul>
+                <li><i class="fa-solid fa-robot"></i> Smart AI Chatbots</li>
+                <li><i class="fa-solid fa-brain"></i> Predictive Analytics</li>
+                <li><i class="fa-solid fa-gears"></i> Process Automation</li>
+            </ul>
+        </div>
+    </div>
+</a>
+
+
+            
+
+        </div>
+    </div>
+</section>
+
+<script>
+    function flipCard(card) {
+        if (window.innerWidth < 992) {
+            card.classList.toggle('flipped');
+        }
+    }
+</script>
+<style>
+
+    
+    /* ========================
+   DRUG AWARENESS (10 CARDS GRID - FIXED)
+   ======================== */
+.drug-awareness-section {
+    padding: 0 0 80px 0;
+    background-color: var(--light);
+}
+
+/* Container for each row */
+.drugs-container {
+    display: flex;
+    width: 95%; 
+    max-width: 1400px;
+    height: 250px; /* Fixed Height Desktop */
+    margin: 0 auto;
+    gap: 10px;
+}
+
+/* --- CARD (PANEL) STYLING --- */
+.drug-panel {
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    color: white;
+    cursor: pointer;
+    flex: 1; 
+    position: relative;
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* --- HOVER & ACTIVE EFFECT (DESKTOP) --- */
+/* .active class add ki hai taake JS se click par bhi chalay */
+.drug-panel:hover,
+.drug-panel.active {
+    flex: 3; /* Expand Card */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    border-color: var(--primary);
+}
+
+/* Dark Overlay */
+.drug-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to top, #050505 15%, #050505 40%, transparent 100%);
+    z-index: 1;
+}
+ 
+
+/* --- HEADINGS --- */
+.drug-panel h3 {
+    position: absolute;
+    bottom: 20px;
+    left: 15px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin: 0;
+    z-index: 2;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: all 0.5s ease;
+    transform: none; 
+    writing-mode: horizontal-tb;
+    pointer-events: none; /* Click pass-through */
+}
+
+/* Hover/Active Heading */
+.drug-panel:hover h3,
+.drug-panel.active h3 {
+    bottom: auto;
+    top: 25px;
+    left: 20px;
+    font-size: 1.8rem;
+    color: var(--primary);
+}
+
+/* --- DRUG INFO --- */
+.drug-info {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    right: 10px;
+    opacity: 0;
+    z-index: 2;
+    transform: translateY(20px);
+    transition: 0.5s ease;
+    transition-delay: 0.1s;
+    min-width: 250px;
+    pointer-events: none; /* Click pass-through */
+}
+
+/* Hover/Active Info Show */
+.drug-panel:hover .drug-info,
+.drug-panel.active .drug-info {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.danger-text { 
+    font-size: 0.9rem; 
+    margin-bottom: 10px; 
+    font-weight: 300; 
+    line-height: 1.3;
+}
+
+.danger-list { list-style: none; padding: 0; margin: 0; }
+.danger-list li { 
+    font-size: 0.85rem; 
+    margin-bottom: 5px; 
+    font-weight: 600; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+}
+.danger-list i { color: #ff4d4d; font-size: 1rem; }
+/* ========================
+   DRUG AWARENESS (FIXED LAYOUT)
+   ======================== */
+.drug-awareness-section {
+    padding: 0 0 80px 0;
+    background-color: var(--light);
+}
+
+/* -----------------------------
+   DESKTOP STYLES (EXPAND ON HOVER)
+   ----------------------------- */
+@media (min-width: 992px) {
+    
+    /* Har Row ko alag flex container banaya */
+    .drugs-row {
+        display: flex;
+        width: 95%;
+        max-width: 1400px;
+        margin: 0 auto;
+        gap: 10px;
+        justify-content: center;
+        height: 250px; /* Desktop Height Fixed */
+    }
+
+    /* Card styling */
+    .drug-card {
+        flex: 1; /* By default sab barabar (1x) */
+        border-radius: 15px;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        overflow: hidden;
+    }
+
+    .card-inner { width: 100%; height: 100%; }
+    
+    .card-front {
+        width: 100%; height: 100%;
+        background-size: cover;
+        background-position: center;
+        position: absolute;
+    }
+
+    /* --- HOVER MAGIC --- */
+    .drug-card:hover {
+        flex: 3; /* Hover karne par 3x bara ho jaye */
+        z-index: 10;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    /* Heading Animation */
+    .card-front h3 {
+        position: absolute;
+        bottom: 20px; left: 20px;
+        color: white; font-size: 1.2rem; text-transform: uppercase;
+        z-index: 2; font-weight: 800;
+        transition: 0.4s;
+    }
+
+    .drug-card:hover .card-front h3 {
+        bottom: auto; top: 20px; font-size: 2rem; color: var(--accent);
+    }
+
+    /* Back Info (Fade In) */
+    .card-back {
+        position: absolute;
+        bottom: 20px; left: 20px;
+        opacity: 0;
+        transition: 0.5s ease;
+        z-index: 3;
+        color: white;
+        pointer-events: none;
+    }
+
+    .drug-card:hover .card-back {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .card-back h3 { display: none; } /* Desktop pe naam front se ayega */
+    
+    .drug-overlay {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(to top,  rgba(5, 5, 5, 0.78), transparent);
+    }
+}
+
+/* -----------------------------
+   MOBILE STYLES (GRID + FLIP)
+   ----------------------------- */
+@media (max-width: 991px) {
+    
+    /* MOBILE FIX: Container ko 'contents' display kar diya taake rows ka structure toot jaye */
+    /* Is se saare cards aik hi flow mein aa jayenge */
+    .drugs-row {
+        display: contents; 
+    }
+
+    /* Ab hum aik naya grid container banayenge jo wrap karega */
+    /* Lekin chunke HTML mein 2 alag rows hain, hum unko CSS Grid se jor nahi sakte easily */
+    /* Isliye best tareeqa ye hai ke hum cards ko seedha float karwayen */
+
+    .drug-awareness-section .container-fluid {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 2 Cards per line */
+        gap: 15px;
+        padding: 0 15px;
+    }
+
+    /* Heading waghaira ko full width dena parega */
+    .text-center {
+        grid-column: 1 / -1; /* Heading poori jagah le */
+    }
+
+    /* 3D Flip Setup */
+    .drug-card {
+        background-color: transparent;
+        height: 220px; /* Card Height */
+        perspective: 1000px;
+        cursor: pointer;
+        width: 100%; /* Full width of column */
+        margin-bottom: 0; /* Gap grid sambhal lega */
+    }
+
+    .card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-radius: 15px;
+    }
+
+    /* Javascript class for Flip */
+    .drug-card.flipped .card-inner {
+        transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden; /* Peeche se chup jaye */
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    /* Front Side */
+    .card-front {
+        background-color: #bbb;
+        background-size: cover;
+        background-position: center;
+        color: white;
+    }
+
+    .card-front h3 {
+        position: absolute;
+        bottom: 10px; left: 0; right: 0;
+        font-size: 1rem;
+        background: #050505;
+        padding: 5px;
+        margin: 0;
+        text-transform: uppercase;
+    }
+
+    /* Back Side (Rotated) */
+    .card-back {
+        background-color: var(--secondary); /* Dark Green */
+        color: white;
+        transform: rotateY(180deg);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .card-back h3 {
+        font-size: 1.1rem;
+        color: var(--accent);
+        margin-bottom: 5px;
+    }
+
+    .card-back .impact { font-size: 0.8rem; margin-bottom: 8px; }
+
+    .card-back ul { list-style: none; padding: 0; text-align: left; }
+
+    .card-back li {
+        font-size: 0.75rem; 
+        margin-bottom: 4px;
+        display: flex; align-items: center; gap: 5px;
+    }
+    
+    .card-back i { color: #ff6b6b; font-size: 0.9rem; }
+    
+    .drug-overlay { display: none; }
+}
+</style>
+
+
+
+<!-- SCRIPT FOR TOGGLE -->
+<script>
+    function toggleServices() {
+        const extraServices = document.getElementById('extraServices');
+        const viewMoreBtn = document.getElementById('viewMoreBtn');
+        const viewLessBtn = document.getElementById('viewLessBtn');
+
+        if (extraServices.style.display === "none") {
+            extraServices.style.display = "block"; // Show
+            viewMoreBtn.style.display = "none";
+            viewLessBtn.style.display = "inline-block";
+        } else {
+            extraServices.style.display = "none"; // Hide
+            viewMoreBtn.style.display = "inline-block";
+            viewLessBtn.style.display = "none";
+            
+            // Scroll back slightly so user isn't lost
+            document.getElementById('service').scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+</script>
+
+<!--industryy-->
+ 
+<section class="industries-section"  data-aos="fade-up">
+ 
+   
+
+  <h2 class="industries-title" data-aos="fade-left">Discover Our Real Estate Expertise</h2>
+
+  <div class="industries-grid">
+    <div class="industry-item">
+      
+      <div class="industry-text" data-aos="fade-right">Travel & Hospitality</div>
+    </div>
+
+    <div class="industry-item">
+      
+      <div class="industry-text" data-aos="fade-left">Public Sector</div>
+    </div>
+
+    <div class="industry-item"> 
+      <div class="industry-text" data-aos="fade-right">Telecommunication</div>
+    </div>
+
+    <div class="industry-item"> 
+      <div class="industry-text" data-aos="fade-left">Retail & CPG</div>
+    </div>
+
+    <div class="industry-item"> 
+      <div class="industry-text" data-aos="fade-right">Oil, Gas, and Energy</div>
+    </div>
+
+    <div class="industry-item"> 
+      <div class="industry-text" data-aos="fade-left">Startups</div>
+    </div>
+
+    <div class="industry-item"> 
+      <div class="industry-text" data-aos="fade-right">E-commerce</div>
+    </div>
+
+    <div class="industry-item"> 
+      <div class="industry-text" data-aos="fade-left">Banking & Fintech</div>
+    </div>
+
+    
+  </div>
+
+  
+</section>
+ <div class="btn" style="border: none;">
+    <a href="./Components/indus.html" style="text-decoration: none; width: 150px;"><button class="btn btn-outline-primary" id="industry-btn" >EXPLORE MORE</button></a>
+ </div>
+
+ <!--our story-->
+
+ <section class="section">
+  <div class="left-text">
+    <h1>Our Journey</h1>
+    <p>Royal IT is a demo technology brand built to showcase how a modern IT company can plan, design, develop, and support digital products for growing businesses.</p>
+  </div>
+
+  <div class="right-cards">
+    <div class="card card-1" data-aos="fade-up"><h3>IDEA PLANNING</h3></div>
+    <div class="card card-2" data-aos="fade-up"><h3>UI / UX DESIGN</h3></div>
+    <div class="card card-3" data-aos="fade-up"><h3>WEB DEVELOPMENT</h3></div>
+    <div class="card card-4" data-aos="fade-up"><h3>MOBILE APPS</h3></div>
+    <div class="card card-5" data-aos="fade-up"><h3>CLOUD SETUP</h3></div>
+    <div class="card card-6" data-aos="fade-up"><h3>ONGOING SUPPORT</h3></div>
+  </div>
+</section>
+
+<!--ssssssss-->
+<section class="achievements-section" id="activements">
+  <div class="achievements-left">
+    <h1>Pioneering Trust in IT Solutions</h1>
+    <h2>Royal IT Achievements</h2>
+    <p>We take pride in delivering reliable dummy IT solutions for demo clients across web, software, cloud, and automation services.</p>
+  </div>
+
+  <div class="achievements-right">
+    
+    <div class="stat">
+      <span class="number" data-aos="fade-left" data-aos-delay="100">61+</span>
+      <span class="desc">Completed Demo Projects</span>
+    </div>
+
+    <div class="stat">
+      <span class="number" data-aos="fade-left" data-aos-delay="200">6+</span>
+      <span class="desc">Demo Locations Covered</span>
+    </div>
+
+    <div class="stat">
+      <span class="number" data-aos="fade-left" data-aos-delay="300">7+</span>
+      <span class="desc">Demo Clients</span>
+    </div>
+
+    <div class="stat">
+      <span class="number" data-aos="fade-left" data-aos-delay="400">6+</span>
+      <span class="desc">Years of Demo Experience</span>
+    </div>
+
+  </div>
+</section>
+<!---->
+<section class="careers-section">
+ <section class="video-scroll-section">
+    <div class="sticky-wrapper">
+            <div class="content-container">
+            
+            <div class="video-box">
+                <video autoplay muted loop playsinline class="main-video">
+                    <source src="./images/meet.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="text-box">
+                
+                <h2>Services</h2>
+                <span class="sub-heading">Service-first is our foundation.</span>
+                <p>Explore demo IT solutions and digital service opportunities with Royal IT.</p>
+                
+               <!----> <a href="./Components/join us.html" style="text-decoration: none; width: 150px;" data-aos="fade-up"><button class="join-btn">Contact Us</button></a>
+            </div>
+
+        </div>
+    </div>
+</section>
+<script>
+    // Scroll Video Animation Logic
+    window.addEventListener('scroll', function() {
+        const section = document.querySelector('.video-scroll-section');
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const scrollPosition = window.scrollY;
+
+        // Jab user section ke 1/3 hissay tak scroll kar le
+        if (scrollPosition > sectionTop + (sectionHeight / 4)) {
+            section.classList.add('active');
+        } else {
+            section.classList.remove('active');
+        }
+    });
+</script>
+<!--our teammmmmm
+<section class="team-hierarchy">
+    <div class="team-container">
+        <h2 class="team-heading">Our Core Leadership</h2>
+        <p class="team-subheading">The experts behind Royal IT</p>
+
+        <div class="hierarchy-wrapper">
+            <div class="admin-row">
+                <div class="team-node admin-node">
+                    <div class="node-content">
+                        <i class="fas fa-user-shield icon-style"></i>
+                        <h3>CASEY BROOKS</h3>
+                        <p>Super Admin</p>
+                    </div>
+                </div>
+            </div>
+
+            <svg class="tree-lines" viewBox="0 0 1000 100" preserveAspectRatio="none">
+                <path d="M500,0 L500,50 M100,50 L900,50 M100,50 L100,100 M300,50 L300,100 M500,50 L500,100 M700,50 L700,100 M900,50 L900,100" 
+                      fill="none" stroke="#ddd" stroke-width="2" />
+            </svg>
+
+            <div class="members-grid">
+                
+                <div class="team-node member-node leader-card">
+                    <div class="node-content">
+                        <i class="fas fa-star leader-icon"></i>
+                        <h3>John Doe</h3>
+                        <p>Team Leader & Web Dev</p>
+                    </div>
+                    <a href="#" class="linkedin-link"><i class="fab fa-linkedin"></i></a>
+                </div>
+
+                <div class="team-node member-node">
+                    <div class="node-content">
+                        <h3>RILEY COOPER</h3>
+                        <p>Full Stack Developer</p>
+                    </div>
+                    <a href="#" class="linkedin-link"><i class="fab fa-linkedin"></i></a>
+                </div>
+                
+                <div class="team-node member-node">
+                    <div class="node-content">
+                        <h3>JAMIE STONE</h3>
+                        <p>Frontend Dev</p>
+                    </div>
+                    <a href="#" class="linkedin-link"><i class="fab fa-linkedin"></i></a>
+                </div>
+
+                <div class="team-node member-node">
+                    <div class="node-content">
+                        <h3>PARKER JONES</h3>
+                        <p>Marketing</p>
+                    </div>
+                    <a href="#" class="linkedin-link"><i class="fab fa-linkedin"></i></a>
+                </div>
+
+                <div class="team-node member-node">
+                    <div class="node-content">
+                        <h3>MORGAN BLAKE</h3>
+                        <p>Full Stack Developer</p>
+                    </div>
+                    <a href="#" class="linkedin-link"><i class="fab fa-linkedin"></i></a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+    /* Section Centering */
+    .team-hierarchy {
+        background: #ffffff;
+        padding: 60px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .team-container { width: 100%; max-width: 1100px; text-align: center; }
+
+    .team-heading { color: #050505; font-size: 2rem; font-weight: 700; margin-bottom: 5px; }
+    .team-subheading { color: #888; margin-bottom: 40px; font-size: 0.9rem; }
+
+    .hierarchy-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+    }
+
+    /* Cards Styling - No Animations */
+    .team-node {
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        padding: 15px;
+        width: 180px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        position: relative;
+        transition: transform 0.2s ease; /* Sirf halka sa lift up hover par */
+    }
+
+    .team-node:hover {
+        transform: translateY(-5px);
+        border-color: #050505;
+    }
+
+    .node-content h3 { font-size: 1rem; color: #050505; margin: 10px 0 5px; }
+    .node-content p { font-size: 0.75rem; color: #666; margin: 0; }
+
+    /* Admin & Leader Special Styles */
+    .admin-node { border: 2px solid #050505; width: 200px; }
+    .icon-style { color: #050505; font-size: 1.2rem; }
+
+    .leader-card { 
+        border: 2px solid #0d96b1; 
+        background: #f9feff; 
+    }
+    .leader-icon { color: #0d96b1; font-size: 0.9rem; margin-bottom: 5px; }
+
+    /* Grid Layout - Responsive */
+    .members-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    /* Tree Lines (Desktop Only) */
+    .tree-lines {
+        width: 100%;
+        height: 60px;
+        margin: 10px 0;
+    }
+
+    /* Social Link */
+    .linkedin-link {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #0077b5;
+        font-size: 0.8rem;
+        opacity: 0.5;
+    }
+    .linkedin-link:hover { opacity: 1; }
+
+    /* MOBILE RESPONSIVE FIX */
+    @media (max-width: 768px) {
+        .tree-lines { display: none; } /* Mobile par lines nikal di taake messy na lage */
+        
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Automatically screen ke hisab se cards set honge */
+            gap: 15px;
+            padding: 0 10px;
+        }
+
+        .team-node {
+            width: auto; /* Mobile par automatic width */
+            padding: 12px;
+        }
+
+        .team-heading { font-size: 1.6rem; }
+    }
+</style>-->
+ 
+  <!--CEO-->
+  <section class="ceo-message-section" id="ceo-section">
+    <div class="container">
+        <div class="ceo-content-wrapper" data-aos="fade-up">
+            
+            <h1 class="section-heading">DEMO GROUP LEADERSHIP</h1>
+            
+            <div class="quote-box">
+                <i class="fa-solid fa-quote-left quote-icon"></i> 
+                <h4 class="ceo-statement">
+                    "Trust is our foundation, and your satisfaction is our measure of success. At Royal IT, we combine Demo Group’s experience with local market expertise to help you buy, sell, lease, and invest with confidence."
+                </h4>
+            </div>
+
+            <div class="ceo-signature">
+                <h3 class="ceo-name">ALEX MORGAN</h3>
+                
+                <a href="#" target="_blank" title="Connect on Social" class="linkedin-btn">
+                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="Social">
+                    <span>Connect</span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!--reviewwwwwwwwww-->
+<section class="rating-section">
+    <div class="rating-wrapper">
+        <h2 class="rating-title">How was your service experience?</h2>
+        <p class="rating-subtitle">Select a rating for our demo service</p>
+
+        <div class="clouds-grid">
+            <div class="rating-cloud" data-value="1">
+                <div class="cloud-shape">
+                    <div class="face">
+                        <div class="eyes angry-eyes"><span></span><span></span></div>
+                        <div class="mouth sad-arch"></div>
+                    </div>
+                </div>
+                <span id="n">Poor</span>
+            </div>
+
+            <div class="rating-cloud" data-value="2">
+                <div class="cloud-shape">
+                    <div class="face">
+                        <div class="eyes"><span></span><span></span></div>
+                        <div class="mouth flat-line"></div>
+                    </div>
+                </div>
+                <span id="n">Fair</span>
+            </div>
+
+            <div class="rating-cloud" data-value="3">
+                <div class="cloud-shape">
+                    <div class="face">
+                        <div class="eyes"><span></span><span></span></div>
+                        <div class="mouth neutral-circle"></div>
+                    </div>
+                </div>
+                <span id="n">Good</span>
+            </div>
+
+            <div class="rating-cloud" data-value="4">
+                <div class="cloud-shape">
+                    <div class="face">
+                        <div class="eyes"><span></span><span></span></div>
+                        <div class="mouth smile-curve"></div>
+                    </div>
+                </div>
+                <span id="n">Great</span>
+            </div>
+
+            <div class="rating-cloud" data-value="5" id="excellent-cloud">
+                <div class="cloud-shape">
+                    <div class="face">
+                        <div class="eyes blinking-eyes"><span></span><span></span></div>
+                        <div class="mouth big-smile"></div>
+                    </div>
+                </div>
+                <span id="n">Excellent!</span>
+            </div>
+        </div>
+
+        <div class="rating-result">
+            <div class="average-box">
+                <span id="avg-val">4.8</span>
+                <i class="fas fa-star"></i>
+            </div>
+            <p>Total Reviews: <span id="total-rev">1,250</span></p>
+        </div>
+    </div>
+</section>
+
+<style>
+    .rating-section {
+        width: 100%;
+        min-height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #ffffff;
+        padding: 60px 20px;
+        font-family: 'Poppins', sans-serif;
+        overflow: hidden; /* Prevent scroll on heart fly */
+    }
+
+    .rating-wrapper { width: 100%; max-width: 900px; text-align: center; }
+    .rating-title { color: #050505; font-size: 2.5rem; font-weight: 800; }
+    .rating-subtitle { color: #666; margin-bottom: 50px; }
+
+    /* Centered Grid for Mobile & Desktop */
+    .clouds-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 30px;
+        justify-items: center;
+        margin-bottom: 50px;
+    }
+
+    .rating-cloud { cursor: pointer; transition: 0.3s; text-align: center; position: relative; }
+    .rating-cloud span { display: block; margin-top: 15px; font-weight: 600; color: #888; }
+
+    .cloud-shape {
+        position: relative;
+        width: 100px;
+        height: 50px;
+        background: #f0f2f5;
+        border-radius: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .cloud-shape::before, .cloud-shape::after {
+        content: ''; position: absolute; background: inherit; border-radius: 50%;
+    }
+    .cloud-shape::before { width: 50px; height: 50px; top: -25px; left: 15px; }
+    .cloud-shape::after { width: 60px; height: 60px; top: -30px; right: 10px; }
+
+    /* --- Faces & Different Mouths --- */
+    .face { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; margin-top: 12px; height: 60px; }
+    .eyes { display: flex; gap: 15px; }
+    .eyes span { width: 6px; height: 6px; background: #050505; border-radius: 50%; }
+
+    .mouth { background: #050505; transition: 0.3s; }
+
+    /* 1. Angry */
+    .angry-eyes span { transform: translateY(2px) rotate(45deg); border-radius: 2px; height: 3px; }
+    .sad-arch { width: 18px; height: 8px; background: transparent !important; border-top: 3px solid #050505; border-radius: 50% 50% 0 0; margin-top: 8px; }
+    
+    /* 2. Flat */
+    .flat-line { width: 15px; height: 3px; margin-top: 10px; border-radius: 2px; }
+    
+    /* 3. Neutral */
+    .neutral-circle { width: 10px; height: 10px; border-radius: 50%; margin-top: 8px; background: transparent !important; border: 2px solid #050505; }
+
+    /* 4. Smile */
+    .smile-curve { width: 20px; height: 10px; background: transparent !important; border-bottom: 3px solid #050505; border-radius: 0 0 15px 15px; margin-top: 5px; }
+
+    /* 5. Excellent */
+    .big-smile { width: 25px; height: 12px; background: #050505; border-radius: 0 0 20px 20px; margin-top: 5px; }
+
+    /* Selection States */
+    .rating-cloud.selected .cloud-shape { background: #050505; transform: scale(1.1); box-shadow: 0 10px 20px rgba(108, 92, 231, 0.2); }
+    .rating-cloud.selected .eyes span, 
+    .rating-cloud.selected .mouth { background: #D4AF37 !important; border-color: #D4AF37 !important; }
+    .rating-cloud.selected span { color: #050505; font-weight: 800; }
+
+    /* Result Styling */
+    .rating-result { border-top: 2px solid #f0f2f5; padding-top: 30px; }
+    .average-box { font-size: 2.8rem; font-weight: 900; color: #050505; display: flex; justify-content: center; align-items: center; gap: 15px; }
+    .average-box i { color: #ffca28; animation: pulse 2s infinite; }
+
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+
+    /* Blue Heart Particle - Global Positioning */
+    .blue-heart {
+        position: fixed;
+        color: #D4AF37;
+        font-size: 50px;
+        pointer-events: none;
+        z-index: 9999;
+        animation: heartFlyUp 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+
+    @keyframes heartFlyUp {
+        0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
+        100% { transform: translate(var(--dirX), -200px) scale(0) rotate(45deg); opacity: 0; }
+    }
+
+    /* Mobile Logic */
+    @media (max-width: 600px) {
+        .clouds-grid { grid-template-columns: repeat(2, 1fr); gap: 50px; }
+        .rating-cloud:last-child { grid-column: span 2; margin-top: 10px; } /* Last cloud centers on mobile */
+        .rating-title { font-size: 1.8rem; } 
+        #n{
+            display: none;
+        }
+    }
+</style>
+
+<script>
+    const clouds = document.querySelectorAll('.rating-cloud');
+
+    clouds.forEach(cloud => {
+        cloud.addEventListener('click', (e) => {
+            // Remove previous selection
+            clouds.forEach(c => c.classList.remove('selected'));
+            cloud.classList.add('selected');
+
+            // 5th rating heart effect
+            if (cloud.getAttribute('data-value') === "5") {
+                for (let i = 0; i < 12; i++) {
+                    createHeart(e.clientX, e.clientY);
+                }
+            }
+        });
+    });
+
+    function createHeart(x, y) {
+        const heart = document.createElement('i');
+        heart.className = 'fas fa-heart blue-heart';
+        
+        // Random horizontal direction
+        const dirX = (Math.random() - 0.5) * 200;
+        heart.style.setProperty('--dirX', `${dirX}px`);
+        
+        // Spawn at click position
+        heart.style.left = `${x}px`;
+        heart.style.top = `${y}px`;
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 1500);
+    }
+</script>
+
+
+<!--FAQQQQQ-->
+<section class="faq-section">
+    <div class="faq-watermark">
+        <img src="./images/royal-logo-light.png" alt="Royal IT watermark">
+    </div>
+
+    <div class="faq-wrapper">
+        <div class="faq-header">
+            <h2 class="faq-title">Frequently Asked <span>Questions</span></h2>
+            <div class="title-line"></div>
+        </div>
+
+        <div class="faq-grid">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="q-num">01</span>
+                    <p>What makes Royal IT different?</p>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="answer-content">
+                        Royal IT combines demo technical expertise, transparent communication, and professional guidance for businesses exploring digital solutions.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="q-num">02</span>
+                    <p>Do you provide web and software services?</p>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="answer-content">
+                        Yes, our demo team assists with websites, software systems, cloud support, automation, and digital consultancy.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="q-num">03</span>
+                    <p>Do you offer IT consultation?</p>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="answer-content">
+                        Yes, Royal IT helps demo clients review technical needs, project scope, system options, and growth potential.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="q-num">04</span>
+                    <p>How do you handle client communication?</p>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="answer-content">
+                        Transparency is key. We keep clients updated through calls, WhatsApp, and in-person consultations from inquiry to closing.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="q-num">05</span>
+                    <p>Do you provide reliable project planning?</p>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="answer-content">
+                        Yes, we focus on clear project information, realistic planning, and transparent communication so clients can make confident decisions.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* --- Main Variables --- */
+    :root {
+        --navy: #050505;
+        --light-black: #1a1a1a;
+        --cyan: #D4AF37;
+        --border-color: #f0f2f5;
+    }
+
+    .faq-section {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #ffffff;
+        padding: 60px 15px; /* Mobile par space kam karne ke liye */
+        font-family: 'Montserrat', sans-serif;
+        overflow: hidden;
+    }
+
+    /* --- Watermark Logo --- */
+    .faq-watermark {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 60%;
+        max-width: 500px;
+        opacity: 0.5; /* Very subtle watermark */
+        z-index: 1;
+        pointer-events: none;
+    }
+    .faq-watermark img { width: 100%; height: auto; }
+
+    .faq-wrapper {
+        width: 100%;
+        max-width: 850px;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* --- Header --- */
+    .faq-header { margin-bottom: 50px; text-align: center; }
+    .faq-title { font-size: 2.2rem; font-weight: 800; color: var(--navy); }
+    .faq-title span { color: var(--cyan); }
+    .title-line { 
+        width: 60px; height: 4px; background: var(--cyan); 
+        margin: 15px auto; border-radius: 2px; 
+    }
+
+    /* --- FAQ Items --- */
+    .faq-grid { display: flex; flex-direction: column; gap: 15px; }
+
+    .faq-item {
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        transition: 0.3s;
+    }
+
+    .faq-question {
+        padding: 22px 25px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .q-num {
+        font-weight: 800;
+        color: var(--cyan);
+        margin-right: 20px;
+        font-size: 0.9rem;
+    }
+
+    .faq-question p {
+        flex: 1;
+        font-weight: 700;
+        color: var(--light-black);
+        font-size: 1.05rem;
+        margin: 0;
+    }
+
+    .faq-question i {
+        color: var(--navy);
+        transition: 0.4s;
+    }
+
+    /* --- Answer Area --- */
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .answer-content {
+        padding: 0 25px 25px 55px;
+        color: #555;
+        line-height: 1.7;
+        font-size: 0.95rem;
+    }
+
+    /* --- Active States --- */
+    .faq-item.active {
+        border-color: var(--navy);
+        box-shadow: 0 10px 25px rgba(17, 17, 58, 0.05);
+    }
+
+    .faq-item.active .faq-question p { color: var(--navy); }
+
+    .faq-item.active i {
+        transform: rotate(45deg);
+        color: var(--cyan);
+    }
+
+    .faq-item.active .faq-answer {
+        max-height: 300px; /* Adjust based on text length */
+    }
+
+    /* --- Mobile Optimization --- */
+    @media (max-width: 600px) {
+        .faq-section { padding: 40px 10px; }
+        .faq-title { font-size: 1.6rem; }
+        .faq-question { padding: 18px 15px; }
+        .answer-content { padding: 0 15px 20px 45px; font-size: 0.9rem; }
+        .q-num { margin-right: 12px; }
+        .faq-watermark { width: 80%; }
+    }
+</style>
+
+<script>
+    document.querySelectorAll('.faq-question').forEach(button => {
+        button.addEventListener('click', () => {
+            const faqItem = button.parentElement;
+            
+            // Close other items for accordion effect
+            document.querySelectorAll('.faq-item').forEach(item => {
+                if (item !== faqItem) item.classList.remove('active');
+            });
+
+            // Toggle current
+            faqItem.classList.toggle('active');
+        });
+    });
+</script>
+
+
+
+
+<!--contact-->
+  
+   <div id="unique-contact-section" style="font-family: 'Montserrat', sans-serif; background-color: #fff; overflow-x: hidden; width: 100%; box-sizing: border-box;">
+    
+    <section style="display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 40px; padding: 60px 5%; max-width: 1300px; margin: 0 auto; width: 100%; box-sizing: border-box;">
+        
+        <div class="contact-left-col" style="flex: 2; min-width: 320px; box-sizing: border-box;">
+            <h1 style="font-size: clamp(28px, 5vw, 36px); margin: 0 0 10px 0; color: #050505; font-weight: 800; line-height: 1.2;">Let’s Discuss Your IT Needs</h1>
+            <p style="font-size: 15px; margin: 0 0 30px 0; color: #666; line-height: 1.6; font-weight: 500;">Fill out the demo form below and our IT consultant will contact you shortly.</p>
+
+            <form id="contactForm" style="display: flex; flex-direction: column; gap: 15px; background: #fff; box-sizing: border-box;">
+                
+                <input type="hidden" name="selected_services" id="selected_services">
+
+                <div style="display: flex; flex-wrap: wrap; gap: 15px; width: 100%;">
+                    <div style="flex: 1; min-width: 250px;">
+                        <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Full Name <span style="color: red;">*</span></label>
+                        <input type="text" name="full_name" placeholder="John Doe" required style="width: 100%; padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; font-family: 'Montserrat', sans-serif; outline: none;">
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Email <span style="color: red;">*</span></label>
+                        <input type="email" name="user_email" placeholder="email@example.com" required style="width: 100%; padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; font-family: 'Montserrat', sans-serif; outline: none;">
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-wrap: wrap; gap: 15px; width: 100%;">
+                    <div style="flex: 1; min-width: 250px;">
+                        <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Phone Number <span style="color: red;">*</span></label>
+                        <div style="display: flex; gap: 5px;">
+                            <select name="country_code" required style="width: 90px; padding: 10px 5px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 13px; outline: none;">
+                                <option value="+000">DM +000</option>
+                                <option value="+000">DM +000</option>
+                                <option value="+000">Demo Region +000</option>
+                            </select>
+                            <input type="tel" name="phone_number" placeholder="55 123 4567" required style="flex: 1; padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; outline: none;">
+                        </div>
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Service Interest <span style="color: red;">*</span></label>
+                        <input type="text" name="company_name" placeholder="Royal IT Ltd." required style="width: 100%; padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; outline: none;">
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-wrap: wrap; gap: 15px; width: 100%;">
+                    <div style="flex: 1; min-width: 250px;">
+                        <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Preferred Service Area</label>
+                        <input type="url" name="company_url" placeholder="Web, Cloud, Software, etc." style="width: 100%; padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; outline: none;">
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Region <span style="color: red;">*</span></label>
+                        <select name="region" required style="width: 100%; padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; outline: none;">
+                            <option value="" disabled selected>Please Select</option>
+                            <option value="Demo Region">Demo Region</option>
+                            <option value="Demo Region">Demo Region</option>
+                            <option value="Middle East">Middle East</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="width: 100%;">
+                    <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">Interested in: <span style="color: red;">*</span></label>
+                    <div style="position: relative; width: 100%;">
+                      <select class="service-select" name="services" required 
+    style="width: 100%; padding: 10px 15px; font-size: 14px; color: #444; background: #f8f9fa; border: 1px solid #ccc; border-radius: 6px; cursor: pointer; appearance: none; -webkit-appearance: none; outline: none; transition: 0.3s; box-sizing: border-box;">
+    
+    <option value="" disabled selected>Select your IT requirement...</option>
+    
+    <option value="Software Development">Software Development</option>
+    <option value="Web Solutions">Web Solutions</option>
+    <option value="Custom Software">Cloud Services</option>
+    
+    <option value="PMS">IT Support</option>
+    <option value="CRM">IT Consultancy</option>
+    <option value="POS">Business Automation</option>
+    
+    <option value="Ecommerce">Mobile Applications</option>
+    <option value="Digital Consultancy">Digital Consultancy</option>
+    <option value="Branding">Premium Support</option>
+    
+    <option value="Data Analytics">Data Analytics</option>
+</select>
+                        <div style="position: absolute; top: 50%; right: 15px; transform: translateY(-50%); pointer-events: none; color: #050505;">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="width: 100%;">
+                     <label style="font-size: 13px; font-weight: 700; color: #050505; margin-bottom: 6px; display: block;">How can we help you?</label>
+                     <textarea name="message" rows="3" placeholder="Tell us your budget, timeline, and service requirement..." style="width: 100%; padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; background: #f8f9fa; font-size: 14px; outline: none; resize: vertical;"></textarea>
+                </div>
+
+                <div style="margin-top: 5px;">
+                    <label style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: #444; cursor: pointer;">
+                        <input type="checkbox" name="looking_for_job" style="width: 16px; height: 16px; accent-color: #050505;"> 
+                        <strong> am looking for a career opportunity</strong>
+                        
+                    </label>
+                </div>
+                
+                <button type="submit" style="background: #050505; color: #fff; font-size: 14px; font-weight: 700; padding: 12px 35px; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; text-transform: uppercase; align-self: flex-start; margin-top: 10px;">Send Inquiry</button>
+            </form>
+        </div>
+
+        <div class="contact-right-col" style="flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 30px; padding-top: 10px;">
+            
+            <div style="padding-left: 20px; border-left: 4px solid #050505;">
+                <h2 style="font-size: 12px; color: #050505; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; font-weight: 700;">Earth</h2>
+                <h3 style="font-size: 22px; margin-bottom: 10px; font-weight: 800; color: #222;">Demo Service Areas</h3>
+                <p style="font-size: 14px; margin-bottom: 10px; color: #555; line-height: 1.5;">Demo IT services for multiple business needs.</p>
+                <a href="./Components/Presence.html" style="color: #050505; text-decoration: none; font-weight: 700; font-size: 12px; text-transform: uppercase;">Learn more &rarr;</a>
+            </div>
+
+            <div style="padding-left: 20px; border-left: 4px solid #050505;">
+                <h2 style="font-size: 12px; color: #050505; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; font-weight: 700;">People</h2>
+                <h3 style="font-size: 22px; margin-bottom: 10px; font-weight: 800; color: #222;">Demo Ownership</h3>
+                <p style="font-size: 14px; margin-bottom: 10px; color: #555; line-height: 1.5;">Owned and managed by a demo parent company.</p>
+                <a href="./Components/Leaders.html" style="color: #050505; text-decoration: none; font-weight: 700; font-size: 12px; text-transform: uppercase;">Learn more &rarr;</a>
+            </div>
+
+        </div>
+    </section>
+</div>
+<!--footer-->
+<footer class="pro-footer">
+    <div class="container-fluid px-lg-5 px-4"> 
+        <div class="row">
+            
+            <div class="col-xl-3 col-lg-4 col-md-12 footer-col">
+                <a href="#" class="footer-logo">
+                    <h2 class="text-white fw-bold">ROYAL<span style="color: #D4AF37;"> IT</span></h2>
+                </a>
+                <p class="footer-desc">
+                    Royal IT provides demo IT services including software development, web solutions, cloud support, automation, and digital consultancy.
+                </p>
+                <div class="footer-social">
+                    <a href="#" title="Social"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" title="Social"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+
+            <div class="col-xl-2 col-lg-2 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/Presence.html">Countries</a></li>
+                    <li><a href="#offcanvasstory" data-bs-toggle="offcanvas">Our Story</a></li>
+                    <li><a href="#activements">Achievements</a></li>
+                    <li><a href="./Components/Leaders.html">CEO Message</a></li>
+                </ul>
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/nda.html">NDA</a></li>
+                    <li><a href="./Components/Condition.html">Terms & Conditions</a></li>
+                    <li><a href="./Components/privacy.html">Privacy Policy</a></li>
+                    <li><a href="./Components/refund.html">Refund Policy</a></li>
+                    <li><a href="./Components/service level.html">Service Level Disclaimer</a></li>
+                    <li><a href="./Components/monetization.html">Monetization Policy</a></li>
+                    <li><a href="./Components/hosting.html">Hosting Migration Policy</a></li>
+
+                </ul>
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Services</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/service.html">Software Development</a></li>
+                    <li><a href="./Components/service.html">IT Support</a></li>
+                    <li><a href="./Components/service.html">Digital Consultancy</a></li>
+                    <li><a href="./Components/service.html">Cloud Services</a></li>
+                    <li><a href="./Components/service.html">Data Analytics</a></li>
+                </ul>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-12 footer-col">
+                <h4 class="footer-title">Contact Royal IT</h4>
+                <ul class="footer-contact">
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>info@royalit.example</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+00-0000000000</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-house"></i>
+                        <span>Demo Office Address</span>
+                    </li>
+                </ul>
+
+                
+            </div>
+ <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Map</h4>
+                <ul class="footer-links">
+                    <div class="footer-map">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3403.0123456789!2d74.3000!3d31.4500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDI3JzAwLjAiTiA3NMKwMTgnMDAuMCJF!5e0!3m2!1sen!2spk!4v1620000000000!5m2!1sen!2spk" 
+                        width="100%" height="100%" style="border:0; filter: grayscale(1) invert(0.9) contrast(1.2);" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+                </ul>
+            </div>
+        </div> 
+        
+        <hr class="footer-divider">
+
+        <div class="footer-bottom">
+            <p style="color: white;">© 2026 <strong>Royal IT</strong>. All Rights Reserved. Demo Version.</p>
+           
+        </div>
+    </div>
+</footer>
+ <style>
+
+    .b-h{
+        height: 100px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .b-h p{
+        color: #F5D76E;
+        font-size: 80px;
+        letter-spacing: 1mm;
+        font-weight: 800;
+    }
+  /* ========================
+   FULL WIDTH FOOTER STYLING
+   ======================== */
+.pro-footer {
+    background-color: #050505; /* Dark Navy Background */
+    color: #b0b0b0; /* Light Grey Text */
+    padding: 80px 0 20px 0;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    width: 100%;
+}
+
+/* Green Top Border Line */
+.pro-footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 5px;
+    background: linear-gradient(to right, #6B4E16, #D4AF37);
+}
+
+.footer-col {
+    margin-bottom: 30px;
+}
+
+/* --- Brand Section --- */
+.footer-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 20px 0;
+    max-width: 400px; /* Text ko thora lamba kiya */
+}
+
+/* Social Icons (Sirf 2 hain ab) */
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    width: 45px; height: 45px; /* Thora bara kiya */
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.footer-social a:hover {
+    background: var(--primary,  #D4AF37);
+    transform: translateY(-5px);
+}
+
+/* --- Headings --- */
+.footer-title {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -8px;
+    width: 40px; height: 3px;
+    background-color: var(--primary, #D4AF37);
+}
+
+/* --- Links --- */
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li { margin-bottom: 12px; }
+
+.footer-links a {
+    color: #b0b0b0;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.footer-links a:hover {
+    color: var(--primary, #ffffff);
+    padding-left: 8px;
+}
+
+/* --- Contact Info --- */
+.footer-contact {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-contact li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+    font-size: 1rem;
+    color: white;
+}
+
+.footer-contact i {
+    color: var(--primary, #ffffff);
+    font-size: 1.2rem;
+    background: rgba(255,255,255,0.05); /* Icon k peeche halka circle */
+    width: 35px; height: 35px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+}
+
+/* --- Bottom Bar --- */
+.footer-divider {
+    border-color: rgba(255,255,255,0.1);
+    margin: 30px 0;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    padding-bottom: 10px;
+}
+
+.footer-legal a {
+    color: #b0b0b0;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: 0.3s;
+}
+
+.footer-legal a:hover { color: white; }
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+    .pro-footer { padding-top: 50px; }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .footer-legal a { margin: 0 10px; }
+}
+ </style>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!--what we dooo-->
+<div class="offcanvas offcanvas-top custom-offcanvas" tabindex="-1" id="offcanvasDo" style="height: 100vh !important; background: #ffffff; border: none; overflow-x: hidden; ">
+    
+    <div style="position: fixed; top: 25px; right: 25px; z-index: 99999;">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" 
+            style="background-color: #D4AF37; padding: 15px; border-radius: 50%; opacity: 1; margin-top: 60px; box-shadow: 0 10px 20px rgba(0,210,255,0.4); border: 2px solid #fff;"></button>
+    </div>
+
+    <div style="position: relative; width: 100%; height: 50vh; min-height: 350px; background: #050505; display: flex; align-items: center; justify-content: center;">
+        <video autoplay muted loop playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.4; z-index: 1;">
+            <source src="./images/CODED_TEAM.mp4" type="video/mp4">
+        </video>
+        
+        <div style="position: relative; z-index: 2; text-align: center; padding: 20px; width: 100%;">
+            <h1 style="color: #ffffff; font-weight: 900; font-size: clamp(30px, 7vw, 55px); letter-spacing: 4px; margin: 0; text-transform: uppercase; text-shadow: 0 10px 30px rgba(0,0,0,0.5);">WHAT WE DO</h1>
+            <div style="width: 70px; height: 5px; background: #D4AF37; margin: 20px auto; border-radius: 10px;"></div>
+            <p style="color: #D4AF37; font-weight: 700; letter-spacing: 2px; font-size: clamp(14px, 2vw, 18px); text-transform: uppercase;">Transform Your Business With Smart IT</p>
+        </div>
+    </div>
+
+    <div style="background: #ffffff; position: relative; z-index: 10; margin-top: -60px; border-radius: 60px 60px 0 0; padding: 60px 0;">
+        <div class="container">
+            <div class="row g-4">
+                
+                <div class="col-lg-4 col-md-6">
+                    <div style="background: #f8f9fa; padding: 35px; border-radius: 25px; border-bottom: 5px solid #D4AF37; height: 100%; transition: 0.3s;" 
+                         onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 15px 30px rgba(0,0,0,0.1)';" 
+                         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <i class="fas fa-laptop-code" style="font-size: 35px; color: #050505; margin-bottom: 20px;"></i>
+                        <h4 style="color: #050505; font-weight: 800; margin-bottom: 15px;">Development</h4>
+                        <ul style="list-style: none; padding: 0; color: #555; line-height: 2;">
+                            <li><i class="fas fa-chevron-right" style="color: #D4AF37; font-size: 12px; margin-right: 8px;"></i> Software Development</li>
+                            <li><i class="fas fa-chevron-right" style="color: #D4AF37; font-size: 12px; margin-right: 8px;"></i> Web Solutions</li>
+                            <li><i class="fas fa-chevron-right" style="color: #D4AF37; font-size: 12px; margin-right: 8px;"></i> Custom Software</li>
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <div class="col-lg-4 col-md-6">
+                    <div style="background: #050505; padding: 35px; border-radius: 25px; border-bottom: 5px solid #D4AF37; height: 100%; color: #fff; transform: scale(1.05); z-index: 2;">
+                        <i class="fas fa-chart-pie" style="font-size: 35px; color: #D4AF37; margin-bottom: 20px;"></i>
+                        <h4 style="color: #ffffff; font-weight: 800; margin-bottom: 15px;">Business Solutions</h4>
+                        <ul style="list-style: none; padding: 0; color: rgba(255,255,255,0.8); line-height: 2;">
+                            <li><i class="fas fa-check" style="color: #D4AF37; margin-right: 8px;"></i> PMS (Property Mgmt)</li>
+                            <li><i class="fas fa-check" style="color: #D4AF37; margin-right: 8px;"></i> IT Consultancy</li>
+                            <li><i class="fas fa-check" style="color: #D4AF37; margin-right: 8px;"></i> POS Software</li>
+                            <li><i class="fas fa-check" style="color: #D4AF37; margin-right: 8px;"></i> Mobile Applications</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-12">
+                    <div style="background: #f8f9fa; padding: 35px; border-radius: 25px; border-bottom: 5px solid #D4AF37; height: 100%; transition: 0.3s;"
+                         onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 15px 30px rgba(0,0,0,0.1)';" 
+                         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <i class="fas fa-rocket" style="font-size: 35px; color: #050505; margin-bottom: 20px;"></i>
+                        <h4 style="color: #050505; font-weight: 800; margin-bottom: 15px;">Growth</h4>
+                        <ul style="list-style: none; padding: 0; color: #555; line-height: 2;">
+                            <li><i class="fas fa-chevron-right" style="color: #D4AF37; font-size: 12px; margin-right: 8px;"></i> Digital Consultancy</li>
+                            <li><i class="fas fa-chevron-right" style="color: #D4AF37; font-size: 12px; margin-right: 8px;"></i> SEO & Branding</li>
+                            <li><i class="fas fa-chevron-right" style="color: #D4AF37; font-size: 12px; margin-right: 8px;"></i> IT Consultancy</li>
+                             <li><i class="fas fa-chevron-right" style="color: #D4AF37; font-size: 12px; margin-right: 8px;"></i> Data Analytics</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--footer-->
+<footer class="pro-footer">
+    <div class="container-fluid px-lg-5 px-4"> 
+        <div class="row">
+            
+            <div class="col-xl-3 col-lg-4 col-md-12 footer-col">
+                <a href="#" class="footer-logo">
+                    <h2 class="text-white fw-bold">ROYAL<span style="color: #D4AF37;"> IT</span></h2>
+                </a>
+                <p class="footer-desc">
+                    Royal IT provides demo IT services including software development, web solutions, cloud support, automation, and digital consultancy.
+                </p>
+                <div class="footer-social">
+                    <a href="#" title="Social"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" title="Social"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+
+            <div class="col-xl-2 col-lg-2 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/Presence.html">Countries</a></li>
+                    <li><a href="#offcanvasstory" data-bs-toggle="offcanvas">Our Story</a></li>
+                    <li><a href="#activements">Achievements</a></li>
+                    <li><a href="./Components/Leaders.html">CEO Message</a></li>
+                </ul>
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/nda.html">NDA</a></li>
+                    <li><a href="./Components/Condition.html">Terms & Conditions</a></li>
+                   <li><a href="./Components/privacy.html">Privacy Policy</a></li>
+                    <li><a href="./Components/refund.html">Refund Policy</a></li>
+                    <li><a href="./Components/service level.html">Service Level Disclaimer</a></li>
+                    <li><a href="./Components/monetization.html">Monetization Policy</a></li>
+                    <li><a href="./Components/hosting.html">Hosting Migration Policy</a></li>
+
+                </ul>
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Services</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/service.html">Software Development</a></li>
+                    <li><a href="./Components/service.html">IT Support</a></li>
+                    <li><a href="./Components/service.html">Digital Consultancy</a></li>
+                    <li><a href="./Components/service.html">Cloud Services</a></li>
+                    <li><a href="./Components/service.html">Data Analytics</a></li>
+                </ul>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-12 footer-col">
+                <h4 class="footer-title">Contact Royal IT</h4>
+                <ul class="footer-contact">
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>info@royalit.example</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+00-0000000000</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-house"></i>
+                        <span>Demo Office Address</span>
+                    </li>
+                </ul>
+
+                
+            </div>
+ <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Map</h4>
+                <ul class="footer-links">
+                    <div class="footer-map">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3403.0123456789!2d74.3000!3d31.4500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDI3JzAwLjAiTiA3NMKwMTgnMDAuMCJF!5e0!3m2!1sen!2spk!4v1620000000000!5m2!1sen!2spk" 
+                        width="100%" height="100%" style="border:0; filter: grayscale(1) invert(0.9) contrast(1.2);" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+                </ul>
+            </div>
+        </div> 
+        
+        <hr class="footer-divider">
+
+        <div class="footer-bottom">
+            <p style="color: white;">© 2026 <strong>Royal IT</strong>. All Rights Reserved. Demo Version.</p>
+           
+        </div>
+    </div>
+</footer>
+ <style>
+
+    .b-h{
+        height: 100px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .b-h p{
+        color: #F5D76E;
+        font-size: 80px;
+        letter-spacing: 1mm;
+        font-weight: 800;
+    }
+  /* ========================
+   FULL WIDTH FOOTER STYLING
+   ======================== */
+.pro-footer {
+    background-color: #050505; /* Dark Navy Background */
+    color: #b0b0b0; /* Light Grey Text */
+    padding: 80px 0 20px 0;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    width: 100%;
+}
+
+/* Green Top Border Line */
+.pro-footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 5px;
+    background: linear-gradient(to right, #6B4E16, #D4AF37);
+}
+
+.footer-col {
+    margin-bottom: 30px;
+}
+
+/* --- Brand Section --- */
+.footer-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 20px 0;
+    max-width: 400px; /* Text ko thora lamba kiya */
+}
+
+/* Social Icons (Sirf 2 hain ab) */
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    width: 45px; height: 45px; /* Thora bara kiya */
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.footer-social a:hover {
+    background: var(--primary,  #D4AF37);
+    transform: translateY(-5px);
+}
+
+/* --- Headings --- */
+.footer-title {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -8px;
+    width: 40px; height: 3px;
+    background-color: var(--primary, #D4AF37);
+}
+
+/* --- Links --- */
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li { margin-bottom: 12px; }
+
+.footer-links a {
+    color: #b0b0b0;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.footer-links a:hover {
+    color: var(--primary, #ffffff);
+    padding-left: 8px;
+}
+
+/* --- Contact Info --- */
+.footer-contact {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-contact li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+    font-size: 1rem;
+    color: white;
+}
+
+.footer-contact i {
+    color: var(--primary, #ffffff);
+    font-size: 1.2rem;
+    background: rgba(255,255,255,0.05); /* Icon k peeche halka circle */
+    width: 35px; height: 35px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+}
+
+/* --- Bottom Bar --- */
+.footer-divider {
+    border-color: rgba(255,255,255,0.1);
+    margin: 30px 0;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    padding-bottom: 10px;
+}
+
+.footer-legal a {
+    color: #b0b0b0;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: 0.3s;
+}
+
+.footer-legal a:hover { color: white; }
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+    .pro-footer { padding-top: 50px; }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .footer-legal a { margin: 0 10px; }
+}
+ </style>
+
+</div>
+
+<!--helpp-->
+<div class="offcanvas offcanvas-top custom-offcanvas" tabindex="-1" id="offcanvasHelp" style="height: 100vh !important; background: #ffffff; border: none; overflow-x: hidden;">
+    
+    <div style="position: fixed; top: 25px; right: 25px; z-index: 99999;">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" 
+            style="background-color: #D4AF37; padding: 15px; border-radius: 50%; opacity: 1;margin-top: 60px; box-shadow: 0 10px 20px rgba(0,210,255,0.4); border: 2px solid #fff;"></button>
+    </div>
+
+    <div style="position: relative; width: 100%; height: 55vh; min-height: 380px; background: #050505; display: flex; align-items: center; justify-content: center;">
+        <video autoplay muted loop playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.4; z-index: 1;">
+            <source src="./images/CODED_TEAM.mp4" type="video/mp4">
+        </video>
+        
+        <div style="position: relative; z-index: 2; text-align: center; padding: 20px; width: 100%;">
+            <h1 style="color: #ffffff; font-weight: 900; font-size: clamp(32px, 7vw, 55px); letter-spacing: 4px; margin: 0; text-transform: uppercase; text-shadow: 0 10px 30px rgba(0,0,0,0.5);">WHO WE HELP</h1>
+            <div style="width: 70px; height: 5px; background: #D4AF37; margin: 20px auto; border-radius: 10px;"></div>
+            <p style="color: #D4AF37; font-weight: 700; letter-spacing: 2px; font-size: clamp(14px, 2vw, 18px); text-transform: uppercase;">Empowering Global Industries</p>
+        </div>
+    </div>
+
+    <div style="background: #ffffff; position: relative; z-index: 10; margin-top: -60px; border-radius: 60px 60px 0 0; padding: 60px 0;">
+        <div class="container">
+            <div class="row g-4 justify-content-center">
+                
+                <div class="col-lg-6 col-md-12">
+                    <div style="padding: 20px;">
+                        <h2 style="color: #050505; font-weight: 800; font-size: 30px; margin-bottom: 25px;">Strategic <span style="color: #D4AF37;">Industries</span></h2>
+                        <p style="color: #555; font-size: 17px; line-height: 1.8; margin-bottom: 30px;">
+                            We empower businesses across diverse sectors to achieve digital transformation and operational excellence.
+                        </p>
+                        
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <div style="background: #f8f9fa; padding: 15px; border-radius: 12px; border-left: 4px solid #D4AF37; font-weight: 700; color: #050505;">Retail</div>
+                            </div>
+                            <div class="col-6">
+                                <div style="background: #f8f9fa; padding: 15px; border-radius: 12px; border-left: 4px solid #D4AF37; font-weight: 700; color: #050505;">Healthcare</div>
+                            </div>
+                            <div class="col-6">
+                                <div style="background: #f8f9fa; padding: 15px; border-radius: 12px; border-left: 4px solid #D4AF37; font-weight: 700; color: #050505;">Real Estate</div>
+                            </div>
+                            <div class="col-6">
+                                <div style="background: #f8f9fa; padding: 15px; border-radius: 12px; border-left: 4px solid #D4AF37; font-weight: 700; color: #050505;">Education</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                    <div style="background: #050505; padding: 40px; border-radius: 35px; color: #fff; box-shadow: 0 20px 40px rgba(5,5,5,0.15); height: 100%;">
+                        <h3 style="color: #D4AF37; font-weight: 800; font-size: 24px; margin-bottom: 25px;">Our Partners</h3>
+                        
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 20px; display: flex; align-items: flex-start;">
+                                <i class="fas fa-check-circle" style="color: #D4AF37; margin-right: 15px; margin-top: 5px;"></i>
+                                <span><b>Startups:</b> Looking to scale with rapid development.</span>
+                            </li>
+                            <li style="margin-bottom: 20px; display: flex; align-items: flex-start;">
+                                <i class="fas fa-check-circle" style="color: #D4AF37; margin-right: 15px; margin-top: 5px;"></i>
+                                <span><b>SMEs:</b> Needing end-to-end business automation.</span>
+                            </li>
+                            <li style="margin-bottom: 0; display: flex; align-items: flex-start;">
+                                <i class="fas fa-check-circle" style="color: #D4AF37; margin-right: 15px; margin-top: 5px;"></i>
+                                <span><b>Enterprises:</b> Seeking robust IT infrastructure.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--footer-->
+<footer class="pro-footer">
+    <div class="container-fluid px-lg-5 px-4"> 
+        <div class="row">
+            
+            <div class="col-xl-3 col-lg-4 col-md-12 footer-col">
+                <a href="#" class="footer-logo">
+                    <h2 class="text-white fw-bold">ROYAL<span style="color: #D4AF37;"> IT</span></h2>
+                </a>
+                <p class="footer-desc">
+                    Royal IT provides demo IT services including software development, web solutions, cloud support, automation, and digital consultancy.
+                </p>
+                <div class="footer-social">
+                    <a href="#" title="Social"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" title="Social"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+
+            <div class="col-xl-2 col-lg-2 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/Presence.html">Countries</a></li>
+                    <li><a href="#offcanvasstory" data-bs-toggle="offcanvas">Our Story</a></li>
+                    <li><a href="#activements">Achievements</a></li>
+                    <li><a href="./Components/Leaders.html">CEO Message</a></li>
+                </ul>
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/nda.html">NDA</a></li>
+                    <li><a href="./Components/Condition.html">Terms & Conditions</a></li>
+                   <li><a href="./Components/privacy.html">Privacy Policy</a></li>
+                    <li><a href="./Components/refund.html">Refund Policy</a></li>
+                    <li><a href="./Components/service level.html">Service Level Disclaimer</a></li>
+                    <li><a href="./Components/monetization.html">Monetization Policy</a></li>
+                    <li><a href="./Components/hosting.html">Hosting Migration Policy</a></li>
+
+                </ul>
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Services</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/service.html">Software Development</a></li>
+                    <li><a href="./Components/service.html">IT Support</a></li>
+                    <li><a href="./Components/service.html">Digital Consultancy</a></li>
+                    <li><a href="./Components/service.html">Cloud Services</a></li>
+                    <li><a href="./Components/service.html">Data Analytics</a></li>
+                </ul>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-12 footer-col">
+                <h4 class="footer-title">Contact Royal IT</h4>
+                <ul class="footer-contact">
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>info@royalit.example</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+00-0000000000</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-house"></i>
+                        <span>Demo Office Address</span>
+                    </li>
+                </ul>
+
+                
+            </div>
+ <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Map</h4>
+                <ul class="footer-links">
+                    <div class="footer-map">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3403.0123456789!2d74.3000!3d31.4500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDI3JzAwLjAiTiA3NMKwMTgnMDAuMCJF!5e0!3m2!1sen!2spk!4v1620000000000!5m2!1sen!2spk" 
+                        width="100%" height="100%" style="border:0; filter: grayscale(1) invert(0.9) contrast(1.2);" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+                </ul>
+            </div>
+        </div> 
+        
+        <hr class="footer-divider">
+
+        <div class="footer-bottom">
+            <p style="color: white;">© 2026 <strong>Royal IT</strong>. All Rights Reserved. Demo Version.</p>
+           
+        </div>
+    </div>
+</footer>
+ <style>
+
+    .b-h{
+        height: 100px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .b-h p{
+        color: #F5D76E;
+        font-size: 80px;
+        letter-spacing: 1mm;
+        font-weight: 800;
+    }
+  /* ========================
+   FULL WIDTH FOOTER STYLING
+   ======================== */
+.pro-footer {
+    background-color: #050505; /* Dark Navy Background */
+    color: #b0b0b0; /* Light Grey Text */
+    padding: 80px 0 20px 0;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    width: 100%;
+}
+
+/* Green Top Border Line */
+.pro-footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 5px;
+    background: linear-gradient(to right, #6B4E16, #D4AF37);
+}
+
+.footer-col {
+    margin-bottom: 30px;
+}
+
+/* --- Brand Section --- */
+.footer-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 20px 0;
+    max-width: 400px; /* Text ko thora lamba kiya */
+}
+
+/* Social Icons (Sirf 2 hain ab) */
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    width: 45px; height: 45px; /* Thora bara kiya */
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.footer-social a:hover {
+    background: var(--primary,  #D4AF37);
+    transform: translateY(-5px);
+}
+
+/* --- Headings --- */
+.footer-title {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -8px;
+    width: 40px; height: 3px;
+    background-color: var(--primary, #D4AF37);
+}
+
+/* --- Links --- */
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li { margin-bottom: 12px; }
+
+.footer-links a {
+    color: #b0b0b0;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.footer-links a:hover {
+    color: var(--primary, #ffffff);
+    padding-left: 8px;
+}
+
+/* --- Contact Info --- */
+.footer-contact {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-contact li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+    font-size: 1rem;
+    color: white;
+}
+
+.footer-contact i {
+    color: var(--primary, #ffffff);
+    font-size: 1.2rem;
+    background: rgba(255,255,255,0.05); /* Icon k peeche halka circle */
+    width: 35px; height: 35px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+}
+
+/* --- Bottom Bar --- */
+.footer-divider {
+    border-color: rgba(255,255,255,0.1);
+    margin: 30px 0;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    padding-bottom: 10px;
+}
+
+.footer-legal a {
+    color: #b0b0b0;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: 0.3s;
+}
+
+.footer-legal a:hover { color: white; }
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+    .pro-footer { padding-top: 50px; }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .footer-legal a { margin: 0 10px; }
+}
+ </style>
+
+</div>
+  <!--who we are-->
+<div class="offcanvas offcanvas-top custom-offcanvas" tabindex="-1" id="offcanvasWho" style="height: 100vh !important; background: #ffffff; border: none; overflow-x: hidden;  ">
+    
+    <div style="position: fixed; top: 20px; right: 20px; z-index: 99999;">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" 
+            style="background-color: #D4AF37; padding: 15px; border-radius: 50%; opacity: 1; margin-top: 60px;box-shadow: 0 5px 15px rgba(0,0,0,0.3);"></button>
+    </div>
+
+    <div style="position: relative; width: 100%; height: 60vh; min-height: 400px; background: #050505; display: flex; align-items: center; justify-content: center;">
+        <video autoplay muted loop playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; z-index: 1;">
+            <source src="./images/CODED_TEAM.mp4" type="video/mp4">
+        </video>
+        
+        <div style="position: relative; z-index: 2; text-align: center; padding: 20px; width: 100%;">
+            <h1 style="color: #ffffff; font-weight: 900; font-size: clamp(30px, 8vw, 60px); letter-spacing: 5px; margin: 0; text-transform: uppercase; text-shadow: 0 10px 30px rgba(0,0,0,0.5);">WHO WE ARE</h1>
+            <div style="width: 80px; height: 5px; background: #D4AF37; margin: 20px auto; border-radius: 10px;"></div>
+            <p style="color: #D4AF37; font-weight: 700; letter-spacing: 3px; font-size: clamp(14px, 2vw, 18px);">GLOBAL SOLUTIONS PROVIDER</p>
+        </div>
+    </div>
+
+    <div style="background: #ffffff; position: relative; z-index: 10; margin-top: -60px; border-radius: 60px 60px 0 0; padding: 80px 0;">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-7">
+                    <h2 style="color: #050505; font-weight: 800; font-size: 35px; margin-bottom: 25px;">About <span style="color: #D4AF37;">Royal IT</span></h2>
+                    <p style="color: #555; font-size: 18px; line-height: 1.8;">
+                        Royal IT is a premier IT solutions provider with a strong global presence in <b>Demo Region</b> and <b>Demo Region</b>. We are a team of innovators, developers, and strategists dedicated to delivering excellence.
+                    </p>
+                    
+                    <div style="display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap;">
+                        <div style="background: #f0faff; padding: 12px 25px; border-radius: 50px; border: 1px solid #D4AF37; color: #050505; font-weight: 700;">🇸🇦 Demo Region</div>
+                        <div style="background: #f0faff; padding: 12px 25px; border-radius: 50px; border: 1px solid #D4AF37; color: #050505; font-weight: 700;">🇵🇰 Demo Region</div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-5">
+                    <div style="background: #050505; padding: 40px; border-radius: 35px; color: #fff; box-shadow: 0 20px 40px rgba(5,5,5,0.2);">
+                        <h3 style="color: #D4AF37; font-weight: 800; font-size: 24px; margin-bottom: 20px;">Our Mission</h3>
+                        <p style="font-size: 18px; line-height: 1.6; font-style: italic; color: #e0e0e0;">
+                            "To simplify complex business problems with elegant, efficient, and scalable technology solutions."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--footer-->
+<footer class="pro-footer">
+    <div class="container-fluid px-lg-5 px-4"> 
+        <div class="row">
+            
+            <div class="col-xl-3 col-lg-4 col-md-12 footer-col">
+                <a href="#" class="footer-logo">
+                    <h2 class="text-white fw-bold">ROYAL<span style="color: #D4AF37;"> IT</span></h2>
+                </a>
+                <p class="footer-desc">
+                    Royal IT provides demo IT services including software development, web solutions, cloud support, automation, and digital consultancy.
+                </p>
+                <div class="footer-social">
+                    <a href="#" title="Social"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" title="Social"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+
+            <div class="col-xl-2 col-lg-2 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/Presence.html">Countries</a></li>
+                    <li><a href="#offcanvasstory" data-bs-toggle="offcanvas">Our Story</a></li>
+                    <li><a href="#activements">Achievements</a></li>
+                    <li><a href="./Components/Leaders.html">CEO Message</a></li>
+                </ul>
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/nda.html">NDA</a></li>
+                    <li><a href="./Components/Condition.html">Terms & Conditions</a></li>
+                   <li><a href="./Components/privacy.html">Privacy Policy</a></li>
+                    <li><a href="./Components/refund.html">Refund Policy</a></li>
+                    <li><a href="./Components/service level.html">Service Level Disclaimer</a></li>
+                    <li><a href="./Components/monetization.html">Monetization Policy</a></li>
+                    <li><a href="./Components/hosting.html">Hosting Migration Policy</a></li>
+
+                </ul>
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Services</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/service.html">Software Development</a></li>
+                    <li><a href="./Components/service.html">IT Support</a></li>
+                    <li><a href="./Components/service.html">Digital Consultancy</a></li>
+                    <li><a href="./Components/service.html">Cloud Services</a></li>
+                    <li><a href="./Components/service.html">Data Analytics</a></li>
+                </ul>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-12 footer-col">
+                <h4 class="footer-title">Contact Royal IT</h4>
+                <ul class="footer-contact">
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>info@royalit.example</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+00-0000000000</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-house"></i>
+                        <span>Demo Office Address</span>
+                    </li>
+                </ul>
+
+                
+            </div>
+ <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Map</h4>
+                <ul class="footer-links">
+                    <div class="footer-map">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3403.0123456789!2d74.3000!3d31.4500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDI3JzAwLjAiTiA3NMKwMTgnMDAuMCJF!5e0!3m2!1sen!2spk!4v1620000000000!5m2!1sen!2spk" 
+                        width="100%" height="100%" style="border:0; filter: grayscale(1) invert(0.9) contrast(1.2);" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+                </ul>
+            </div>
+        </div> 
+        
+        <hr class="footer-divider">
+
+        <div class="footer-bottom">
+            <p style="color: white;">© 2026 <strong>Royal IT</strong>. All Rights Reserved. Demo Version.</p>
+           
+        </div>
+    </div>
+</footer>
+ <style>
+
+    .b-h{
+        height: 100px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .b-h p{
+        color: #F5D76E;
+        font-size: 80px;
+        letter-spacing: 1mm;
+        font-weight: 800;
+    }
+  /* ========================
+   FULL WIDTH FOOTER STYLING
+   ======================== */
+.pro-footer {
+    background-color: #050505; /* Dark Navy Background */
+    color: #b0b0b0; /* Light Grey Text */
+    padding: 80px 0 20px 0;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    width: 100%;
+}
+
+/* Green Top Border Line */
+.pro-footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 5px;
+    background: linear-gradient(to right, #6B4E16, #D4AF37);
+}
+
+.footer-col {
+    margin-bottom: 30px;
+}
+
+/* --- Brand Section --- */
+.footer-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 20px 0;
+    max-width: 400px; /* Text ko thora lamba kiya */
+}
+
+/* Social Icons (Sirf 2 hain ab) */
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    width: 45px; height: 45px; /* Thora bara kiya */
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.footer-social a:hover {
+    background: var(--primary,  #D4AF37);
+    transform: translateY(-5px);
+}
+
+/* --- Headings --- */
+.footer-title {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -8px;
+    width: 40px; height: 3px;
+    background-color: var(--primary, #D4AF37);
+}
+
+/* --- Links --- */
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li { margin-bottom: 12px; }
+
+.footer-links a {
+    color: #b0b0b0;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.footer-links a:hover {
+    color: var(--primary, #ffffff);
+    padding-left: 8px;
+}
+
+/* --- Contact Info --- */
+.footer-contact {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-contact li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+    font-size: 1rem;
+    color: white;
+}
+
+.footer-contact i {
+    color: var(--primary, #ffffff);
+    font-size: 1.2rem;
+    background: rgba(255,255,255,0.05); /* Icon k peeche halka circle */
+    width: 35px; height: 35px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+}
+
+/* --- Bottom Bar --- */
+.footer-divider {
+    border-color: rgba(255,255,255,0.1);
+    margin: 30px 0;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    padding-bottom: 10px;
+}
+
+.footer-legal a {
+    color: #b0b0b0;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: 0.3s;
+}
+
+.footer-legal a:hover { color: white; }
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+    .pro-footer { padding-top: 50px; }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .footer-legal a { margin: 0 10px; }
+}
+ </style>
+
+</div>
+
+<!--DEMO GROUP-->
+<div class="offcanvas offcanvas-top custom-offcanvas" tabindex="-1" id="offcanvasVentures" 
+     style="height: auto !important; min-height: 500px; background: #ffffff; border-bottom: 6px solid #050505; overflow-x: hidden;">
+    
+    <div style="position: absolute; top: 20px; right: 25px; z-index: 100;">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" 
+                style="background-color: #D4AF37; padding: 12px; border-radius: 50%; opacity: 1; border: 2px solid #fff;"></button>
+    </div>
+
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h6 style="color: #D4AF37; font-weight: 800; letter-spacing: 3px; text-transform: uppercase;">Strategic Ecosystem</h6>
+            <h2 style="color: #050505; font-weight: 900; font-size: clamp(28px, 5vw, 42px);">OUR <span style="color: #D4AF37;">VENTURES</span></h2>
+            <div style="width: 60px; height: 4px; background: #050505; margin: 15px auto; border-radius: 10px;"></div>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            
+            <div class="col-lg-5 col-md-6">
+                <div style="background: #f8f9fa; padding: 40px; border-radius: 30px; border: 1px solid #eee; height: 100%; transition: 0.3s;" 
+                     onmouseover="this.style.borderColor='#D4AF37'; this.style.transform='translateY(-10px)';" 
+                     onmouseout="this.style.borderColor='#eee'; this.style.transform='translateY(0)';" >
+                    
+                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <div style="width: 50px; height: 50px; background: #050505; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #D4AF37; font-size: 24px;">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <h3 style="margin: 0 0 0 15px; font-weight: 800; color: #050505; font-size: 24px;">Royal IT</h3>
+                    </div>
+                    
+                    <p style="color: #555; font-size: 15px; line-height: 1.6;">A global leader in digital transformation, specializing in AI-driven software, scalable SaaS products, and elite IT consultancy.</p>
+                    
+                    <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd;">
+                        <span style="font-size: 12px; font-weight: 700; color: #D4AF37; text-transform: uppercase; letter-spacing: 1px;">Primary Focus:</span>
+                        <p style="margin-top: 5px; font-weight: 600; font-size: 14px; color: #050505;">Tech Innovation & Automation</p>
+                    </div>
+                    
+                    <a href="./Components/service.html" style="display: inline-block; margin-top: 15px; text-decoration: none; color: #050505; font-weight: 800; font-size: 14px;">EXPLORE TECH <i class="fas fa-arrow-right ms-2"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-md-6">
+                <div style="background: #050505; padding: 40px; border-radius: 30px; border: 1px solid #050505; height: 100%; color: #fff; transition: 0.3s; box-shadow: 0 15px 30px rgba(5,5,5,0.2);"
+                     onmouseover="this.style.transform='translateY(-10px)';" 
+                     onmouseout="this.style.transform='translateY(0)';" >
+                    
+                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <div style="width: 50px; height: 50px; background: #D4AF37; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #050505; font-size: 24px;">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <h3 style="margin: 0 0 0 15px; font-weight: 800; color: #ffffff; font-size: 24px;">Umeed Care Center</h3>
+                    </div>
+                    
+                    <p style="color: rgba(255,255,255,0.8); font-size: 15px; line-height: 1.6;">A premier healthcare facility dedicated to mental health and recovery, combining empathy with clinical excellence to restore lives.</p>
+                    
+                    <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2);">
+                        <span style="font-size: 12px; font-weight: 700; color: #D4AF37; text-transform: uppercase; letter-spacing: 1px;">Primary Focus:</span>
+                        <p style="margin-top: 5px; font-weight: 600; font-size: 14px; color: #fff;">Healthcare & Mental Recovery</p>
+                    </div>
+
+                    <a href="#" style="display: inline-block; margin-top: 15px; text-decoration: none; color: #D4AF37; font-weight: 800; font-size: 14px;">VISIT FACILITY <i class="fas fa-external-link-alt ms-2"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <footer class="pro-footer">
+    <div class="container-fluid px-lg-5 px-4"> 
+        <div class="row">
+            
+            <div class="col-xl-3 col-lg-4 col-md-12 footer-col">
+                <a href="#" class="footer-logo">
+                    <h2 class="text-white fw-bold">ROYAL<span style="color: #D4AF37;"> IT</span></h2>
+                </a>
+                <p class="footer-desc">
+                    Royal IT provides demo IT services including software development, web solutions, cloud support, automation, and digital consultancy.
+                </p>
+                <div class="footer-social">
+                    <a href="#" title="Social"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" title="Social"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+
+            <div class="col-xl-2 col-lg-2 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/Presence.html">Countries</a></li>
+                    <li><a href="#offcanvasstory" data-bs-toggle="offcanvas">Our Story</a></li>
+                    <li><a href="#activements">Achievements</a></li>
+                    <li><a href="./Components/Leaders.html">CEO Message</a></li>
+                </ul>
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/nda.html">NDA</a></li>
+                    <li><a href="./Components/Condition.html">Terms & Conditions</a></li>
+                   <li><a href="./Components/privacy.html">Privacy Policy</a></li>
+                    <li><a href="./Components/refund.html">Refund Policy</a></li>
+                    <li><a href="./Components/service level.html">Service Level Disclaimer</a></li>
+                    <li><a href="./Components/monetization.html">Monetization Policy</a></li>
+                    <li><a href="./Components/hosting.html">Hosting Migration Policy</a></li>
+
+                </ul>
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Services</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/service.html">Software Development</a></li>
+                    <li><a href="./Components/service.html">IT Support</a></li>
+                    <li><a href="./Components/service.html">Digital Consultancy</a></li>
+                    <li><a href="./Components/service.html">Cloud Services</a></li>
+                    <li><a href="./Components/service.html">Data Analytics</a></li>
+                </ul>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-12 footer-col">
+                <h4 class="footer-title">Contact Royal IT</h4>
+                <ul class="footer-contact">
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>info@royalit.example</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+00-0000000000</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-house"></i>
+                        <span>Demo Office Address</span>
+                    </li>
+                </ul>
+
+                
+            </div>
+ <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Map</h4>
+                <ul class="footer-links">
+                    <div class="footer-map">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3403.0123456789!2d74.3000!3d31.4500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDI3JzAwLjAiTiA3NMKwMTgnMDAuMCJF!5e0!3m2!1sen!2spk!4v1620000000000!5m2!1sen!2spk" 
+                        width="100%" height="100%" style="border:0; filter: grayscale(1) invert(0.9) contrast(1.2);" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+                </ul>
+            </div>
+        </div> 
+        
+        <hr class="footer-divider">
+
+        <div class="footer-bottom">
+            <p style="color: white;">© 2026 <strong>Royal IT</strong>. All Rights Reserved. Demo Version.</p>
+           
+        </div>
+    </div>
+</footer>
+ <style>
+
+    .b-h{
+        height: 100px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .b-h p{
+        color: #F5D76E;
+        font-size: 80px;
+        letter-spacing: 1mm;
+        font-weight: 800;
+    }
+  /* ========================
+   FULL WIDTH FOOTER STYLING
+   ======================== */
+.pro-footer {
+    background-color: #050505; /* Dark Navy Background */
+    color: #b0b0b0; /* Light Grey Text */
+    padding: 80px 0 20px 0;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    width: 100%;
+}
+
+/* Green Top Border Line */
+.pro-footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 5px;
+    background: linear-gradient(to right, #6B4E16, #D4AF37);
+}
+
+.footer-col {
+    margin-bottom: 30px;
+}
+
+/* --- Brand Section --- */
+.footer-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 20px 0;
+    max-width: 400px; /* Text ko thora lamba kiya */
+}
+
+/* Social Icons (Sirf 2 hain ab) */
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    width: 45px; height: 45px; /* Thora bara kiya */
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.footer-social a:hover {
+    background: var(--primary,  #D4AF37);
+    transform: translateY(-5px);
+}
+
+/* --- Headings --- */
+.footer-title {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -8px;
+    width: 40px; height: 3px;
+    background-color: var(--primary, #D4AF37);
+}
+
+/* --- Links --- */
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li { margin-bottom: 12px; }
+
+.footer-links a {
+    color: #b0b0b0;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.footer-links a:hover {
+    color: var(--primary, #ffffff);
+    padding-left: 8px;
+}
+
+/* --- Contact Info --- */
+.footer-contact {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-contact li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+    font-size: 1rem;
+    color: white;
+}
+
+.footer-contact i {
+    color: var(--primary, #ffffff);
+    font-size: 1.2rem;
+    background: rgba(255,255,255,0.05); /* Icon k peeche halka circle */
+    width: 35px; height: 35px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+}
+
+/* --- Bottom Bar --- */
+.footer-divider {
+    border-color: rgba(255,255,255,0.1);
+    margin: 30px 0;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    padding-bottom: 10px;
+}
+
+.footer-legal a {
+    color: #b0b0b0;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: 0.3s;
+}
+
+.footer-legal a:hover { color: white; }
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+    .pro-footer { padding-top: 50px; }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .footer-legal a { margin: 0 10px; }
+}
+ </style>
+
+</div>
+
+
+<!--stoeyyyyyyyyyyyy-->
+<div class="offcanvas offcanvas-top custom-offcanvas" tabindex="-1" id="offcanvasstory" style="height: 100vh !important; background: #ffffff; border: none; overflow-x: hidden;  ; overflow-y: auto;">
+    
+    <div style="position: absolute; top: 15px; right: 20px; z-index: 10001;">
+      <button type="button" 
+        class="btn-close" 
+        data-bs-dismiss="offcanvas" 
+        aria-label="Close"
+        style="
+            position: fixed; 
+            top: 25px; 
+            right: 25px; 
+            z-index: 99999; 
+            background-color: #D4AF37; /* Cyan Color taake nazar aaye */
+            padding: 15px; 
+            border-radius: 50%; 
+            opacity: 1; 
+            margin-top: 60px;
+            box-shadow: 0 10px 20px rgba(0,210,255,0.4); 
+            border: 2px solid #fff;
+            background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23fff%27%3e%3cpath d=%27M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z%27/%3e%3c/svg%3e');
+            background-size: 15px;
+            background-repeat: no-repeat;
+            background-position: center;
+        ">
+</button>
+    </div>
+
+    <div style="position: relative; width: 100%; height: 350px; min-height: 300px; background: #050505; overflow: hidden;">
+        <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; opacity: 0.5;">
+            <source src="./images/CODED_TEAM.mp4" type="video/mp4">
+        </video>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px;">
+            <h1 style="color: #ffffff; font-weight: 900; font-size: 42px; letter-spacing: 5px; margin: 0; text-transform: uppercase; margin-top: 50px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5);">OUR JOURNEY</h1>
+            <div style="width: 60px; height: 4px; background: #D4AF37; margin-top: 15px; border-radius: 2px;"></div>
+        </div>
+    </div>
+
+    <div style="background: #ffffff; position: relative; z-index: 10; margin-top: -10px; border-radius: 50px 50px 0 0; padding-bottom: 60px;">
+        <div class="container" style="padding-top: 50px;">
+            <div class="row align-items-start g-5">
+                
+                <div class="col-lg-7 col-md-12">
+                    <div style="padding-right: 10px;">
+                        <h2 style="color: #050505; font-weight: 800; font-size: 32px; margin-bottom: 25px; line-height: 1.2;">
+                            Built Around A <span style="color: #D4AF37;">Demo Vision</span>
+                        </h2>
+                        
+                        <div class="story-text" style="color: #444; line-height: 1.8; font-size: 16px;">
+                            <p>Royal IT is presented as a clean demo IT brand created for portfolio, client preview, and business presentation purposes. The content is intentionally dummy and can be replaced with real company details later.</p>
+                            
+                            <p style="border-left: 4px solid #D4AF37; padding-left: 20px; margin: 30px 0; font-style: italic; color: #050505; background: #f9f9f9; padding-top: 15px; padding-bottom: 15px;">
+                                "We turn sample business ideas into professional digital experiences that look ready for real-world launch."
+                            </p>
+                            
+                            <p>Our demo journey begins with understanding a business need, mapping the user experience, and building a polished website or software interface that communicates trust.</p>
+                            
+                            <p>From web pages and mobile concepts to dashboards, automation flows, and support models, Royal IT demonstrates how a modern technology partner can support digital growth.</p>
+                            
+                            <div style="margin-top: 30px; background: linear-gradient(90deg, #050505, #D4AF37); color: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,210,255,0.2);">
+                                <p style="margin: 0; font-weight: 700;">🚀 Demo content only — replace this section with real milestones before final launch.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-12">
+                    <div style="position: relative;">
+                        <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 5px solid #fff;">
+                            <img src="./images/stry/1.jpg" alt="Team" style="width: 100%; height: auto; display: block;">
+                        </div>
+                        
+                        <div class="row g-3 mt-1">
+                            <div class="col-6">
+                                <div style="border-radius: 15px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1); border: 3px solid #fff;">
+                                    <img src="./images/stry/3.jpg" alt="Discussion" style="width: 100%; height: auto; display: block;">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div style="border-radius: 15px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1); border: 3px solid #fff;">
+                                    <img src="./images/stry/2.jpg" alt="Coding" style="width: 100%; height: auto; display: block;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="position: absolute; top: -20px; right: -10px; background: #D4AF37; color: #fff; width: 90px; height: 90px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 900; box-shadow: 0 10px 20px rgba(0,210,255,0.3); border: 3px solid #fff;">
+                            <span style="font-size: 24px; line-height: 1;">3+</span>
+                            <span style="font-size: 10px;">PHASES</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--footer-->
+<footer class="pro-footer">
+    <div class="container-fluid px-lg-5 px-4"> 
+        <div class="row">
+            
+            <div class="col-xl-3 col-lg-4 col-md-12 footer-col">
+                <a href="#" class="footer-logo">
+                    <h2 class="text-white fw-bold">ROYAL<span style="color: #D4AF37;"> IT</span></h2>
+                </a>
+                <p class="footer-desc">
+                    Royal IT provides demo IT services including software development, web solutions, cloud support, automation, and digital consultancy.
+                </p>
+                <div class="footer-social">
+                    <a href="#" title="Social"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" title="Social"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+
+            <div class="col-xl-2 col-lg-2 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/Presence.html">Countries</a></li>
+                    <li><a href="#offcanvasstory" data-bs-toggle="offcanvas">Our Story</a></li>
+                    <li><a href="#activements">Achievements</a></li>
+                    <li><a href="./Components/Leaders.html">CEO Message</a></li>
+                </ul>
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/nda.html">NDA</a></li>
+                    <li><a href="./Components/Condition.html">Terms & Conditions</a></li>
+                   <li><a href="./Components/privacy.html">Privacy Policy</a></li>
+                    <li><a href="./Components/refund.html">Refund Policy</a></li>
+                    <li><a href="./Components/service level.html">Service Level Disclaimer</a></li>
+                    <li><a href="./Components/monetization.html">Monetization Policy</a></li>
+                    <li><a href="./Components/hosting.html">Hosting Migration Policy</a></li>
+
+                </ul>
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Services</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/service.html">Software Development</a></li>
+                    <li><a href="./Components/service.html">IT Support</a></li>
+                    <li><a href="./Components/service.html">Digital Consultancy</a></li>
+                    <li><a href="./Components/service.html">Cloud Services</a></li>
+                    <li><a href="./Components/service.html">Data Analytics</a></li>
+                </ul>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-12 footer-col">
+                <h4 class="footer-title">Contact Royal IT</h4>
+                <ul class="footer-contact">
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>info@royalit.example</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+00-0000000000</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-house"></i>
+                        <span>Demo Office Address</span>
+                    </li>
+                </ul>
+
+                
+            </div>
+ <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Map</h4>
+                <ul class="footer-links">
+                    <div class="footer-map">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3403.0123456789!2d74.3000!3d31.4500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDI3JzAwLjAiTiA3NMKwMTgnMDAuMCJF!5e0!3m2!1sen!2spk!4v1620000000000!5m2!1sen!2spk" 
+                        width="100%" height="100%" style="border:0; filter: grayscale(1) invert(0.9) contrast(1.2);" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+                </ul>
+            </div>
+        </div> 
+        
+        <hr class="footer-divider">
+
+        <div class="footer-bottom">
+            <p style="color: white;">© 2026 <strong>Royal IT</strong>. All Rights Reserved. Demo Version.</p>
+           
+        </div>
+    </div>
+</footer>
+ <style>
+
+    .b-h{
+        height: 100px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .b-h p{
+        color: #F5D76E;
+        font-size: 80px;
+        letter-spacing: 1mm;
+        font-weight: 800;
+    }
+  /* ========================
+   FULL WIDTH FOOTER STYLING
+   ======================== */
+.pro-footer {
+    background-color: #050505; /* Dark Navy Background */
+    color: #b0b0b0; /* Light Grey Text */
+    padding: 80px 0 20px 0;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    width: 100%;
+}
+
+/* Green Top Border Line */
+.pro-footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 5px;
+    background: linear-gradient(to right, #6B4E16, #D4AF37);
+}
+
+.footer-col {
+    margin-bottom: 30px;
+}
+
+/* --- Brand Section --- */
+.footer-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 20px 0;
+    max-width: 400px; /* Text ko thora lamba kiya */
+}
+
+/* Social Icons (Sirf 2 hain ab) */
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    width: 45px; height: 45px; /* Thora bara kiya */
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.footer-social a:hover {
+    background: var(--primary,  #D4AF37);
+    transform: translateY(-5px);
+}
+
+/* --- Headings --- */
+.footer-title {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -8px;
+    width: 40px; height: 3px;
+    background-color: var(--primary, #D4AF37);
+}
+
+/* --- Links --- */
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li { margin-bottom: 12px; }
+
+.footer-links a {
+    color: #b0b0b0;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.footer-links a:hover {
+    color: var(--primary, #ffffff);
+    padding-left: 8px;
+}
+
+/* --- Contact Info --- */
+.footer-contact {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-contact li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+    font-size: 1rem;
+    color: white;
+}
+
+.footer-contact i {
+    color: var(--primary, #ffffff);
+    font-size: 1.2rem;
+    background: rgba(255,255,255,0.05); /* Icon k peeche halka circle */
+    width: 35px; height: 35px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+}
+
+/* --- Bottom Bar --- */
+.footer-divider {
+    border-color: rgba(255,255,255,0.1);
+    margin: 30px 0;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    padding-bottom: 10px;
+}
+
+.footer-legal a {
+    color: #b0b0b0;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: 0.3s;
+}
+
+.footer-legal a:hover { color: white; }
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+    .pro-footer { padding-top: 50px; }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .footer-legal a { margin: 0 10px; }
+}
+ </style>
+
+</div>
+
+ <!--join Us-->
+<div class="offcanvas offcanvas-top custom-offcanvas" tabindex="-1" id="offcanvasJoin"  style="height: 100vh !important; background: #fff; border: none; overflow-x: hidden;">
+    
+    <button type="button" 
+        class="btn-close" 
+        data-bs-dismiss="offcanvas" 
+        aria-label="Close"
+        style="
+            position: fixed; 
+            top: 25px; 
+            right: 25px; 
+            z-index: 99999; 
+            background-color: #D4AF37; /* Cyan Color taake nazar aaye */
+            padding: 15px; 
+            border-radius: 50%; 
+            opacity: 1; 
+            margin-top: 60px;
+            box-shadow: 0 10px 20px rgba(0,210,255,0.4); 
+            border: 2px solid #fff;
+            background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23fff%27%3e%3cpath d=%27M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z%27/%3e%3c/svg%3e');
+            background-size: 15px;
+            background-repeat: no-repeat;
+            background-position: center;
+        ">
+</button>
+    <div class="join-hero-section" style="position: relative; height: 45vh; min-height: 300px; width: 100%; overflow: hidden; ">
+        <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+            <source src="./images/CODED_TEAM.mp4" type="video/mp4">
+        </video>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 15px; margin-top: 30px;">
+            <span style="color: #D4AF37; font-weight: 800; letter-spacing: 2px; font-size: 0.8rem; text-transform: uppercase;">Build Your Career</span>
+            <h1 style="color: #fff; font-weight: 900; font-size: 2.5rem; letter-spacing: 2px; margin: 5px 0;">JOIN US</h1>
+            <p style="color: #eee; max-width: 500px; font-size: 0.95rem; line-height: 1.4;">Passionately working on challenging global projects.</p>
+        </div>
+    </div>
+
+    <div class="join-content-area" style="background: #fff; position: relative; z-index: 10; margin-top: -30px; border-radius: 30px 30px 0 0; padding: 40px 0; ">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-md-10 col-lg-8">
+                    
+                    <h5 style="color: #050505; font-weight: 800; margin-bottom: 25px; font-size: 1.1rem;">WE ARE LOOKING FOR TALENTED:</h5>
+                    
+                    <div class="row g-3 mb-4">
+                        <div class="col-6 col-md-3">
+                            <div class="role-box" style="padding: 20px 10px; border: 1px solid #eee; border-radius: 15px; transition: 0.3s;"
+                                 onmouseover="this.style.background='#050505'; this.style.color='#fff'; this.style.transform='translateY(-5px)';"
+                                 onmouseout="this.style.background='#fff'; this.style.color='#050505'; this.style.transform='translateY(0)';">
+                                <i class="fas fa-code" style="font-size: 1.5rem; color: #D4AF37; margin-bottom: 10px;"></i>
+                                <p style="font-weight: 700; font-size: 0.85rem; margin: 0;">DEVELOPERS</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="role-box" style="padding: 20px 10px; border: 1px solid #eee; border-radius: 15px; transition: 0.3s;"
+                                 onmouseover="this.style.background='#050505'; this.style.color='#fff'; this.style.transform='translateY(-5px)';"
+                                 onmouseout="this.style.background='#fff'; this.style.color='#050505'; this.style.transform='translateY(0)';">
+                                <i class="fas fa-pen-nib" style="font-size: 1.5rem; color: #D4AF37; margin-bottom: 10px;"></i>
+                                <p style="font-weight: 700; font-size: 0.85rem; margin: 0;">DESIGNERS</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="role-box" style="padding: 20px 10px; border: 1px solid #eee; border-radius: 15px; transition: 0.3s;"
+                                 onmouseover="this.style.background='#050505'; this.style.color='#fff'; this.style.transform='translateY(-5px)';"
+                                 onmouseout="this.style.background='#fff'; this.style.color='#050505'; this.style.transform='translateY(0)';">
+                                <i class="fas fa-bullhorn" style="font-size: 1.5rem; color: #D4AF37; margin-bottom: 10px;"></i>
+                                <p style="font-weight: 700; font-size: 0.85rem; margin: 0;">MARKETERS</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="role-box" style="padding: 20px 10px; border: 1px solid #eee; border-radius: 15px; transition: 0.3s;"
+                                 onmouseover="this.style.background='#050505'; this.style.color='#fff'; this.style.transform='translateY(-5px)';"
+                                 onmouseout="this.style.background='#fff'; this.style.color='#050505'; this.style.transform='translateY(0)';">
+                                <i class="fas fa-brain" style="font-size: 1.5rem; color: #D4AF37; margin-bottom: 10px;"></i>
+                                <p style="font-weight: 700; font-size: 0.85rem; margin: 0;">AI EXPERTS</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="./Components/join us.html" style="
+                        display: inline-block; padding: 15px 35px; background: #050505; color: #fff;
+                        text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 0.9rem;
+                        box-shadow: 0 10px 20px rgba(5,5,5,0.2); transition: 0.3s;"
+                        onmouseover="this.style.background='#D4AF37'; this.style.transform='scale(1.05)';"
+                        onmouseout="this.style.background='#050505'; this.style.transform='scale(1)';">
+                        SEE HOW TO JOIN Royal IT <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+
+                    <div style="margin-top: 30px; border-top: 1px solid #f0f0f0; padding-top: 20px;">
+                        <p style="color: #888; font-size: 0.8rem; margin: 0;">Send your CV to:</p>
+                        <a href="mailto:info@royalit.example" style="color: #050505; font-weight: 700; text-decoration: none;">info@royalit.example</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--footer-->
+<footer class="pro-footer">
+    <div class="container-fluid px-lg-5 px-4"> 
+        <div class="row">
+            
+            <div class="col-xl-3 col-lg-4 col-md-12 footer-col">
+                <a href="#" class="footer-logo">
+                    <h2 class="text-white fw-bold">ROYAL<span style="color: #D4AF37;"> IT</span></h2>
+                </a>
+                <p class="footer-desc">
+                    Royal IT provides demo IT services including software development, web solutions, cloud support, automation, and digital consultancy.
+                </p>
+                <div class="footer-social">
+                    <a href="#" title="Social"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" title="Social"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+
+            <div class="col-xl-2 col-lg-2 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/Presence.html">Countries</a></li>
+                    <li><a href="#offcanvasstory" data-bs-toggle="offcanvas">Our Story</a></li>
+                    <li><a href="#activements">Achievements</a></li>
+                    <li><a href="./Components/Leaders.html">CEO Message</a></li>
+                </ul>
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/nda.html">NDA</a></li>
+                    <li><a href="./Components/Condition.html">Terms & Conditions</a></li>
+                   <li><a href="./Components/privacy.html">Privacy Policy</a></li>
+                    <li><a href="./Components/refund.html">Refund Policy</a></li>
+                    <li><a href="./Components/service level.html">Service Level Disclaimer</a></li>
+                    <li><a href="./Components/monetization.html">Monetization Policy</a></li>
+                    <li><a href="./Components/hosting.html">Hosting Migration Policy</a></li>
+
+                </ul>
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Services</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/service.html">Software Development</a></li>
+                    <li><a href="./Components/service.html">IT Support</a></li>
+                    <li><a href="./Components/service.html">Digital Consultancy</a></li>
+                    <li><a href="./Components/service.html">Cloud Services</a></li>
+                    <li><a href="./Components/service.html">Data Analytics</a></li>
+                </ul>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-12 footer-col">
+                <h4 class="footer-title">Contact Royal IT</h4>
+                <ul class="footer-contact">
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>info@royalit.example</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+00-0000000000</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-house"></i>
+                        <span>Demo Office Address</span>
+                    </li>
+                </ul>
+
+                
+            </div>
+ <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Map</h4>
+                <ul class="footer-links">
+                    <div class="footer-map">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3403.0123456789!2d74.3000!3d31.4500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDI3JzAwLjAiTiA3NMKwMTgnMDAuMCJF!5e0!3m2!1sen!2spk!4v1620000000000!5m2!1sen!2spk" 
+                        width="100%" height="100%" style="border:0; filter: grayscale(1) invert(0.9) contrast(1.2);" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+                </ul>
+            </div>
+        </div> 
+        
+        <hr class="footer-divider">
+
+        <div class="footer-bottom">
+            <p style="color: white;">© 2026 <strong>Royal IT</strong>. All Rights Reserved. Demo Version.</p>
+           
+        </div>
+    </div>
+</footer>
+ <style>
+
+    .b-h{
+        height: 100px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .b-h p{
+        color: #F5D76E;
+        font-size: 80px;
+        letter-spacing: 1mm;
+        font-weight: 800;
+    }
+  /* ========================
+   FULL WIDTH FOOTER STYLING
+   ======================== */
+.pro-footer {
+    background-color: #050505; /* Dark Navy Background */
+    color: #b0b0b0; /* Light Grey Text */
+    padding: 80px 0 20px 0;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    width: 100%;
+}
+
+/* Green Top Border Line */
+.pro-footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 5px;
+    background: linear-gradient(to right, #6B4E16, #D4AF37);
+}
+
+.footer-col {
+    margin-bottom: 30px;
+}
+
+/* --- Brand Section --- */
+.footer-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 20px 0;
+    max-width: 400px; /* Text ko thora lamba kiya */
+}
+
+/* Social Icons (Sirf 2 hain ab) */
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    width: 45px; height: 45px; /* Thora bara kiya */
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.footer-social a:hover {
+    background: var(--primary,  #D4AF37);
+    transform: translateY(-5px);
+}
+
+/* --- Headings --- */
+.footer-title {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -8px;
+    width: 40px; height: 3px;
+    background-color: var(--primary, #D4AF37);
+}
+
+/* --- Links --- */
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li { margin-bottom: 12px; }
+
+.footer-links a {
+    color: #b0b0b0;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.footer-links a:hover {
+    color: var(--primary, #ffffff);
+    padding-left: 8px;
+}
+
+/* --- Contact Info --- */
+.footer-contact {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-contact li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+    font-size: 1rem;
+    color: white;
+}
+
+.footer-contact i {
+    color: var(--primary, #ffffff);
+    font-size: 1.2rem;
+    background: rgba(255,255,255,0.05); /* Icon k peeche halka circle */
+    width: 35px; height: 35px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+}
+
+/* --- Bottom Bar --- */
+.footer-divider {
+    border-color: rgba(255,255,255,0.1);
+    margin: 30px 0;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    padding-bottom: 10px;
+}
+
+.footer-legal a {
+    color: #b0b0b0;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: 0.3s;
+}
+
+.footer-legal a:hover { color: white; }
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+    .pro-footer { padding-top: 50px; }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .footer-legal a { margin: 0 10px; }
+}
+ </style>
+
+</div>
+<!--OUR team-->
+
+<div class="offcanvas offcanvas-top custom-offcanvas" tabindex="-1" id="offcanvasTeam"  >
+    
+    <button type="button" 
+        class="btn-close" 
+        data-bs-dismiss="offcanvas" 
+        aria-label="Close"
+        style="
+            position: fixed; 
+            top: 25px; 
+            right: 25px; 
+            z-index: 99999; 
+            background-color: #D4AF37; /* Cyan Color taake nazar aaye */
+            padding: 15px; 
+            border-radius: 50%; 
+            opacity: 1; 
+            margin-top: 60px;
+            box-shadow: 0 10px 20px rgba(0,210,255,0.4); 
+            border: 2px solid #fff;
+            background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23fff%27%3e%3cpath d=%27M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z%27/%3e%3c/svg%3e');
+            background-size: 15px;
+            background-repeat: no-repeat;
+            background-position: center;
+        ">
+</button>
+
+    <div class="team-hero-cover" >
+        <video autoplay muted loop playsinline class="cover-video" style="height: 400px;">
+            <source src="./images/CODED_TEAM.mp4" type="video/mp4">
+        </video>
+        <div class="hero-content-overlay" style="margin-top: 50px;">
+            <h1 class="ultra-heading">OUR DEDICATED TEAM</h1>
+            <p class="ultra-subtext">The Architects of Innovation at Royal IT</p>
+        </div>
+    </div>
+
+    <div class="team-scroll-area" style=" border-radius: 30px 30px 0 0;">
+        <div class="container py-5">
+            
+            <div class="team-block mb-5">
+                <div style="display: flex; align-items: center;justify-content: center;">
+                <h2 class="block-title">Board Advisors</h2>
+                </div>
+                <div class="row g-3 mt-3">
+    <div class="col-6 col-md-6">
+        <div class="glass-pro-card" 
+            style="
+                background: #ffffff;
+                border: 1px solid #eef2f6;
+                padding: 30px 15px;
+                border-radius: 20px; 
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                cursor: pointer;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+                position: relative;
+                overflow: hidden;
+                height: 100%;"
+            onmouseover="
+                this.style.background='linear-gradient(135deg, #050505 0%, #D4AF37 100%)';
+                this.style.transform='translateY(-12px) scale(1.02)';
+                this.style.boxShadow='0 20px 40px rgba(0,210,255,0.3)';
+                this.querySelector('.card-icon-div').style.color='#ffffff';
+                this.querySelector('.main-name').style.color='#ffffff';
+                this.querySelector('.sub-role').style.color='#e0e0e0';"
+            onmouseout="
+                this.style.background='#ffffff';
+                this.style.transform='translateY(0) scale(1)';
+                this.style.boxShadow='0 10px 25px rgba(0,0,0,0.05)';
+                this.querySelector('.card-icon-div').style.color='#050505';
+                this.querySelector('.main-name').style.color='#050505';
+                this.querySelector('.sub-role').style.color='#D4AF37';">
+            
+            <div class="card-icon-div" style="margin-bottom: 20px; color: #050505; transition: 0.4s;">
+                
+            </div>
+            
+            <div class="card-txt">
+                <h3 class="main-name" style="font-size: 1.2rem; font-weight: 900; color: #050505; margin: 0; transition: 0.4s; letter-spacing: 1px;">ALEX MORGAN </h3>
+                <div style="width: 40px; height: 3px; background: #D4AF37; margin: 12px auto; border-radius: 2px;"></div>
+                <p class="sub-role" style="font-size: 0.85rem; color: #D4AF37; font-weight: 700; margin: 0; transition: 0.4s; text-transform: uppercase;">Chief Executive Officer </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6 col-md-6">
+        <div class="glass-pro-card" 
+            style="
+                background: #ffffff;
+                border: 1px solid #eef2f6;
+                padding: 30px 15px;
+                border-radius: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                cursor: pointer;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+                position: relative;
+                overflow: hidden;
+                height: 100%;"
+            onmouseover="
+                this.style.background='linear-gradient(135deg, #050505 0%, #D4AF37 100%)';
+                this.style.transform='translateY(-12px) scale(1.02)';
+                this.style.boxShadow='0 20px 40px rgba(0,210,255,0.3)';
+                this.querySelector('.card-icon-div').style.color='#ffffff';
+                this.querySelector('.main-name').style.color='#ffffff';
+                this.querySelector('.sub-role').style.color='#e0e0e0';"
+            onmouseout="
+                this.style.background='#ffffff';
+                this.style.transform='translateY(0) scale(1)';
+                this.style.boxShadow='0 10px 25px rgba(0,0,0,0.05)';
+                this.querySelector('.card-icon-div').style.color='#050505';
+                this.querySelector('.main-name').style.color='#050505';
+                this.querySelector('.sub-role').style.color='#D4AF37';">
+            
+            <div class="card-icon-div" style="margin-bottom: 20px; color: #050505; transition: 0.4s;">
+             </div>
+            
+            <div class="card-txt">
+                <h3 class="main-name" style="font-size: 1.2rem; font-weight: 900; color: #050505; margin: 0; transition: 0.4s; letter-spacing: 1px;">JORDAN LEE</h3>
+                <div style="width: 40px; height: 3px; background: #D4AF37; margin: 12px auto; border-radius: 2px;"></div>
+                <p class="sub-role" style="font-size: 0.85rem; color: #D4AF37; font-weight: 700; margin: 0; transition: 0.4s; text-transform: uppercase;">Chief Strategy officer</p>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+            
+            <div class="team-block mb-5">
+                 <div style="display: flex; align-items: center;justify-content: center;">
+                    <h2 class="block-title">Legal & Management</h2>
+                </div>
+                
+                <div class="row g-3 mt-3">
+                    <div class="col-6 col-md-3">
+                        <div class="glass-pro-card" 
+                            style="background: #ffffff; border: 1px solid #eef2f6; padding: 25px 15px; border-radius: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.05); position: relative; overflow: hidden; height: 100%;"
+                            onmouseover="this.style.background='linear-gradient(135deg, #050505 0%, #D4AF37 100%)'; this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 40px rgba(0,210,255,0.25)'; this.querySelector('.m-name').style.color='#ffffff'; this.querySelector('.m-role').style.color='#e0e0e0';"
+                            onmouseout="this.style.background='#ffffff'; this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.05)'; this.querySelector('.m-name').style.color='#050505'; this.querySelector('.m-role').style.color='#D4AF37';">
+                            <div class="card-txt">
+                                <h3 class="m-name" style="font-size: 1.1rem; font-weight: 800; color: #050505; margin: 0; transition: 0.4s;">TAYLOR REED</h3>
+                                <div style="width: 30px; height: 2px; background: #D4AF37; margin: 10px auto; border-radius: 2px;"></div>
+                                <p class="m-role" style="font-size: 0.8rem; color: #D4AF37; font-weight: 700; margin: 0; transition: 0.4s; text-transform: uppercase;">Legal Associate</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <div class="glass-pro-card" 
+                            style="background: #ffffff; border: 1px solid #eef2f6; padding: 25px 15px; border-radius: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.05); position: relative; overflow: hidden; height: 100%;"
+                            onmouseover="this.style.background='linear-gradient(135deg, #050505 0%, #D4AF37 100%)'; this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 40px rgba(0,210,255,0.25)'; this.querySelector('.m-name').style.color='#ffffff'; this.querySelector('.m-role').style.color='#e0e0e0';"
+                            onmouseout="this.style.background='#ffffff'; this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.05)'; this.querySelector('.m-name').style.color='#050505'; this.querySelector('.m-role').style.color='#D4AF37';">
+                            <div class="card-txt">
+                                <h3 class="m-name" style="font-size: 1.1rem; font-weight: 800; color: #050505; margin: 0; transition: 0.4s;">SAM CARTER</h3>
+                                <div style="width: 30px; height: 2px; background: #D4AF37; margin: 10px auto; border-radius: 2px;"></div>
+                                <p class="m-role" style="font-size: 0.8rem; color: #D4AF37; font-weight: 700; margin: 0; transition: 0.4s; text-transform: uppercase;">Legal Advisor</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <div class="glass-pro-card" 
+                            style="background: #ffffff; border: 1px solid #eef2f6; padding: 25px 15px; border-radius: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.05); position: relative; overflow: hidden; height: 100%;"
+                            onmouseover="this.style.background='linear-gradient(135deg, #050505 0%, #D4AF37 100%)'; this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 40px rgba(0,210,255,0.25)'; this.querySelector('.m-name').style.color='#ffffff'; this.querySelector('.m-role').style.color='#e0e0e0';"
+                            onmouseout="this.style.background='#ffffff'; this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.05)'; this.querySelector('.m-name').style.color='#050505'; this.querySelector('.m-role').style.color='#D4AF37';">
+                            <div class="card-txt">
+                                <h3 class="m-name" style="font-size: 1.1rem; font-weight: 800; color: #050505; margin: 0; transition: 0.4s;">CASEY BROOKS</h3>
+                                <div style="width: 30px; height: 2px; background: #D4AF37; margin: 10px auto; border-radius: 2px;"></div>
+                                <p class="m-role" style="font-size: 0.8rem; color: #D4AF37; font-weight: 700; margin: 0; transition: 0.4s; text-transform: uppercase;">Admin & CRM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <div class="glass-pro-card" 
+                            style="background: #ffffff; border: 1px solid #eef2f6; padding: 25px 15px; border-radius: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.05); position: relative; overflow: hidden; height: 100%;"
+                            onmouseover="this.style.background='linear-gradient(135deg, #050505 0%, #D4AF37 100%)'; this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 40px rgba(0,210,255,0.25)'; this.querySelector('.m-name').style.color='#ffffff'; this.querySelector('.m-role').style.color='#e0e0e0';"
+                            onmouseout="this.style.background='#ffffff'; this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.05)'; this.querySelector('.m-name').style.color='#050505'; this.querySelector('.m-role').style.color='#D4AF37';">
+                            <div class="card-txt">
+                                <h3 class="m-name" style="font-size: 1.1rem; font-weight: 800; color: #050505; margin: 0; transition: 0.4s;">DREW PARKER</h3>
+                                <div style="width: 30px; height: 2px; background: #D4AF37; margin: 10px auto; border-radius: 2px;"></div>
+                                <p class="m-role" style="font-size: 0.8rem; color: #D4AF37; font-weight: 700; margin: 0; transition: 0.4s; text-transform: uppercase;">Senior Advocate at High Court</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-block text-center mb-5">
+                 <div style="display: flex; align-items: center;justify-content: center;">
+                    <h2 class="block-title">Development Core</h2>
+                </div>
+                
+                <div class="tree-root mt-5" style="text-align: center;">
+                    <div class="row g-3">
+                        <div class="col-6 col-lg-4">
+                            <div class="dev-member-card" style="background: #ffffff; border: 1px solid #eef2f6; padding: 25px 15px; border-radius: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.5s ease; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.05); height: 100%;"
+                                onmouseover="this.style.background='linear-gradient(135deg, #050505 0%, #D4AF37 100%)'; this.style.transform='translateY(-10px)'; this.querySelector('h4').style.color='#fff'; this.querySelector('span').style.color='#e0e0e0';"
+                                onmouseout="this.style.background='#ffffff'; this.style.transform='translateY(0)'; this.querySelector('h4').style.color='#050505'; this.querySelector('span').style.color='#D4AF37';">
+                                <h4 style="font-size: 1rem; font-weight: 800; color: #050505; margin: 0; transition: 0.4s;">MORGAN BLAKE</h4>
+                                <span style="font-size: 0.8rem; color: #D4AF37; font-weight: 700; margin-top: 5px; transition: 0.4s;">Full Stack Developer</span>
+                            </div>
+                        </div>
+
+                        <div class="col-6 col-lg-4">
+                            <div class="dev-member-card" style="background: #ffffff; border: 1px solid #eef2f6; padding: 25px 15px; border-radius: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.5s ease; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.05); height: 100%;"
+                                onmouseover="this.style.background='linear-gradient(135deg, #050505 0%, #D4AF37 100%)'; this.style.transform='translateY(-10px)'; this.querySelector('h4').style.color='#fff'; this.querySelector('span').style.color='#e0e0e0';"
+                                onmouseout="this.style.background='#ffffff'; this.style.transform='translateY(0)'; this.querySelector('h4').style.color='#050505'; this.querySelector('span').style.color='#D4AF37';">
+                                <h4 style="font-size: 1rem; font-weight: 800; color: #050505; margin: 0; transition: 0.4s;">RILEY COOPER</h4>
+                                <span style="font-size: 0.8rem; color: #D4AF37; font-weight: 700; margin-top: 5px; transition: 0.4s;">Full Stack Developer</span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-4">
+                            <div class="dev-member-card" style="background: #ffffff; border: 1px solid #eef2f6; padding: 25px 15px; border-radius: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.5s ease; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.05); height: 100%;"
+                                onmouseover="this.style.background='linear-gradient(135deg, #050505 0%, #D4AF37 100%)'; this.style.transform='translateY(-10px)'; this.querySelector('h4').style.color='#fff'; this.querySelector('span').style.color='#e0e0e0';"
+                                onmouseout="this.style.background='#ffffff'; this.style.transform='translateY(0)'; this.querySelector('h4').style.color='#050505'; this.querySelector('span').style.color='#D4AF37';">
+                                <h4 style="font-size: 1rem; font-weight: 800; color: #050505; margin: 0; transition: 0.4s;">JAMIE STONE</h4>
+                                <span style="font-size: 0.8rem; color: #D4AF37; font-weight: 700; margin-top: 5px; transition: 0.4s;">Frontend Dev</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-block text-center mb-5">
+                 <div style="display: flex; align-items: center;justify-content: center;">
+                    <h2 class="block-title">Marketing</h2>
+                </div>
+                
+                <div class="tree-root mt-5" style="text-align: center;">
+                    <div class="row g-3">
+                        <div class="col-6 col-lg-4">
+                            <div class="dev-member-card" style="background: #ffffff; border: 1px solid #eef2f6; padding: 25px 15px; border-radius: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.5s ease; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.05); height: 100%;"
+                                onmouseover="this.style.background='linear-gradient(135deg, #050505 0%, #D4AF37 100%)'; this.style.transform='translateY(-10px)'; this.querySelector('h4').style.color='#fff'; this.querySelector('span').style.color='#e0e0e0';"
+                                onmouseout="this.style.background='#ffffff'; this.style.transform='translateY(0)'; this.querySelector('h4').style.color='#050505'; this.querySelector('span').style.color='#D4AF37';">
+                                <h4 style="font-size: 1rem; font-weight: 800; color: #050505; margin: 0; transition: 0.4s;">PARKER JONES</h4>
+                                <span style="font-size: 0.8rem; color: #D4AF37; font-weight: 700; margin-top: 5px; transition: 0.4s;">Marketing head</span>
+                            </div>
+                        </div>
+
+                        <div class="col-6 col-lg-4">
+                            <div class="dev-member-card" style="background: #ffffff; border: 1px solid #eef2f6; padding: 25px 15px; border-radius: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.5s ease; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.05); height: 100%;"
+                                onmouseover="this.style.background='linear-gradient(135deg, #050505 0%, #D4AF37 100%)'; this.style.transform='translateY(-10px)'; this.querySelector('h4').style.color='#fff'; this.querySelector('span').style.color='#e0e0e0';"
+                                onmouseout="this.style.background='#ffffff'; this.style.transform='translateY(0)'; this.querySelector('h4').style.color='#050505'; this.querySelector('span').style.color='#D4AF37';">
+                                <h4 style="font-size: 1rem; font-weight: 800; color: #050505; margin: 0; transition: 0.4s;">CAMERON KING</h4>
+                                <span style="font-size: 0.8rem; color: #D4AF37; font-weight: 700; margin-top: 5px; transition: 0.4s;">Marketing management</span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-4">
+                            <div class="dev-member-card" style="background: #ffffff; border: 1px solid #eef2f6; padding: 25px 15px; border-radius: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.5s ease; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.05); height: 100%;"
+                                onmouseover="this.style.background='linear-gradient(135deg, #050505 0%, #D4AF37 100%)'; this.style.transform='translateY(-10px)'; this.querySelector('h4').style.color='#fff'; this.querySelector('span').style.color='#e0e0e0';"
+                                onmouseout="this.style.background='#ffffff'; this.style.transform='translateY(0)'; this.querySelector('h4').style.color='#050505'; this.querySelector('span').style.color='#D4AF37';">
+                                <h4 style="font-size: 1rem; font-weight: 800; color: #050505; margin: 0; transition: 0.4s;">QUINN HARRIS</h4>
+                                <span style="font-size: 0.8rem; color: #D4AF37; font-weight: 700; margin-top: 5px; transition: 0.4s;">Social manager</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--footer-->
+<footer class="pro-footer">
+    <div class="container-fluid px-lg-5 px-4"> 
+        <div class="row">
+            
+            <div class="col-xl-3 col-lg-4 col-md-12 footer-col">
+                <a href="#" class="footer-logo">
+                    <h2 class="text-white fw-bold">ROYAL<span style="color: #D4AF37;"> IT</span></h2>
+                </a>
+                <p class="footer-desc">
+                    Royal IT provides demo IT services including software development, web solutions, cloud support, automation, and digital consultancy.
+                </p>
+                <div class="footer-social">
+                    <a href="#" title="Social"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" title="Social"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+
+            <div class="col-xl-2 col-lg-2 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/Presence.html">Countries</a></li>
+                    <li><a href="#offcanvasstory" data-bs-toggle="offcanvas">Our Story</a></li>
+                    <li><a href="#activements">Achievements</a></li>
+                    <li><a href="./Components/Leaders.html">CEO Message</a></li>
+                </ul>
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/nda.html">NDA</a></li>
+                    <li><a href="./Components/Condition.html">Terms & Conditions</a></li>
+                   <li><a href="./Components/privacy.html">Privacy Policy</a></li>
+                    <li><a href="./Components/refund.html">Refund Policy</a></li>
+                    <li><a href="./Components/service level.html">Service Level Disclaimer</a></li>
+                    <li><a href="./Components/monetization.html">Monetization Policy</a></li>
+                    <li><a href="./Components/hosting.html">Hosting Migration Policy</a></li>
+
+                </ul>
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Services</h4>
+                <ul class="footer-links">
+                    <li><a href="./Components/service.html">Software Development</a></li>
+                    <li><a href="./Components/service.html">IT Support</a></li>
+                    <li><a href="./Components/service.html">Digital Consultancy</a></li>
+                    <li><a href="./Components/service.html">Cloud Services</a></li>
+                    <li><a href="./Components/service.html">Data Analytics</a></li>
+                </ul>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-12 footer-col">
+                <h4 class="footer-title">Contact Royal IT</h4>
+                <ul class="footer-contact">
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>info@royalit.example</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+00-0000000000</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-house"></i>
+                        <span>Demo Office Address</span>
+                    </li>
+                </ul>
+
+                
+            </div>
+ <div class="col-xl-2 col-lg-3 col-md-4 col-6 footer-col">
+                <h4 class="footer-title">Map</h4>
+                <ul class="footer-links">
+                    <div class="footer-map">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3403.0123456789!2d74.3000!3d31.4500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDI3JzAwLjAiTiA3NMKwMTgnMDAuMCJF!5e0!3m2!1sen!2spk!4v1620000000000!5m2!1sen!2spk" 
+                        width="100%" height="100%" style="border:0; filter: grayscale(1) invert(0.9) contrast(1.2);" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+                </ul>
+            </div>
+        </div> 
+        
+        <hr class="footer-divider">
+
+        <div class="footer-bottom">
+            <p style="color: white;">© 2026 <strong>Royal IT</strong>. All Rights Reserved. Demo Version.</p>
+           
+        </div>
+    </div>
+</footer>
+ <style>
+
+    .b-h{
+        height: 100px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .b-h p{
+        color: #F5D76E;
+        font-size: 80px;
+        letter-spacing: 1mm;
+        font-weight: 800;
+    }
+  /* ========================
+   FULL WIDTH FOOTER STYLING
+   ======================== */
+.pro-footer {
+    background-color: #050505; /* Dark Navy Background */
+    color: #b0b0b0; /* Light Grey Text */
+    padding: 80px 0 20px 0;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    width: 100%;
+}
+
+/* Green Top Border Line */
+.pro-footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 5px;
+    background: linear-gradient(to right, #6B4E16, #D4AF37);
+}
+
+.footer-col {
+    margin-bottom: 30px;
+}
+
+/* --- Brand Section --- */
+.footer-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 20px 0;
+    max-width: 400px; /* Text ko thora lamba kiya */
+}
+
+/* Social Icons (Sirf 2 hain ab) */
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    width: 45px; height: 45px; /* Thora bara kiya */
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.footer-social a:hover {
+    background: var(--primary,  #D4AF37);
+    transform: translateY(-5px);
+}
+
+/* --- Headings --- */
+.footer-title {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-title::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -8px;
+    width: 40px; height: 3px;
+    background-color: var(--primary, #D4AF37);
+}
+
+/* --- Links --- */
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li { margin-bottom: 12px; }
+
+.footer-links a {
+    color: #b0b0b0;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.footer-links a:hover {
+    color: var(--primary, #ffffff);
+    padding-left: 8px;
+}
+
+/* --- Contact Info --- */
+.footer-contact {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-contact li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+    font-size: 1rem;
+    color: white;
+}
+
+.footer-contact i {
+    color: var(--primary, #ffffff);
+    font-size: 1.2rem;
+    background: rgba(255,255,255,0.05); /* Icon k peeche halka circle */
+    width: 35px; height: 35px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+}
+
+/* --- Bottom Bar --- */
+.footer-divider {
+    border-color: rgba(255,255,255,0.1);
+    margin: 30px 0;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    padding-bottom: 10px;
+}
+
+.footer-legal a {
+    color: #b0b0b0;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: 0.3s;
+}
+
+.footer-legal a:hover { color: white; }
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+    .pro-footer { padding-top: 50px; }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .footer-legal a { margin: 0 10px; }
+}
+ </style>
+
+</div>
+<style>@media (max-width: 991px) {
+    .offcanvas.custom-offcanvas {
+        margin-top: 0px !important;
+        /* Mobile par navbar ki height aksar thodi kam hoti hai, adjust accordingly */
+        top: 70px !important; 
+    }
+}</style>
+
+<style>
+/* Base Fixes */
+.custom-offcanvas { 
+    height: 100vh !important; 
+    background: #fff; 
+    border: none; 
+    overflow-y: auto !important; /* Scroll hamesha on rahega */
+    overflow-x: hidden;
+}
+
+/* 1. HERO SECTION - Alignment Fixed */
+.team-hero-cover {
+    position: relative;
+    height: 60vh; /* Isko thora kam kiya taake neechay ka content nazar aaye */
+    width: 100%;
+    z-index: 1;
+}
+.cover-video {
+    width: 100%; height: 100%; object-fit: cover;
+}
+.hero-content-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+.ultra-heading { color: #fff; font-weight: 900; font-size: 3rem; letter-spacing: 3px; margin: 0; text-align: center; }
+.ultra-subtext { color: #D4AF37; font-weight: 500; margin-top: 10px; }
+
+/* Close Button Fix */
+.x-btn-premium {
+    position: fixed; top: 20px; right: 20px; z-index: 9999;
+    filter: invert(1); transform: scale(1.2); background: none !important; opacity: 1 !important;
+}
+
+/* 2. CONTENT AREA - Overlap Hataya */
+.team-scroll-area { 
+    background: #fff; 
+    position: relative; 
+    z-index: 10; 
+    padding-top: 20px; /* Space from video */
+}
+
+/* Card Styling */
+.glass-pro-card {
+    background: #fff; border: 1px solid #f0f0f0; padding: 20px; border-radius: 12px;
+    display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    height: 100%;
+}
+.icon-cyan { color: #D4AF37; font-size: 1.4rem; }
+.card-txt h3 { font-size: 1rem; font-weight: 800; margin: 0; color: #050505; }
+.card-txt p { font-size: 0.8rem; color: #777; margin: 0; }
+
+/* Tree Styling */
+.leader-box-premium {
+    background: #050505; color: #fff; padding: 20px 40px; border-radius: 15px;
+    display: inline-block;
+}
+.v-connector { width: 2px; height: 30px; background: #D4AF37; margin: 0 auto; }
+
+.dev-member-card {
+    background: #fff; border: 1px solid #eee; padding: 15px; border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02); height: 100%;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .ultra-heading { font-size: 1.8rem; }
+    .team-hero-cover { height: 50vh; }
+    .glass-pro-card { flex-direction: column; text-align: center; }
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+ <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script type="text/javascript">
+        AOS.init({ duration: 800, once: true });
+
+        (function() {
+            emailjs.init("xzBpQi5U68rp562Lu"); 
+        })();
+
+        document.getElementById("contactForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const statusMsg = document.getElementById("status-message");
+            const btn = document.getElementById("submitBtn");
+            const originalBtnText = btn.innerText;
+
+            btn.innerText = "Sending...";
+            btn.disabled = true;
+            statusMsg.innerText = "";
+
+            emailjs.sendForm("service_kkw0omk", "template_t4n5g19", this)
+                .then(() => {
+                    statusMsg.innerText = "✅ Sent successfully!";
+                    statusMsg.className = "success-msg";
+                    this.reset();
+                })
+                .catch((err) => {
+                    statusMsg.innerText = "❌ Failed. Try again.";
+                    statusMsg.className = "error-msg";
+                    console.error(err);
+                })
+                .finally(() => {
+                    btn.innerText = originalBtnText;
+                    btn.disabled = false;
+                });
+        });
+    </script>
+<script src="script.js"></script>
+
+<script src="https://unpkg.com/i18next@23.11.5/dist/umd/i18next.min.js"></script>
+<script src="assets/i18n/i18n.js"></script>
+</body>
+</html>
