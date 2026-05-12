@@ -4896,6 +4896,10 @@ h1, h2, h3, h4, .section-title, .industries-title, .faq-title, .rating-title, .s
     box-shadow: 0 0 22px rgba(212, 175, 55, 0.28);
 }
 
+:root {
+    --hero-nav-overlap: 96px;
+}
+
 .navbar.sticky-top {
     width: min(1280px, calc(100% - 32px));
     margin: 18px auto 0;
@@ -5001,7 +5005,8 @@ body .navbar #nav-btns::after {
 .hero-section {
     min-height: 100vh;
     height: auto;
-    padding: 160px 0 90px;
+    margin-top: calc(var(--hero-nav-overlap) * -1);
+    padding: calc(160px + var(--hero-nav-overlap)) 0 90px;
     display: flex;
     align-items: stretch;
 }
@@ -5624,6 +5629,10 @@ body .navbar #nav-btns::after {
 }
 
 @media (max-width: 991px) {
+    :root {
+        --hero-nav-overlap: 88px;
+    }
+
     .navbar.sticky-top {
         width: calc(100% - 20px);
         margin-top: 10px;
@@ -5642,7 +5651,7 @@ body .navbar #nav-btns::after {
     }
 
     .hero-section {
-        padding: 132px 0 70px;
+        padding: calc(132px + var(--hero-nav-overlap)) 0 70px;
         min-height: auto;
     }
 
@@ -5708,6 +5717,10 @@ body .navbar #nav-btns::after {
 }
 
 @media (max-width: 767px) {
+    :root {
+        --hero-nav-overlap: 82px;
+    }
+
     body {
         background:
             linear-gradient(180deg, #f8f3ea 0%, #f7f2e9 38%, #0a0f18 38%, #081019 100%);
@@ -5716,7 +5729,7 @@ body .navbar #nav-btns::after {
     .hero-section {
         min-height: auto;
         height: auto;
-        padding: 120px 0 54px;
+        padding: calc(120px + var(--hero-nav-overlap)) 0 54px;
     }
 
     .hero-shell,
